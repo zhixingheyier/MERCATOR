@@ -1,0 +1,26 @@
+
+【Initial access】
+==============================
+  In order to pose as recruiters, the attackers copy profiles of existing people or even construct new personas. They then either directly approach their potential victims on job-hunting and freelancing platforms or post fake job listings there. At first, the threat actors used brand new profiles and would simply send links to malicious GitHub projects via LinkedIn to their intended targets. Later, they started using profiles that appear established, with many followers and connections, to look more trustworthy, and branched out to more job-hunting and code-hosting websites. While some of these profiles are set up by the attackers themselves, others are potentially compromised profiles of real people on the platform, modified by the attackers.
+  Some of the platforms where these interactions occur are generic job-hunting ones, while others focus primarily on cryptocurrency and blockchain projects and are thus more in line with the attackers’ goals. The platforms include:
+  LinkedIn, 
+  Upwork, 
+  Freelancer.com, 
+  We Work Remotely, 
+  Moonlight, and 
+  Crypto Jobs List.
+  The most commonly observed compromise vector consists of the fake recruiter providing the victim with a trojanized project under the guise of a hiring challenge or helping the “recruiter” fix a bug for a financial reward.
+  Victims receive the project files either directly via file transfer on the site or through a link to a repository like GitHub, GitLab, or Bitbucket. They are asked to download the files, add features or fix bugs, and report back to the recruiter. Additionally, they are instructed to build and execute the project in order to test it, which is where the initial compromise happens. The repositories used are usually private, so the victim is first asked to provide their account ID or email address to be granted access to them, most likely to conceal the malicious activity from researchers.
+  Despite that, we observed many cases where these repositories were publicly available, but realized that these belong mostly to victims who, after completing their tasks, uploaded them to their own repositories. Figure 3 shows an example of a trojanized project hosted on GitHub. We have reported all observed malicious code to the affected services.
+  The trojanized projects fall into one of four categories:
+  hiring challenges, 
+  cryptocurrency projects, 
+  games (usually with blockchain functionality), and 
+  gambling with blockchain/cryptocurrency features.
+  These repositories are often duplicates of existing open-source projects or demos, with little to no change aside from adding the malicious code and changing the README file. Some of the malicious project names and names of attacker-controlled accounts operating them (where we could assess them) are listed in Table 1.
+  Table 1. Observed project names and repository/commit authors
+  We also observed the attackers impersonating existing projects and companies by using similar names or appendingLLC,Ag, orInc(abbreviations of legal company types) to the names, as seen in Table 2.
+  Table 2. Observed project names and repository/commit authors impersonating legitimate projects
+  The attackers often use a clever trick to hide their malicious code: they place it in an otherwise benign component of the project, usually within backend code unrelated to the task given to the developer, where they append it as a single line behind a long comment. This way, it is moved off-screen and stays hidden unless the victim scrolls to it or has the word wrap feature of their code editor enabled. Interestingly, GitHub’s own code editor does not enable word wrap, so the malicious code is easy to miss even when looking at code in the repository, as shown in Figure 4.
+  Another compromise vector we observed consisted of the fake recruiter inviting the victim to a job interview using an online conferencing platform and providing a link to a website from which the necessary conferencing software can be downloaded. The website is usually a clone of an existing conferencing platform’s website, as seen in Figure 5, and the downloaded software contains the first stage of the malware.
+

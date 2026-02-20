@@ -1,0 +1,462 @@
+[
+    {
+        "level": 0,
+        "content": "AI Agents Are Here. So Are the Threats."
+    },
+    {
+        "level": 1,
+        "content": "Executive Summary"
+    },
+    {
+        "level": 3,
+        "content": "Agentic applications are programs that leverage AI agents — software designed to autonomously collect data and take actions toward specific objectives — to drive their functionality. As AI agents are becoming more widely adopted in real-world applications, understanding their security implications is critical. This article investigates ways attackers can target agentic applications, presenting nine concrete attack scenarios that result in outcomes such as information leakage, credential theft, tool exploitation and remote code execution."
+    },
+    {
+        "level": 3,
+        "content": "To assess how widely applicable these risks are, we implemented two functionally identical applications using different open-source agent frameworks —CrewAIandAutoGen— and executed the same attacks on both. Our findings show that most vulnerabilities and attack vectors are largely framework-agnostic, arising from insecure design patterns, misconfigurations and unsafe tool integrations, rather than flaws in the frameworks themselves."
+    },
+    {
+        "level": 3,
+        "content": "We also propose defense strategies for each attack scenario, analyzing their effectiveness and limitations. To support reproducibility and further research, we’ve open-sourced the source code and datasets onGitHub."
+    },
+    {
+        "level": 2,
+        "content": "Key Findings"
+    },
+    {
+        "level": 3,
+        "content": "Prompt injection is not always necessaryto compromise an AI agent. Poorly scoped or unsecured prompts can be exploited without explicit injections. \nMitigation: Enforce safeguards in agent instructions to explicitly block out-of-scope requests and extraction of instruction or tool schema. \nPrompt injection remains one of the most potent and versatile attack vectors, capable of leaking data, misusing tools or subverting agent behavior. \nMitigation: Deploy content filters to detect and block prompt injection attempts at runtime. \nMisconfigured or vulnerable toolssignificantly increase the attack surface and impact. \nMitigation: Sanitize all tool inputs, apply strict access controls and perform routine security testing, such as with Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST) or Software Composition Analysis (SCA). \nUnsecured code interpretersexpose agents to arbitrary code execution and unauthorized access to host resources and networks. \nMitigation: Enforce strong sandboxing with network restrictions, syscall filtering and least-privilege container configurations. \nCredential leakage, such as exposed service tokens or secrets, can lead to impersonation, privilege escalation or infrastructure compromise. \nMitigation: Use a data loss prevention (DLP) solution, audit logs and secret management services to protect sensitive information. \nNo single mitigation is sufficient. A layered, defense-in-depth strategy is necessary to effectively reduce risk in agentic applications. \nMitigation: Combine multiple safeguards across agents, tools, prompts and runtime environments to build resilient defenses."
+    },
+    {
+        "level": 3,
+        "content": "It is important to emphasize that neither CrewAI nor AutoGen are inherently vulnerable. The attack scenarios in this study highlightsystemic risksrooted in language models’ limitation in resisting prompt injection and misconfigurations or vulnerabilities in the integrated tool — not in any specific framework. Therefore, our findings and recommended mitigations are broadly applicable across agentic applications, regardless of the underlying frameworks."
+    },
+    {
+        "level": 3,
+        "content": "Palo Alto Networks redefines AI security withPrisma AIRS(AI Runtime Security) — delivering real-time protection for your AI applications, models, data, and agents. By intelligently analyzing network traffic and application behavior, Prisma AIRS proactively detects and prevents sophisticated threats like prompt injection, denial-of-service attacks, and data exfiltration. With seamless, inline enforcement at both the network and API levels."
+    },
+    {
+        "level": 3,
+        "content": "Meanwhile, AI Access Security offers deep visibility and precise control over third-party generative AI (GenAI) use. This helps prevent shadow AI risks, data leakage and malicious content in AI outputs through policy enforcement and user activity monitoring. Together, these solutions provide a layered defense that safeguards both the operational integrity of AI systems and the secure use of external AI tools."
+    },
+    {
+        "level": 3,
+        "content": "AUnit 42 AI Security Assessmentcan help you proactively identify the threats most likely to target your AI environment."
+    },
+    {
+        "level": 3,
+        "content": "If you think you might have been compromised or have an urgent matter, contact theUnit 42 Incident Response team."
+    },
+    {
+        "level": 1,
+        "content": "An Overview of the AI Agent"
+    },
+    {
+        "level": 3,
+        "content": "An AI agent is a software program designed to autonomously collect data from its environment, process information and take actions to achieve specific objectives without direct human intervention. These agents are typically powered by AI models — most notably large language models (LLMs) — which serve as their core reasoning engines."
+    },
+    {
+        "level": 3,
+        "content": "A defining feature of AI agents is their ability to connect AI models to external functions or tools, allowing them to autonomously decide which tools to use in pursuit of their objectives. A function or tool is an external capability — like an API, database or service — that the agent can call to perform specific tasks beyond the model's built-in knowledge. This integration enables them to reason through given tasks, plan solutions and execute actions effectively to achieve their goals. In more complex scenarios, multiple AI agents can collaborate as a team — each handling different aspects of a problem — to solve larger and more intricate challenges collectively. ​"
+    },
+    {
+        "level": 3,
+        "content": "AI agents have diverse applications across various sectors. In customer service, they power chatbots and virtual assistants to handle inquiries efficiently. In finance, they assist with fraud detection and portfolio management. Healthcare can also utilize AI agents for patient monitoring and diagnostic support."
+    },
+    {
+        "level": 3,
+        "content": "Figure 1 is a typical AI Agent architecture that shows how an agent uses an LLM to plan, reason and act through an execution loop. It connects to external tools via function calling to perform tasks such as accessing code, data or human input."
+    },
+    {
+        "level": 3,
+        "content": "The agent could also incorporate memory — both short- and long-term — to retain context and enhance decision-making. Applications interact with the agent by sending requests and receiving results through input and output interfaces, typically exposed as APIs."
+    },
+    {
+        "level": 1,
+        "content": "Security Risks of AI Agents"
+    },
+    {
+        "level": 3,
+        "content": "As AI agents are typically built on LLMs, they inherit many of the security risks outlined in theOWASP Top 10 for LLMs, such as prompt injection, sensitive data leakage and supply chain vulnerabilities. However, AI agents go beyond traditional LLM applications by integrating external tools that are often built in various programming languages and frameworks."
+    },
+    {
+        "level": 3,
+        "content": "Including these external tools exposes the LLMs to classic software threats like SQL injection, remote code execution and broken access control. This expanded attack surface, combined with the agent’s ability to interact with external systems or even the physical world, makes securing AI agents particularly critical."
+    },
+    {
+        "level": 3,
+        "content": "The recently published articleOWASP Agentic AI Threats and Mitigationhighlights these emerging threats. Below is a summary of key threats relevant to the attack scenarios demonstrated in the next section:"
+    },
+    {
+        "level": 3,
+        "content": "Prompt injection:Attackers sneak in hidden or misleading instructions to a GenAI system, attempting to cause the application to deviate from its intended behavior. This can cause the agent to behave in unexpected ways, like ignoring given rules and policies, revealing sensitive information or using tools to take unintended actions. \nTool misuse:Attackers manipulate the agent — often through deceptive prompts — to abuse its integrated tools. This can involve triggering unintended actions or exploiting vulnerabilities within the tools, potentially resulting in harmful or unauthorized execution. \nIntent breaking and goal manipulation: Attackers target an AI agent’s ability to plan and pursue objectives by subtly altering its perceived goals or reasoning process. Attackers exploit these vulnerabilities to redirect the agent’s actions away from its original intent. A common tactic includes agent hijacking, where adversarial inputs distort the agent’s understanding and decision-making. \nIdentity spoofing and impersonation: Attackers exploit weak or compromised authentication to pose as legitimate AI agents or users. A major risk is the theft of agent credentials, which can allow attackers to access tools, data or systems under a false identity. \nUnexpected RCE and code attacks: Attackers exploit the AI agent’s ability to execute code. By injecting malicious code, they can gain unauthorized access to elements of the execution environment, like the internal network and host file system. This poses serious risks, especially when agents have access to sensitive data or privileged tools. \nAgent communication poisoning: Attackers target the interactions between AI agents by injecting attacker-controlled information into their communication channels. This can disrupt collaborative workflows, degrade coordination and manipulate collective decision-making — especially in multi-agent systems where trust and accurate information exchange are critical. \nResource overload: Attackers exploit the AI agent’s allocated resources by overwhelming their compute, memory or service limits. This can degrade performance, disrupt operations and make the application unresponsive, impacting all the users of the application."
+    },
+    {
+        "level": 1,
+        "content": "Simulated Attacks on AI Agents"
+    },
+    {
+        "level": 3,
+        "content": "To investigate the security risks of AI agents, we developed a multi-user and multi-agent investment advisory assistant using two popular open-source agent frameworks:CrewAIandAutoGen. Both implementations are functionally identical and share the same instructions, language models and tools."
+    },
+    {
+        "level": 3,
+        "content": "This setup highlights that the security risks are not specific to any framework or model. Instead, they stem from misconfigurations or insecure design introduced during agent development. It is important to note that CrewAI or AutoGen frameworks are NOT vulnerable."
+    },
+    {
+        "level": 3,
+        "content": "Figure 2 illustrates the architecture of the investment advisory assistant, which consists of three cooperating agents: the orchestration agent, news agent and stock agent."
+    },
+    {
+        "level": 3,
+        "content": "Orchestration agent: This agent manages the user interaction. It interprets user requests, delegates tasks to the appropriate agents, consolidates their outputs and delivers final responses back to the user. \nNews agent: This agent gathers and summarizes the latest financial news about a specific company or industry. It is equipped with two tools:Search engine tool: This tool uses Google to retrieve URLs pointing to relevant financial news. We use CrewAI’s implementation ofSerperDevTool.Web content reader tool: This tool fetches and extracts text content from a given webpage. We use CrewAI’s implementation ofScrapeWebsiteTool. \nSearch engine tool: This tool uses Google to retrieve URLs pointing to relevant financial news. We use CrewAI’s implementation ofSerperDevTool. \nWeb content reader tool: This tool fetches and extracts text content from a given webpage. We use CrewAI’s implementation ofScrapeWebsiteTool. \nStock agent: This agent helps users manage their stock portfolios, including viewing transaction history, buying or selling stocks, retrieving historical stock prices and generating visualizations. It uses three tools:Database tool: This tool provides functions to read from or update the portfolio database, sell or buy stocks, and view transaction history.Stock tool: This tool fetches historical stock prices fromNasdaq.Code interpreter tool: This tool runs Python code to create data visualizations of the portfolio. \nDatabase tool: This tool provides functions to read from or update the portfolio database, sell or buy stocks, and view transaction history. \nStock tool: This tool fetches historical stock prices fromNasdaq. \nCode interpreter tool: This tool runs Python code to create data visualizations of the portfolio."
+    },
+    {
+        "level": 3,
+        "content": "Sample questions the assistant can answer:"
+    },
+    {
+        "level": 3,
+        "content": "Show the news and sentiment about Palo Alto Networks \nShow the news and sentiment about the agriculture industry \nShow the stock history of Palo Alto Networks over the past four weeks \nShow my portfolio \nPlot the performance of my portfolio over the past 30 days \nRecommend a rebalancing strategy based on current market sentiment \nBuy two shares of Palo Alto Networks \nDisplay my transactions from the past 60 days"
+    },
+    {
+        "level": 3,
+        "content": "Users interact with the assistant through a command-line interface. The initial database includes synthesized datasets for users, portfolios and transactions. The assistant uses short-term memory that retains conversation history only within the current session. This memory is cleared once the user exits the conversation."
+    },
+    {
+        "level": 3,
+        "content": "All these attack scenarios assume that malicious requests are made at the beginning of a new session, with no influence from previous interactions. For detailed usage instructions, please refer to ourGitHubpage."
+    },
+    {
+        "level": 3,
+        "content": "The remainder of this section presents nine attack scenarios, as summarized in Table 1."
+    },
+    {
+        "level": 3,
+        "content": "Table 1. Investment advisory assistant attack scenarios."
+    },
+    {
+        "level": 2,
+        "content": "Identifying Participant Agents"
+    },
+    {
+        "level": 3,
+        "content": "The attacker aims to identify all participant agents within the target application. This information is typically accessible to the orchestration agent, which is responsible for task delegation and must be aware of all participant agents and their functions."
+    },
+    {
+        "level": 3,
+        "content": "Figure 3 shows that we aim to extract the information solely from the orchestration agent."
+    },
+    {
+        "level": 3,
+        "content": "CrewAI:We want the orchestrator agent to answer this request, so we explicitly ask it not to delegate the request to other coworker agents. \nAutoGen: The orchestration agent relies on a set of built-in tools to transfer tasks to coworkers. These tools follow a consistent naming convention, prefixed withtransfer_to_, and the coworker’s functionalities are also specified in the tool’s description. TheSwarmdocumentation describes the specifics of this handoff mechanism."
+    },
+    {
+        "level": 3,
+        "content": "Table 2 lists the example attacker inputs to identify participant agents."
+    },
+    {
+        "level": 3,
+        "content": "Table 2. Example attacker inputs to identify participant agents."
+    },
+    {
+        "level": 2,
+        "content": "Extracting Agent Instructions"
+    },
+    {
+        "level": 3,
+        "content": "The attacker seeks to extract the system instructions (e.g., roles, goals and rules) for each agent. Although users can only directly access the orchestration agent, they can explicitly ask the orchestration agent to forward queries to specific agents. Figure 4 shows that by taking advantage of the communication channel between agents, attackers can deliver the same exploitation payload to each individual agent."
+    },
+    {
+        "level": 3,
+        "content": "To extract the orchestration agent’s instructions, the agent request must NOT be delegated to other agents. To access instructions of a participant agent, the prompt must be forwarded to the target agent. Since there are no strict rules for how tasks should be delegated, the orchestration agent typically forwards the task to the agent that has its name explicitly specified in the request."
+    },
+    {
+        "level": 3,
+        "content": "Table 3 lists example attacker inputs used to extract agent instructions from each participant agent in the stock advisory assistant."
+    },
+    {
+        "level": 3,
+        "content": "Table 3. Example attacker inputs for extracting agent instructions."
+    },
+    {
+        "level": 2,
+        "content": "Extracting Agent Tool Schemas"
+    },
+    {
+        "level": 3,
+        "content": "The attacker aims to extract the tool schemas of each agent. While users have direct access only to the orchestration agent, they can explicitly instruct the orchestration agent to forward queries to specific agents. Figure 5 shows that by taking advantage of the communication channel between agents, attackers can deliver the same exploitation payload to each individual agent."
+    },
+    {
+        "level": 3,
+        "content": "Similar to the agent instruction extraction attack, each of the prompts shown in Table 4 is destined for a specific target agent. In CrewAI, the orchestrator “delegates” tasks to coworker agents, while in AutoGen, the orchestrator “transfers” tasks to coworker agents."
+    },
+    {
+        "level": 3,
+        "content": "Table 4. Example attacker inputs for extracting tool schemas."
+    },
+    {
+        "level": 2,
+        "content": "Gain Unauthorized Access to Internal Network"
+    },
+    {
+        "level": 3,
+        "content": "The attacker abuses the web content reader tool to access the private web server on the internal network. This attack is a variation of server-side request forgery (SSRF) that relies on the unprotected server, web reader tool in this case, to forward the exploitation payloads to another target in the internal network. Figure 6 illustrates how the payload is delivered to the target server."
+    },
+    {
+        "level": 3,
+        "content": "The example inputs in Table 5 are straightforward. Since we ask the assistant to read a “news” website, the orchestration agent would delegate the task to the news agent without any special instruction. Since the Web Reader tool has unrestricted network access, attackers could exploit it to scan and enumerate resources within the internal network."
+    },
+    {
+        "level": 3,
+        "content": "Table 5. Example attacker inputs to gain unauthorized access to an internal network."
+    },
+    {
+        "level": 2,
+        "content": "Sensitive Data Exfiltration via Mounted Volume"
+    },
+    {
+        "level": 3,
+        "content": "The attacker abuses the code interpreter tool used by the stock agent to access credential files that may be mistakenly mounted into the container. To enable file exchange between the agent and the code interpreter, it is common to mount a directory from the host into the container. However, if this mounted volume includes sensitive data — such as credentials, source code or configuration files — the attacker can exploit the interpreter to exfiltrate these assets."
+    },
+    {
+        "level": 3,
+        "content": "As illustrated in Figure 7, the attacker sends a malicious payload to the stock agent’s code interpreter. This payload executes code within the container to locate and extract sensitive files from the mounted directory."
+    },
+    {
+        "level": 3,
+        "content": "The example attacker inputs in Table 6 direct the agent to search for files in a mounted volume for credentials. Note that the attacker inputs refer to the stock agent as a Portfolio Management Agent. The path of the mounted directory is often explicitly specified in the tool’s description or in the agent’s instructions, allowing the agent to read and write files during normal operations. The payload also instructs the agent to Base-64 encode the output because most frontier LLMs have internal safeguards that prevent generating responses containing sensitive information such as secrets and credentials."
+    },
+    {
+        "level": 3,
+        "content": "Table 6. Example attacker inputs to exfiltrate sensitive data through a mounted volume."
+    },
+    {
+        "level": 2,
+        "content": "Service Account Access Token Exfiltration via Metadata Service"
+    },
+    {
+        "level": 3,
+        "content": "The attacker abuses the code interpreter tool used by the stock agent to access theGCP metadata service. Most cloud providers expose similar metadata endpoints that allow applications running on a virtual machine (VM) to query information about the instance. As shown in Figure 8, the attacker sends the exploitation payload to the stock agent’s code interpreter, which then executes the malicious code in the container to access the cloud infrastructure’s metadata service."
+    },
+    {
+        "level": 3,
+        "content": "One critical piece of metadata is the VM’s service account, which grants VM access to other cloud services and resources. If an attacker obtains the service account’s access token, they can potentially impersonate the agent or its tools — or escalate the attack to compromise the underlying cloud infrastructure."
+    },
+    {
+        "level": 3,
+        "content": "The example attacker inputs in Table 7 instruct the agent to query the metadata server URL for Google Compute Engine and retrieve the VM’s service account access token. To succeed, the request must include a special HTTP header (Metadata-Flavor: Google) required by the metadata server to validate the requests."
+    },
+    {
+        "level": 3,
+        "content": "Table 7. Examples of attacker input to exfiltrate a service account access token via metadata service."
+    },
+    {
+        "level": 2,
+        "content": "Gain Unauthorized Access to Application Database"
+    },
+    {
+        "level": 3,
+        "content": "The attacker exploits a SQL injection vulnerability in one of the agent's tools to dump a database table containing transaction histories for all users."
+    },
+    {
+        "level": 3,
+        "content": "Figure 9 illustrates how the attacker sends the exploitation payload to the vulnerable function through prompt injection."
+    },
+    {
+        "level": 3,
+        "content": "The prompt examples in Table 8 instruct the agent to invoke the View Transactions tool with attacker-supplied input containing a SQL injection payload. This payload is crafted to extract rows from the transaction history table. To avoid hitting the language model’s output context limit, the query restricts the number of returned rows to 20."
+    },
+    {
+        "level": 3,
+        "content": "Table 8. Example attacker inputs for SQL injection to exfiltrate a database table."
+    },
+    {
+        "level": 3,
+        "content": "The attacker exploits a broken object level authorization (BOLA) vulnerability in one of the agent's tools to access other users’ transaction history."
+    },
+    {
+        "level": 3,
+        "content": "The attacker sends the exploitation payload in the same way shown above in Figure 9."
+    },
+    {
+        "level": 3,
+        "content": "The query examples in Table 9 ask the assistant to return a transaction with a specific ID. Different from the previous SQL injection example, the attacker-supplied function input shows no sign of maliciousness. The attacker simply provides a transaction ID belonging to another user and the assistant will use the Get TransactionByID tool to retrieve the transaction. Because the root cause ofBOLAis insufficient access control on the backend, exploiting it is typically straightforward and doesn't require a specially crafted payload. This also makes detection of BOLA attacks difficult."
+    },
+    {
+        "level": 3,
+        "content": "Table 9. Example attacker inputs for exploiting BOLA to gain unauthorized access to user data."
+    },
+    {
+        "level": 2,
+        "content": "Indirect Prompt Injection for Conversation History Exfiltration"
+    },
+    {
+        "level": 3,
+        "content": "The attacker compromises a website that targeted victims frequently visit. Through indirect prompt injection, malicious instructions embedded in the webpage trick the assistant into sending the user's conversation history to an attacker-controlled domain."
+    },
+    {
+        "level": 3,
+        "content": "This attack unfolds in three stages (illustrated in Figure 10):"
+    },
+    {
+        "level": 3,
+        "content": "The assistant, acting on behalf of a victim user, uses the web reader tool to retrieve content from a compromised website. \nThe retrieved webpage contains malicious instructions that tell the assistant to load additional content from an attacker-controlled site. As part of this instruction, the assistant is asked to include a query parameter:summary=[SUMMARY]— where[SUMMARY]should be replaced with the user's conversation history. \nFollowing the injected instructions, the assistant summarizes the user's conversation history, URL-encodes it and unknowingly sends it to the attacker's domain as part of the requested URL."
+    },
+    {
+        "level": 3,
+        "content": "The injected prompts shown in Table 10 direct the assistant to invoke the web reader tool and visit an attacker-controlled URL that includes a special query parameter[SUMMARY]. Assuming the attacker has knowledge of the tool's name and schema, the malicious instructions explicitly specify which tool to invoke and how to structure the request. This structure includes embedding the user’s conversation history within the[SUMMARY]parameter."
+    },
+    {
+        "level": 3,
+        "content": "Table 10. Examples of attacker input for indirect prompt injection to exfiltrate conversation history."
+    },
+    {
+        "level": 1,
+        "content": "Protection and Mitigation"
+    },
+    {
+        "level": 3,
+        "content": "Securing the expanded and complex attack surface of agentic applications requires layered, defense-in-depth strategies. No single defense can address all threats — each mitigation targets only a subset of threats under certain conditions. This section outlines five key mitigation strategies relevant to the attack scenarios demonstrated in this article."
+    },
+    {
+        "level": 3,
+        "content": "Prompt hardening \nContent filtering \nTool input sanitization \nTool vulnerability scanning \nCode executor sandboxing"
+    },
+    {
+        "level": 2,
+        "content": "Prompt Hardening"
+    },
+    {
+        "level": 3,
+        "content": "A prompt defines an agent’s behavior, much like source code defines a program. Poorly scoped or overly permissive prompts expand the attack surface, making them a prime target for manipulation."
+    },
+    {
+        "level": 3,
+        "content": "In the stock advisory assistant examples hosted on GitHub, we also provide a version of “reinforced” prompts (CrewAI,AutoGen). These prompts are designed with strict constraints and guardrails to limit agent capabilities. While these measures raise the bar for successful attacks, prompt hardening alone is not sufficient. Advanced injection techniques could still bypass these defenses, which is why prompt hardening must be paired with runtime content filtering."
+    },
+    {
+        "level": 3,
+        "content": "Best practices for prompt hardening include:"
+    },
+    {
+        "level": 3,
+        "content": "Explicitly prohibiting agents from disclosing their instructions, coworker agents and tool schemas \nDefining each agent’s responsibilities narrowly and rejecting requests outside of scope \nConstraining tool invocations to expected input types, formats and values"
+    },
+    {
+        "level": 2,
+        "content": "Content Filtering"
+    },
+    {
+        "level": 3,
+        "content": "Content filters serve as inline defenses that inspect and optionally block agent inputs and outputs in real time. These filters can effectively detect and prevent various attacks before they propagate."
+    },
+    {
+        "level": 3,
+        "content": "GenAI applications have long relied on content filters to defend against jailbreaks and prompt injection attacks. Since agentic applications inherit these risks and introduce new ones, content filtering remains a critical layer of defense."
+    },
+    {
+        "level": 3,
+        "content": "Advanced solutions such asPalo Alto Networks AI Runtime Securityoffer deeper inspection tailored to AI agents. Beyond traditional prompt filtering, they can also detect:"
+    },
+    {
+        "level": 3,
+        "content": "Tool schema extraction \nTool misuse, including unintended invocations and vulnerability exploitation \nMemory manipulation, such as injected instructions \nMalicious code execution, including SQL injection and exploit payloads \nSensitive data leakage, such as credentials and secrets \nMalicious URLs and domain references"
+    },
+    {
+        "level": 2,
+        "content": "Tool Input Sanitization"
+    },
+    {
+        "level": 3,
+        "content": "Tools must never implicitly trust their inputs, even when invoked by a seemingly benign agent. Attackers can manipulate agents into supplying crafted inputs that exploit vulnerabilities within tools. To prevent abuse, every tool should sanitize and validate inputs before execution."
+    },
+    {
+        "level": 3,
+        "content": "Key checks include:"
+    },
+    {
+        "level": 3,
+        "content": "Input type and format (e.g., expected strings, numbers or structured objects) \nBoundary and range checking \nSpecial character filtering and encoding to prevent injection attacks"
+    },
+    {
+        "level": 2,
+        "content": "Tool Vulnerability Scanning"
+    },
+    {
+        "level": 3,
+        "content": "All tools integrated into agentic systems should undergo regular security assessments, including:"
+    },
+    {
+        "level": 3,
+        "content": "SAST for source-level code analysis \nDAST for runtime behavior analysis \nSCA to detect vulnerable dependencies and third-party libraries"
+    },
+    {
+        "level": 3,
+        "content": "These practices help identify misconfigurations, insecure logic and outdated components that can be exploited through tool misuse."
+    },
+    {
+        "level": 2,
+        "content": "Code Executor Sandboxing"
+    },
+    {
+        "level": 3,
+        "content": "Code executors enable agents to dynamically solve tasks through real-time code generation and execution. While powerful, this capability introduces additional risks, including arbitrary code execution and lateral movement."
+    },
+    {
+        "level": 3,
+        "content": "Most agent frameworks rely on container-based sandboxes to isolate execution environments. However, default configurations are often not sufficient. To prevent sandbox escape or misuse, apply stricter runtime controls:"
+    },
+    {
+        "level": 3,
+        "content": "Restrict container networking: Allow only necessary outbound domains. Block access to internal services (e.g., metadata endpoints and private addresses). \nLimit mounted volumes: Avoid mounting broad or persistent paths (e.g.,./, /home). Usetmpfsto store temporary data in-memory \nDrop unnecessary Linux capabilities: Remove privileged permissions likeCAP_NET_RAW,CAP_SYS_MODULEandCAP_SYS_ADMIN \nBlock risky system calls: Disable syscalls likekexec_load,mount,unmount,ioplandbpf \nEnforce resource quotas: Apply CPU and memory limits to prevent denial of service (DoS), runaway code or cryptojacking"
+    },
+    {
+        "level": 1,
+        "content": "Conclusion"
+    },
+    {
+        "level": 3,
+        "content": "Agentic applications inherit the vulnerabilities of both LLMs and external tools while expanding the attack surface through complex workflows, autonomous decision-making and dynamic tool invocation. This amplifies the potential impact of compromises, which can escalate from information leakage and unauthorized access to remote code execution and full infrastructure takeover. As our simulated attacks demonstrate, a wide variety of prompt payloads can trigger the same weakness, underscoring how flexible and evasive these threats can be."
+    },
+    {
+        "level": 3,
+        "content": "Securing AI agents requires more than ad hoc fixes. It demands a defense-in-depth strategy that spans prompt hardening, input validation, secure tool integration and robust runtime monitoring."
+    },
+    {
+        "level": 3,
+        "content": "General-purpose security mechanisms alone are insufficient. Organizations must adopt purpose-built solutions — such as Palo Alto NetworksPrisma AIRS— toDiscover, Assess and Protectthreats unique to agentic applications."
+    },
+    {
+        "level": 3,
+        "content": "Palo Alto Networks customers are better protected from the threats discussed above through the following products:"
+    },
+    {
+        "level": 3,
+        "content": "AUnit 42 AI Security Assessmentcan help you proactively identify the threats most likely to target your AI environment."
+    },
+    {
+        "level": 3,
+        "content": "If you think you may have been compromised or have an urgent matter, get in touch with theUnit 42 Incident Response teamor call:"
+    },
+    {
+        "level": 3,
+        "content": "North America: Toll Free: +1 (866) 486-4842 (866.4.UNIT42) \nUK: +44.20.3743.3660 \nEurope and Middle East: +31.20.299.3130 \nAsia: +65.6983.8730 \nJapan: +81.50.1790.0200 \nAustralia: +61.2.4062.7950 \nIndia: 00080005045107"
+    },
+    {
+        "level": 3,
+        "content": "Palo Alto Networks has shared these findings with our fellow Cyber Threat Alliance (CTA) members. CTA members use this intelligence to rapidly deploy protections to their customers and to systematically disrupt malicious cyber actors. Learn more about theCyber Threat Alliance."
+    },
+    {
+        "level": 1,
+        "content": "Additional Resources"
+    },
+    {
+        "level": 3,
+        "content": "Stock Advisory Assistant– GitHub \nCrewAI– CrewAI Documentation \nCrewAI– CrewAI GitHub Repository \nSerperDevTool– CrewAI GitHub Repository \nScrapeWebsiteTool– CrewAI GitHub Repository \nHierarchical Process– CrewAI Documentation \nAutoGen– AutoGen Documentation \nAutoGen– AutoGen GitHub Repository \nSwarm– AutoGen Documentation \nAbout VM metadata– Google Cloud Documentation \nOWASP Top 10 for LLMs– OWASP \nOWASP Agentic AI Threats and Mitigation– OWASP \nNasdaq– Nasdaq"
+    },
+    {
+        "level": 3,
+        "content": "Updated May 2, 2025, at 2:20 p.m. PT to update product language."
+    }
+]

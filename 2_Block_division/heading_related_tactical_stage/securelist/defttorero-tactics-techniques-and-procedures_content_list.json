@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Discovery ",
+        "content": "Upon successful installation of the webshell, the operators run multiple commands to gain situational awareness from the exploited system. This includes testing network connectivity by pinging Google.com, listing current folders, identifying the current user privileges, enumerating local system users, and listing websites hosted by the compromised server. The operators also attempt to assess if the web server is joined and/or trusted by any domain. At a later stage, this will prove useful as it will inform them on the next course of actions for dumping local or domain credentials. "
+    }
+]

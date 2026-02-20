@@ -1,0 +1,131 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Internet Explorer",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "hxxps://download.advanced-ipscanner[.]com",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "UNC4466",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "ADRecon",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "CSV,XML,JSON,and HTML reports",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "MIMIKATZ Security Support Provider injection module",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "C:\\Windows\\System32\\mimilsa.log",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "Nanodump",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "LSASS memory",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "C:\\Windows\\Temp\\ directory",
+      "id": 10
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "discovery",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "4",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "6",
+      "source": 3,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "discovery",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "credential access",
+      "order": "7",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "8",
+      "source": 8,
+      "target": 10,
+      "key": 0
+    }
+  ]
+}

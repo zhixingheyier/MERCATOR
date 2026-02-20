@@ -1,0 +1,52 @@
+[
+    {
+        "phase": "initial access",
+        "content": "The attacker exploits a vulnerability in Firefox by browsing www.nhra.com, connecting the victim host to C&C servers (189.141.204.211 and 208.203.20.42). The attacker then uses /run/shm to escalate privileges and gain access to a list of processes. The attacker finds the sshd process and injects malicious code into the process. The compromised sshd process writes to a file /var/log/sshdlog on the host\u2019s filesystem.",
+        "relationship": "1. [Relationships]: <process:attacker,browse,socket www.nhra.com>. \n2. [Relationships]: <process:attacker,connect,socket 189.141.204.211>. \n3. [Relationships]: <process:attacker,connect,socket 208.203.20.42>. \n4. [Relationships]: <process:attacker,use,file /run/shm>. \n5. [Relationships]: <process:attacker,gain access to,file /run/shm>. \n6. [Relationships]: <process:attacker,find,process sshd>. \n7. [Relationships]: <process:attacker,inject,process sshd>. \n8. [Relationships]: <process:sshd,write,file /var/log/sshdlog>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:attacker,Connect,socket www.nhra.com>. \n[System-level Relationships]: <process:attacker,Connect,socket 189.141.204.211>. \n[System-level Relationships]: <process:attacker,Connect,socket 208.203.20.42>. \n[System-level Relationships]: <process:attacker,Execute,file /run/shm>. \n[System-level Relationships]: <process:attacker,Read,file /run/shm>. \n[System-level Relationships]: <process:attacker,Inject,process sshd>. \n[System-level Relationships]: <process:attacker,Inject,process sshd>. \n[System-level Relationships]: <process:sshd,Write,file /var/log/sshdlog>. "
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,browse,socket www.nhra.com>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Connect,socket:www.nhra.com>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,connect,socket 189.141.204.211>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Connect,socket:189.141.204.211>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,connect,socket 208.203.20.42>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Connect,socket:208.203.20.42>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,use,file /run/shm>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Execute,file:/run/shm>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,gain access to,file /run/shm>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Read,file:/run/shm>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,find,process sshd>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Inject,process:sshd>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,inject,process sshd>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Inject,process:sshd>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:sshd,write,file /var/log/sshdlog>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:sshd,Write,file:/var/log/sshdlog>. "
+            }
+        ]
+    }
+]

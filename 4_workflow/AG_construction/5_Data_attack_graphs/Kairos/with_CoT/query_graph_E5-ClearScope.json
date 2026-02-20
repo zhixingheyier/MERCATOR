@@ -1,0 +1,139 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "appstarter",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "busybox",
+      "id": 2
+    },
+    {
+      "type": "socket",
+      "value": "77.138.117.150",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "msm_g711tlaw",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "attack",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "calllog.db",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "calendar.db",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "mmssms.db",
+      "id": 9
+    },
+    {
+      "type": "socket",
+      "value": "128.55.12.233",
+      "id": 10
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "9",
+      "source": 1,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "1",
+      "source": 2,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 2,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "8",
+      "source": 4,
+      "target": 1,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "6",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "7",
+      "source": 6,
+      "target": 9,
+      "key": 0
+    }
+  ]
+}

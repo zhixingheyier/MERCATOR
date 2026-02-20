@@ -1,0 +1,113 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "www.nhra.com",
+      "id": 2
+    },
+    {
+      "type": "socket",
+      "value": "189.141.204.211",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "208.203.20.42",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "/run/shm",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "list of processes",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "sshd process",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "/var/log/sshdlog",
+      "id": 8
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "5",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "6",
+      "source": 1,
+      "target": 7,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "7",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    }
+  ]
+}

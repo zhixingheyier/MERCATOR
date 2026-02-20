@@ -1,0 +1,88 @@
+[
+    {
+        "phase": "initial access",
+        "content": "In March 2021, Veritas published an advisory reporting three critical vulnerabilities in Veritas Backup Exec 16.x, 20.x and 21.x.   \nOn September 23, 2022, a METASPLOIT module was released which exploits these vulnerabilities and creates a session which the threat actor can use to interact with the victim system.   \nOn October 22, 2022, Mandiant first observed exploitation of the Veritas vulnerabilities in the wild. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "initial access",
+        "content": "In late 2022, UNC4466 gained access to an internetexposed Windows server, running Veritas Backup Exec version 21.0 using the Metasploit module \\`exploit/multi/veritas/beagent_sha_auth_rce\\`. Shortly after, the Metasploit persistence module was invoked to maintain persistent access to the system for the remainder of this intrusion. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "discovery",
+        "content": "After gaining access to the Veritas Backup Exec server, UNC4466 used Internet Explorer, the browser installed by default on older Windows systems, to download Famatech's Advanced IP Scanner from its website, hxxps://download.advanced-ipscanner[.]com. This tool is capable of scanning individual IP addresses or IP address ranges for open ports, and returns hostnames, operating system and hardware manufacturer information. \nUNC4466 also made use of ADRecon to gather network, account, and host information in the victim's environment. When executed by a privileged domain account, ADRecon generates several reports about the Active Directory environment, including the Trusts, Sites, Subnets, password policies, user and computer account listings. These reports can be generated in a variety of formats, including CSV, XML, JSON, and HTML. ",
+        "relationship": "1. [Relationships]: <process:Internet Explorer,download,file:hxxps://download.advanced-ipscanner[.]com>. \n2. [Relationships]: <process:UNC4466,use,process:ADRecon>. \n3. [Relationships]: <process:ADRecon,generate,file:CSV,XML,JSON,and HTML reports>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:Internet Explorer,Write,file:hxxps://download.advanced-ipscanner[.]com>. \n[System-level Relationships]: <process:UNC4466,Fork,process:ADRecon>. \n[System-level Relationships]: <process:ADRecon,Write,file:CSV,XML,JSON,and HTML reports>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "UNC4466 leveraged SOCKS5 tunneling to communicate with compromised systems in the victim network. This technique is typically used to evade network defenses or other preventative network controls. Two separate tools were deployed to execute this technique, LIGOLO and REVSOCKS. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "credential access",
+        "content": "The threat actor utilized multiple credential access tools, including Mimikatz, LaZagne and Nanodump to gather clear-text credentials and credential material. \nIn November 2022, UNC4466 utilized the MIMIKATZ Security Support Provider injection module (\\`MISC::MemSSP\\`). This module collects credentials in clear text as they are used, by manipulating the Local Security Authority Server Service (LSASS) on victim systems. This module creates a file named \\`C:\\Windows\\System32\\mimilsa.log\\`. \nmimikatz # privilege::debug   \nPrivilege '20\" OK   \nmimikatz # MISC::MemSSP   \nInjected \n[Nanodump] was also used to dump LSASS memory. Like the examples shown on Helpsystems' GitHub page, the output file specified was a file in the \\`C:\\Windows\\Temp\\` directory. ",
+        "relationship": "1. [Relationships]: <process:UNC4466,utilized,process:MIMIKATZ Security Support Provider injection module>. \n2. [Relationships]: <process:MIMIKATZ Security Support Provider injection module,collects,file:C:\\Windows\\System32\\mimilsa.log>. \n3. [Relationships]: <process:UNC4466,utilized,process:Nanodump>. \n4. [Relationships]: <process:Nanodump,dump,process:LSASS memory>. \n5. [Relationships]: <process:Nanodump,stores,file:C:\\Windows\\Temp\\ directory>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:UNC4466,Fork,process:MIMIKATZ Security Support Provider injection module>. \n[System-level Relationships]: <process:MIMIKATZ Security Support Provider injection module,Write,file:C:\\Windows\\System32\\mimilsa.log>. \n[System-level Relationships]: <process:UNC4466,Fork,process:Nanodump>. \n[System-level Relationships]: <process:Nanodump,Inject,process:LSASS memory>. \n[System-level Relationships]: <process:Nanodump,Write,file:C:\\Windows\\Temp\\ directory>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "UNC4466 made use of BITS transfers (using the Start-BitsTransfer PowerShell cmdlet) to download various resources to the staging directory c:\\ProgramData\\`. Using this technique, SOCKS5 tunneling tools, REVSOCKS and LIGOLO were downloaded from their official GitHub repositories. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "impact",
+        "content": "UNC4466 deploys the Rust-based ALPHV ransomware. In Late 2022, UNC4466 added immediate tasks to the default domain policy. These tasks were configured to perform actions which disabled security software, downloaded the ALPHV encryptor, then execute it. ",
+        "relationship": "[Relationships]: n/a",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "discovery",
+                "relationship": "[Original Relationships]: <process:Internet Explorer,download,file:hxxps://download.advanced-ipscanner[.]com>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Internet Explorer,Write,file:hxxps://download.advanced-ipscanner[.]com>. "
+            },
+            {
+                "phase": "discovery",
+                "relationship": "[Original Relationships]: <process:UNC4466,use,process:ADRecon>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:UNC4466,Fork,process:ADRecon>. "
+            },
+            {
+                "phase": "discovery",
+                "relationship": "[Original Relationships]: <process:ADRecon,generate,file:CSV,XML,JSON,and HTML reports>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:ADRecon,Write,file:CSV,XML,JSON,and HTML reports>. "
+            },
+            {
+                "phase": "credential access",
+                "relationship": "[Original Relationships]: <process:UNC4466,utilized,process:MIMIKATZ Security Support Provider injection module>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:UNC4466,Fork,process:MIMIKATZ Security Support Provider injection module>. "
+            },
+            {
+                "phase": "credential access",
+                "relationship": "[Original Relationships]: <process:MIMIKATZ Security Support Provider injection module,collects,file:C:\\Windows\\System32\\mimilsa.log>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:MIMIKATZ Security Support Provider injection module,Write,file:C:\\Windows\\System32\\mimilsa.log>. "
+            },
+            {
+                "phase": "credential access",
+                "relationship": "[Original Relationships]: <process:UNC4466,utilized,process:Nanodump>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:UNC4466,Fork,process:Nanodump>. "
+            },
+            {
+                "phase": "credential access",
+                "relationship": "[Original Relationships]: <process:Nanodump,dump,process:LSASS memory>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Nanodump,Inject,process:LSASS memory>. "
+            },
+            {
+                "phase": "credential access",
+                "relationship": "[Original Relationships]: <process:Nanodump,stores,file:C:\\Windows\\Temp\\ directory>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Nanodump,Write,file:C:\\Windows\\Temp\\ directory>. "
+            }
+        ]
+    }
+]

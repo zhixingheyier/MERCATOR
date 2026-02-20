@@ -1,0 +1,545 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "email",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "recipient",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "attached archive",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "executable",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "executable",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "Redaman malware",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "rar archive",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "Redaman executable",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "Redaman DLL",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": " DLL file",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "randomly-named folder",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "rundll32.exe",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "Redaman",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "Chrome",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "Firefox",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "Internet Explorer",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "local host",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "files",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "keyboard",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "screen",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "Windows desktop",
+      "id": 22
+    },
+    {
+      "type": "file",
+      "value": "financial data",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "smart card",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "infected host",
+      "id": 25
+    },
+    {
+      "type": "file",
+      "value": "DNS configuration",
+      "id": 26
+    },
+    {
+      "type": "socket",
+      "value": "clipboard data",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "running processes",
+      "id": 28
+    },
+    {
+      "type": "file",
+      "value": "certificates",
+      "id": 29
+    },
+    {
+      "type": "process",
+      "value": "namecha[.]in",
+      "id": 30
+    },
+    {
+      "type": "socket",
+      "value": "104.28.16[.]33 port 443",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "185.141.61[.]246",
+      "id": 32
+    },
+    {
+      "type": "socket",
+      "value": "185.141.61[.]246 port 80",
+      "id": 33
+    },
+    {
+      "type": "process",
+      "value": "193.37.213[.]28",
+      "id": 34
+    },
+    {
+      "type": "socket",
+      "value": "193.37.213[.]28 port 80",
+      "id": 35
+    },
+    {
+      "type": "process",
+      "value": "C2 server",
+      "id": 36
+    },
+    {
+      "type": "socket",
+      "value": "185.141.61[.]246",
+      "id": 37
+    },
+    {
+      "type": "socket",
+      "value": "Windows client",
+      "id": 38
+    },
+    {
+      "type": "process",
+      "value": "Pony variant DLL",
+      "id": 39
+    },
+    {
+      "type": "socket",
+      "value": "193.37.213[.]28/p/g_3453456jawd346.php",
+      "id": 40
+    }
+  ],
+  "links": [
+    {
+      "type": "Send",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "5",
+      "source": 3,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "7",
+      "source": 3,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "6",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "persistence",
+      "order": "8",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "9",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "11",
+      "source": 9,
+      "target": 11,
+      "key": 1
+    },
+    {
+      "type": "Create",
+      "phase": "persistence",
+      "order": "10",
+      "source": 9,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "12",
+      "source": 9,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "14",
+      "source": 9,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "persistence",
+      "order": "13",
+      "source": 13,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "15",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "16",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "17",
+      "source": 14,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "18",
+      "source": 14,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "19",
+      "source": 14,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "20",
+      "source": 14,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "persistence",
+      "order": "21",
+      "source": 14,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "persistence",
+      "order": "22",
+      "source": 14,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "23",
+      "source": 14,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "24",
+      "source": 14,
+      "target": 23,
+      "key": 1
+    },
+    {
+      "type": "Receive",
+      "phase": "persistence",
+      "order": "25",
+      "source": 14,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "persistence",
+      "order": "26",
+      "source": 14,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "27",
+      "source": 14,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "persistence",
+      "order": "28",
+      "source": 14,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "persistence",
+      "order": "29",
+      "source": 14,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "30",
+      "source": 14,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "31",
+      "source": 14,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "33",
+      "source": 14,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "35",
+      "source": 14,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "37",
+      "source": 14,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "40",
+      "source": 14,
+      "target": 39,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "32",
+      "source": 30,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "34",
+      "source": 32,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "39",
+      "source": 32,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "36",
+      "source": 34,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "38",
+      "source": 36,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "41",
+      "source": 39,
+      "target": 40,
+      "key": 0
+    }
+  ]
+}

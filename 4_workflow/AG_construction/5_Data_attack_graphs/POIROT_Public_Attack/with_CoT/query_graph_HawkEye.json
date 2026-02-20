@@ -1,0 +1,456 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "clicking",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "link",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "victim",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "7z file",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "7z file",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "TICKET%2083992883992AIR8389494VERVED37783PDF.exe",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "HawkEye_RegAsm",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "vbc.exe",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "PE files",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "SetThreadContext",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "PE file",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "PE file",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "tmp file",
+      "id": 13
+    },
+    {
+      "type": "socket",
+      "value": "credentials",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "credentials in memory",
+      "id": 15
+    },
+    {
+      "type": "socket",
+      "value": "Microsoft Internet Explorer",
+      "id": 16
+    },
+    {
+      "type": "socket",
+      "value": "system credential manager",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "vbs.exe",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "profile and credential information",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "Thread.Sleep",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "http://bot.whatismyipaddress.com",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "packets described in text",
+      "id": 22
+    },
+    {
+      "type": "socket",
+      "value": "Yandex SMTP server",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "keylogger",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "clipboard",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "browser",
+      "id": 26
+    },
+    {
+      "type": "process",
+      "value": "IM and email client",
+      "id": 27
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 4,
+      "key": 1
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "5",
+      "source": 3,
+      "target": 4,
+      "key": 2
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "6",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "7",
+      "source": 3,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "8",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "10",
+      "source": 7,
+      "target": 8,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "9",
+      "source": 7,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "11",
+      "source": 7,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "credential access",
+      "order": "12",
+      "source": 7,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "13",
+      "source": 7,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "14",
+      "source": 7,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "15",
+      "source": 7,
+      "target": 13,
+      "key": 1
+    },
+    {
+      "type": "Delete",
+      "phase": "credential access",
+      "order": "16",
+      "source": 7,
+      "target": 13,
+      "key": 2
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "20",
+      "source": 7,
+      "target": 13,
+      "key": 3
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "21",
+      "source": 7,
+      "target": 13,
+      "key": 4
+    },
+    {
+      "type": "Delete",
+      "phase": "credential access",
+      "order": "22",
+      "source": 7,
+      "target": 13,
+      "key": 5
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "29",
+      "source": 7,
+      "target": 13,
+      "key": 6
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "23",
+      "source": 7,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "credential access",
+      "order": "24",
+      "source": 7,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "25",
+      "source": 7,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "31",
+      "source": 7,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "32",
+      "source": 7,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "33",
+      "source": 7,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "34",
+      "source": 7,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "35",
+      "source": 7,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "exfiltration",
+      "order": "36",
+      "source": 7,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "exfiltration",
+      "order": "37",
+      "source": 7,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "exfiltration",
+      "order": "38",
+      "source": 7,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "17",
+      "source": 8,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "18",
+      "source": 8,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "19",
+      "source": 8,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "28",
+      "source": 8,
+      "target": 13,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "30",
+      "source": 8,
+      "target": 13,
+      "key": 2
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "27",
+      "source": 8,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "26",
+      "source": 18,
+      "target": 13,
+      "key": 0
+    }
+  ]
+}

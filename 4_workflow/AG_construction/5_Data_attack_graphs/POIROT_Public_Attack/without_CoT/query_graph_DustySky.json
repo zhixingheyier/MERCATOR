@@ -1,0 +1,337 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "DustySky dropper",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "DustySky Core",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "DustySky Core",
+      "id": 3
+    },
+    {
+      "type": "reg",
+      "value": "%T E M P\\%",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "Windows Management Instrumentation11",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "lure document",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "vboxmrxnp.dll",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "vmbusres.dll",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "vmGuestlib.dll",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "cmd",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": ".NET interface",
+      "id": 11
+    },
+    {
+      "type": "socket",
+      "value": "command and control server",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "collected data",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "commands",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "commands",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "keylogging log file",
+      "id": 16
+    },
+    {
+      "type": "socket",
+      "value": "URL that ends with key.php",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "DustySky",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "TEST.php or index.php",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "OK",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "second domain",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "bulk-smtp[.]xyz",
+      "id": 22
+    },
+    {
+      "type": "socket",
+      "value": "EMS",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "smtp.gq",
+      "id": 24
+    }
+  ],
+  "links": [
+    {
+      "type": "Read",
+      "phase": "defense evasion",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "defense evasion",
+      "order": "1",
+      "source": 1,
+      "target": 2,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "2",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "defense evasion",
+      "order": "3",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "defense evasion",
+      "order": "4",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "defense evasion",
+      "order": "5",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "defense evasion",
+      "order": "9",
+      "source": 1,
+      "target": 6,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "defense evasion",
+      "order": "6",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "defense evasion",
+      "order": "7",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "defense evasion",
+      "order": "8",
+      "source": 1,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "18",
+      "source": 1,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "10",
+      "source": 3,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "11",
+      "source": 3,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "12",
+      "source": 3,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "13",
+      "source": 3,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "command and control",
+      "order": "14",
+      "source": 3,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "15",
+      "source": 3,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "16",
+      "source": 3,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "17",
+      "source": 3,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "19",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "20",
+      "source": 18,
+      "target": 19,
+      "key": 1
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "21",
+      "source": 18,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "22",
+      "source": 18,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "23",
+      "source": 18,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "24",
+      "source": 18,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "25",
+      "source": 18,
+      "target": 24,
+      "key": 0
+    }
+  ]
+}

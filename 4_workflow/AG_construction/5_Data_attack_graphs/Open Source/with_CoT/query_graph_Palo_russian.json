@@ -1,0 +1,381 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Windows executable for Redaman",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "C:\\cuckoo",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "C:\\fake_drive",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "C:\\perl",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "C:\\strawberry",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "C:\\targets.xls",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "C:\\tsl",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "C:\\wget.exe",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "C:\\*python*",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "AppData\\Local\\Temp\\directory",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "C:\\ProgramData\\directory",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "C:\\ProgramData\\random folder\\DLL file",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "Redaman executable",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "initial Redaman executable file",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "Redaman",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "Chrome",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "Firefox",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "Internet Explorer",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "files on infected host",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "keyboard actions",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "screen data",
+      "id": 21
+    },
+    {
+      "type": "file",
+      "value": "financial data",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "system",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "104.28.16[.]33:443",
+      "id": 24
+    },
+    {
+      "type": "socket",
+      "value": "185.141.61[.]246",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "185.141.61[.]246",
+      "id": 26
+    },
+    {
+      "type": "file",
+      "value": "b4701d95219d465e978c4a815fcce89787916da33ae2a49d0e76d4445fd39ada",
+      "id": 27
+    },
+    {
+      "type": "socket",
+      "value": "193.37.213[.]28/p/g_3453456jawd346.php",
+      "id": 28
+    }
+  ],
+  "links": [
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "5",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "6",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "7",
+      "source": 1,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "persistence",
+      "order": "8",
+      "source": 1,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "persistence",
+      "order": "9",
+      "source": 1,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "10",
+      "source": 1,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "11",
+      "source": 1,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "13",
+      "source": 1,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "21",
+      "source": 1,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "26",
+      "source": 1,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "persistence",
+      "order": "12",
+      "source": 13,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "14",
+      "source": 15,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "15",
+      "source": 15,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "16",
+      "source": 15,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "17",
+      "source": 15,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "18",
+      "source": 15,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "19",
+      "source": 15,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "20",
+      "source": 15,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "22",
+      "source": 23,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "23",
+      "source": 23,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "24",
+      "source": 23,
+      "target": 25,
+      "key": 1
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "25",
+      "source": 23,
+      "target": 25,
+      "key": 2
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "28",
+      "source": 23,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "27",
+      "source": 26,
+      "target": 27,
+      "key": 0
+    }
+  ]
+}

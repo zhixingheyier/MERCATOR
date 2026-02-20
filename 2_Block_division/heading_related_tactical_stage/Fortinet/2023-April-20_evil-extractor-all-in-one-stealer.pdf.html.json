@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Initial Access",
+        "content": "The phishing email with the malicious attachment is shown in Figure 2. It is disguised as an account confirmation request. The attacker also tricks the victim by using an Adobe PDF icon for the decompressed file. The PE header is shown in Figure 3.\nThe execution file is a Python program packaged by PyInstaller. We extracted it with pyinstxtractor and found that the “PYARMOR” string in its main code file “contain.pyc”, shown in Figure 4, is an obfuscating tool for Python script that makes the malware harder to be analyzed and detected. We extracted the key and iv from _pytransform.dll and decrypted the “contain.pyc” using AES-GCM.\nIn addition to the Python program, we observed a .NET loader that can extract EvilExtractor. Figure 5 is part of the code. It contains Base64-encoded data, which is a PowerShell script. This execution file is generated from the tool “PS2EXE-GUI”, which can convert PowerShell scripts to EXE Files."
+    }
+]

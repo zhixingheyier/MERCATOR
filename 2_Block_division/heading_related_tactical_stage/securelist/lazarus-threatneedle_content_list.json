@@ -1,0 +1,10 @@
+[
+    {
+        "title": "Lateral movement ",
+        "content": "After acquiring the login credentials, the actor started to move laterally from workstations to server hosts. Typical lateral movement methods were employed, using Windows commands. First, a network connection with a remote host was established using the command “net use”. \nnet use \\[IP address入IPC\\$ “[password] /u:\"[user name]\" $>\\$8$ temp\\\\~tmp5936t.tmp 2>&1″ \nNext, the actor copied malware to the remote host using the Windows Management Instrumentation Command-line (WMIC). \nexe /node:[IP address] /user:”[user name]” /password:”[password]” PROCESS CALL CREATE “cmd.exe /c \\$appdata\\Adobe\\adobe.bat“   \nexe /node:[IP address] /user:”[user name]” /password:”[password]” PROCESS CALL CREATE “cmd /c sc queryex helpsvc $>$ \\$temp\\tmp001.dat“ "
+    },
+    {
+        "title": "Exfiltration ",
+        "content": "We observed that the malware operator attempted to create SSH tunnels to a remote server located in South Korea from several compromised server hosts. They used a custom tunneling tool to achieve this. The tool receives four parameters: client IP address, client port, server IP address and server port. The tool offers basic functionality, forwarding client traffic to the server. In order to create a covert channel, the malware encrypts forwarded traffic using trivial binary encryption. "
+    }
+]

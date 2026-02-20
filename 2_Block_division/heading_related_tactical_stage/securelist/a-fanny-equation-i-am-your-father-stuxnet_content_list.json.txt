@@ -1,0 +1,12 @@
+
+【Persistence 】
+==============================
+  Fanny creates the following registry value to achieve persistence: HKLM\System\CurrentControlSet\Control\MediaResources\acm\ECELP4\Driver. 
+  This is not a common way to make code start automatically on a system boot and it’s extremely invasive, but it guarantees that the module is loaded in the address space of each process in the system, including some critical processes such as lsass.exe and services.exe running as SYSTEM user. 
+  When the module is loaded it checks other values that start from “filter” in the same registry key, i.e.: 
+  HKLM\System\CurrentControlSet\Control\MediaResources\acm\ECELP4\filter2   
+  HKLM\System\CurrentControlSet\Control\MediaResources\acm\ECELP4\filter3   
+  HKLM\System\CurrentControlSet\Control\MediaResources\acm\ECELP4\filter8 
+  The values contain a hosting process name and a path to a DLL or EXE file. If the current process name contains the value set as hosting process, then the module loads a DLL or starts a new process (in case of EXE file) depending on target file extension. 
+  This is a map of the processes and modules that are used in Fanny: 
+

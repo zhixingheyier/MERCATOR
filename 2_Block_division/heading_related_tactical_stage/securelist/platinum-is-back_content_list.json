@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Persistence ",
+        "content": "The main backdoor is implemented as a dynamic link library (DLL) and exports a function with the name “NSPStartup”. After dropping it, the installer registers the backdoor as a winsock2 namespace provider with the help of the WSCInstallNameSpace API function and runs it by calling the WSCEnableNSProvider. \nAs a result of this installation, during initialization of the “svchost $-\\mathsf{k}$ netsvcs” process upon system startup, the registered namespace provider will be loaded into the address space of the process and the function “NSPStartup” will be called. "
+    }
+]

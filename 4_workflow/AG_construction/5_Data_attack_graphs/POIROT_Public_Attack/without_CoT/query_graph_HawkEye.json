@@ -1,0 +1,283 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "browser",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "7z file",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "user",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "7z file",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "TICKET%2083992883992AIR8389494VERVED37783PDF.exe",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "HawkEye_RegAsm",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "vbc.exe",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "PE files",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "ThreadContext",
+      "id": 9
+    },
+    {
+      "type": "socket",
+      "value": "credentials",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "tmp file",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "Thread.Sleep(600000)",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "http://bot.whatismyipaddress.com",
+      "id": 13
+    },
+    {
+      "type": "socket",
+      "value": "Yandex SMTP server",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "attacker's email",
+      "id": 15
+    },
+    {
+      "type": "socket",
+      "value": "packets in Figure 9",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 17
+    },
+    {
+      "type": "socket",
+      "value": "attacker's account",
+      "id": 18
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "5",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "4",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "6",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "11",
+      "source": 6,
+      "target": 7,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "7",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "credential access",
+      "order": "8",
+      "source": 6,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "14",
+      "source": 6,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "credential access",
+      "order": "15",
+      "source": 6,
+      "target": 11,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "16",
+      "source": 6,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "17",
+      "source": 6,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "18",
+      "source": 6,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "19",
+      "source": 6,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "20",
+      "source": 6,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "21",
+      "source": 6,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "9",
+      "source": 7,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "10",
+      "source": 7,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "credential access",
+      "order": "12",
+      "source": 7,
+      "target": 11,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "13",
+      "source": 7,
+      "target": 11,
+      "key": 2
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "22",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    }
+  ]
+}

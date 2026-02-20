@@ -1,0 +1,8 @@
+
+【Impact】
+==============================
+  Affiliates switching between different ransomware families like this is yet another attempt by ransomware actors to increase the chances of their attacks succeeding, and it will be interesting to see whether or not this is a tactic we start to increasingly observe during ransomware attacks.
+  Having access to multiple ransomware families increases the likelihood of affiliates being able to encrypt machines, increasing the dangers posed by these already dangerous attacks. This is just the latest development we have seen from ransomware actors, who are constantly refining their tactics in order to maximise their profits. The use of virtual machines was another example of attackers tweaking their approach in order to carry out a ransomware attack, while the emergence of double-extortion ransomware attacks last year, where attackers steal data and threaten to release it while also encrypting machines in ransomware attacks, led to one of the biggest shifts we saw in the ransomware landscape in recent times.
+  The surge in LockBit activity that we have seen also shows that while some big ransomware names have shut down their operations in recent times, there are many other ransomware operators waiting to fill the space that has been left.
+  Ransomware actors continue to change and refine their tactics in an effort to evade the security steps taken by organizations to stop these types of attacks, which is why ransomware remains one of the biggest threats on the cyber crime landscape in 2021.
+

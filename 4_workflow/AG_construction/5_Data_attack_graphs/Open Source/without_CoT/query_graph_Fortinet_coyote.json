@@ -1,0 +1,248 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "LNK file",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "PowerShell command",
+      "id": 2
+    },
+    {
+      "type": "socket",
+      "value": "hxxps://tbet[.]geontrigame[.]com/zxchzzmism",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "PowerShell script",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "shellcode",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "bmwiMcDec",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "VirtualAllocEx",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "npuGDec",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "CreateRemoteThread",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "Donut",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "MSIL payloads",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "MSIL execution file",
+      "id": 12
+    },
+    {
+      "type": "reg",
+      "value": "HCKU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "SecurityCenter2",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "CreateProcess",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "Coyote",
+      "id": 16
+    },
+    {
+      "type": "socket",
+      "value": "geraatualiza[.]com",
+      "id": 17
+    },
+    {
+      "type": "socket",
+      "value": "masterdow[.]com",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "geraupdate[.]com",
+      "id": 19
+    }
+  ],
+  "links": [
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "1",
+      "source": 2,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 2,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "4",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "6",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "7",
+      "source": 6,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 6,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "10",
+      "source": 6,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "9",
+      "source": 10,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "11",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "12",
+      "source": 12,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "13",
+      "source": 12,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "14",
+      "source": 12,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "15",
+      "source": 16,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "16",
+      "source": 16,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "17",
+      "source": 16,
+      "target": 19,
+      "key": 0
+    }
+  ]
+}

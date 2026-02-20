@@ -1,0 +1,347 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "malicious code",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "PortDoor malware",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "phishing emails",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "Microsoft Word documents",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "PortDoor",
+      "id": 6
+    },
+    {
+      "type": "socket",
+      "value": "malware command-and-control (CnC) server",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "command and control_*",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "backdoors",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "infected systems",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "confidential data",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "APT TA428",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "other attacks",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "new backdoor",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "Ladon hacking utility",
+      "id": 15
+    },
+    {
+      "type": "socket",
+      "value": "network",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "vulnerability",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "lateral movement_*",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "standard utilities",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "domain controller",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "password",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "exfiltration_*",
+      "id": 22
+    },
+    {
+      "type": "file",
+      "value": "documents and other files",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "their servers",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "stage one CnC servers",
+      "id": 25
+    },
+    {
+      "type": "socket",
+      "value": "network socket,file:ZIP archives",
+      "id": 26
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "4",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "6",
+      "source": 3,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "7",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "command and control",
+      "order": "8",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "9",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "10",
+      "source": 9,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "12",
+      "source": 9,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "14",
+      "source": 9,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "11",
+      "source": 12,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "13",
+      "source": 13,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "lateral movement",
+      "order": "15",
+      "source": 15,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "16",
+      "source": 15,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "17",
+      "source": 15,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "18",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "lateral movement",
+      "order": "19",
+      "source": 18,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "lateral movement",
+      "order": "20",
+      "source": 18,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "21",
+      "source": 18,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "24",
+      "source": 18,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "exfiltration",
+      "order": "22",
+      "source": 22,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "23",
+      "source": 22,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "25",
+      "source": 25,
+      "target": 26,
+      "key": 0
+    }
+  ]
+}

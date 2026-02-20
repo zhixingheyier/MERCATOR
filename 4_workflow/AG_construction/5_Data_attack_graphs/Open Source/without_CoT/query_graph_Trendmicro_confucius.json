@@ -1,0 +1,233 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "document",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "macros",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "macros",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "PowerShell",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "skfk.txt",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "program",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "ASCII file",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": ".NET DLL",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "third file",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "scheduled task",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "next stage",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": ".NET DLL file",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "Documents,Downloads,Desktop,Pictures folders",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "drives other than C:.",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "file to directory named after machine name-username string",
+      "id": 16
+    }
+  ],
+  "links": [
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 4,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "5",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "7",
+      "source": 4,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "6",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "8",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "9",
+      "source": 7,
+      "target": 8,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "10",
+      "source": 7,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "13",
+      "source": 7,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "collection",
+      "order": "14",
+      "source": 7,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "11",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "12",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "15",
+      "source": 13,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "16",
+      "source": 13,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "17",
+      "source": 13,
+      "target": 16,
+      "key": 0
+    }
+  ]
+}

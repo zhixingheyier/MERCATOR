@@ -1,0 +1,753 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "PowerShell",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "Base64-encoded string",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "shellcode",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "104.194.222[.]50 port 4444",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "Certutil",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "Micropsia backdoor",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "Putty",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "Micropsia",
+      "id": 8
+    },
+    {
+      "type": "socket",
+      "value": "C&C server",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "csidl_common_appdata\\systempropertiesinternationaltime\\systempropertiesinternationaltime.exe",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": "csidl_common_appdata\\systempropertiesinternationaltime\\systempropertiesinternationaltime.exe",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "csidl_common_appdata\\windowsnetworkmanager\\windowsnetworkmanager.exe",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "csidl_common_appdata\\windowsnetworkmanager\\windowsnetworkmanager.exe",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "csidl_common_appdata\\windowsps\\windowsps.exe",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "csidl_common_appdata\\windowsps\\windowsps.exe",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "CSIDL_COMMON_APPDATA\\windowsservicemanageav\\windowsservicemanageav.exe",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "CSIDL_COMMON_APPDATA\\windowspackages.exe",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "RAR",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "archived files",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "archived files",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "Arid Gopher backdoor",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "Arid Gopher backdoor",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "Arid Gopher",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "SetRegRunKey.exe",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "localsecuritypolicy.exe",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "CSIDL_COMMON_APPDATA\\hostupbroker\\hostupbroker.exe",
+      "id": 26
+    },
+    {
+      "type": "process",
+      "value": "windowsupserv.exe",
+      "id": 27
+    },
+    {
+      "type": "file",
+      "value": "CSIDL_COMMON_APPDATA\\windowspackages\\01-04-2023-15-13-39_getf.rar",
+      "id": 28
+    },
+    {
+      "type": "file",
+      "value": "csidl_common_appdata\\teamviewrremoteservice\\teamviewrremoteservice.exe",
+      "id": 29
+    },
+    {
+      "type": "process",
+      "value": "csidl_common_appdata\\teamviewrremoteservice\\teamviewrremoteservice.exe",
+      "id": 30
+    },
+    {
+      "type": "file",
+      "value": "csidl_common_appdata\\embededmodeservice\\embededmodeservice.exe",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "csidl_common_appdata\\embededmodeservice\\embededmodeservice.exe",
+      "id": 32
+    },
+    {
+      "type": "file",
+      "value": "localsecuritypolicy.exe",
+      "id": 33
+    },
+    {
+      "type": "process",
+      "value": "WMI",
+      "id": 34
+    },
+    {
+      "type": "process",
+      "value": "Reverse SOCKs Tunneler",
+      "id": 35
+    },
+    {
+      "type": "process",
+      "value": "Data Exfiltration Tool",
+      "id": 36
+    },
+    {
+      "type": "process",
+      "value": "hostupbroker.exe",
+      "id": 37
+    },
+    {
+      "type": "process",
+      "value": "windowspackages.exe",
+      "id": 38
+    },
+    {
+      "type": "process",
+      "value": "screenshots",
+      "id": 39
+    },
+    {
+      "type": "process",
+      "value": "Victim",
+      "id": 40
+    },
+    {
+      "type": "file",
+      "value": "%PROGRAMDATA%\\Software Distributions\\Bdl\\LMth__C_2023-02-13 17-14-41",
+      "id": 41
+    },
+    {
+      "type": "socket",
+      "value": "http://jumpstartmail[.]com/IURTIER3BNV4ER/DWL1RucGSj/4wwA7S8jQv (IP: 79.133.51[.]134)",
+      "id": 42
+    },
+    {
+      "type": "socket",
+      "value": "http://jumpstartmail[.]com/IURTIER3BNV4ER/AJLUK9BI48/0L6W3CSBMC",
+      "id": 43
+    },
+    {
+      "type": "socket",
+      "value": "http://salimafia[.]net/IURTIER3BNV4ER/DWL1RucGSj/4wwA7S8jQv (IP: 146.19.233[.]32)",
+      "id": 44
+    },
+    {
+      "type": "file",
+      "value": "setup.env",
+      "id": 45
+    },
+    {
+      "type": "process",
+      "value": "setup.env",
+      "id": 46
+    },
+    {
+      "type": "process",
+      "value": "AttestationWmiProvider.exe",
+      "id": 47
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\\"[RUN_VALUE_NAME]\" = \"[RUN_PATHNAME]\"",
+      "id": 48
+    },
+    {
+      "type": "process",
+      "value": "WindowsUpServ.exe",
+      "id": 49
+    },
+    {
+      "type": "file",
+      "value": "[FILENAME]",
+      "id": 50
+    },
+    {
+      "type": "file",
+      "value": "[FILE_DIRECTORY]",
+      "id": 51
+    },
+    {
+      "type": "socket",
+      "value": "HTTP POST request to C&C server",
+      "id": 52
+    },
+    {
+      "type": "process",
+      "value": "remote server",
+      "id": 53
+    },
+    {
+      "type": "file",
+      "value": "uploaded file",
+      "id": 54
+    },
+    {
+      "type": "file",
+      "value": "C:\\ProgramData\\WindowsUpServ\\success.txt",
+      "id": 55
+    },
+    {
+      "type": "file",
+      "value": "C:\\ProgramData\\WindowsUpServ\\err.txt",
+      "id": 56
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "6",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "7",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "8",
+      "source": 8,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "9",
+      "source": 8,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "10",
+      "source": 8,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "11",
+      "source": 8,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "12",
+      "source": 8,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "13",
+      "source": 8,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "14",
+      "source": 8,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "15",
+      "source": 8,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "16",
+      "source": 8,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "19",
+      "source": 8,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "20",
+      "source": 8,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "21",
+      "source": 8,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "35",
+      "source": 8,
+      "target": 23,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "24",
+      "source": 8,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "25",
+      "source": 8,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "33",
+      "source": 8,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "36",
+      "source": 8,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "37",
+      "source": 8,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "38",
+      "source": 8,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "39",
+      "source": 8,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "40",
+      "source": 8,
+      "target": 39,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "41",
+      "source": 8,
+      "target": 40,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "42",
+      "source": 8,
+      "target": 41,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "48",
+      "source": 8,
+      "target": 47,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "50",
+      "source": 8,
+      "target": 49,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "54",
+      "source": 8,
+      "target": 53,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "17",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "18",
+      "source": 18,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "22",
+      "source": 23,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "23",
+      "source": 23,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "32",
+      "source": 23,
+      "target": 25,
+      "key": 1
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "27",
+      "source": 23,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "28",
+      "source": 23,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "29",
+      "source": 23,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "30",
+      "source": 23,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "31",
+      "source": 23,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "43",
+      "source": 23,
+      "target": 42,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "44",
+      "source": 23,
+      "target": 43,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "45",
+      "source": 23,
+      "target": 44,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "46",
+      "source": 23,
+      "target": 45,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "47",
+      "source": 23,
+      "target": 46,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "26",
+      "source": 27,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "34",
+      "source": 34,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "49",
+      "source": 47,
+      "target": 48,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "51",
+      "source": 49,
+      "target": 50,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "exfiltration",
+      "order": "52",
+      "source": 49,
+      "target": 51,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "53",
+      "source": 49,
+      "target": 52,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "56",
+      "source": 49,
+      "target": 55,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "57",
+      "source": 49,
+      "target": 56,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "exfiltration",
+      "order": "55",
+      "source": 53,
+      "target": 54,
+      "key": 0
+    }
+  ]
+}

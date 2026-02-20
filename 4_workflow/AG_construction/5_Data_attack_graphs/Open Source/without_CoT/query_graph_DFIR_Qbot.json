@@ -1,0 +1,589 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "QBot PowerShell",
+      "id": 1
+    },
+    {
+      "type": "reg",
+      "value": "registry key",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\Roaming\\Microsoft\\Fdopitcu",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "C2 IPs",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "payloads",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "payloads",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "regsvr32.exe",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "unsigned DLL",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "unsigned DLL",
+      "id": 9
+    },
+    {
+      "type": "reg",
+      "value": "HKCU\\Software\\Microsoft\\Yerqbqokc",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": "explorer.exe",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "executable file",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "beachhead",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "privilege escalation_*",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "computer account",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "brute-force attack",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "DC",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "Domain Admin hash",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "DC password",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "explorer shell",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "QBot",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "processes",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "Cobalt Strike beacon",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "discovery commands",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "ADFind",
+      "id": 25
+    },
+    {
+      "type": "reg",
+      "value": "computers",
+      "id": 26
+    },
+    {
+      "type": "process",
+      "value": "discovery_*",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "information about the installed security software through WMI",
+      "id": 28
+    },
+    {
+      "type": "process",
+      "value": "Ping",
+      "id": 29
+    },
+    {
+      "type": "socket",
+      "value": "",
+      "id": 30
+    },
+    {
+      "type": "process",
+      "value": "Cobalt Strike",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "OpenSCManagerW",
+      "id": 32
+    },
+    {
+      "type": "process",
+      "value": "StartServiceA",
+      "id": 33
+    },
+    {
+      "type": "process",
+      "value": "lateral movement_*",
+      "id": 34
+    },
+    {
+      "type": "socket",
+      "value": "interactive RDP sessions",
+      "id": 35
+    },
+    {
+      "type": "process",
+      "value": "exfiltration_*",
+      "id": 36
+    },
+    {
+      "type": "file",
+      "value": "canary documents",
+      "id": 37
+    },
+    {
+      "type": "socket",
+      "value": "91.193.182[.]165",
+      "id": 38
+    },
+    {
+      "type": "socket",
+      "value": "internal file server",
+      "id": 39
+    },
+    {
+      "type": "process",
+      "value": "Cobalt Strike Beacon",
+      "id": 40
+    },
+    {
+      "type": "process",
+      "value": "File Server",
+      "id": 41
+    },
+    {
+      "type": "socket",
+      "value": "C2",
+      "id": 42
+    },
+    {
+      "type": "process",
+      "value": "file share server",
+      "id": 43
+    },
+    {
+      "type": "socket",
+      "value": "Cobalt Strike command and control server",
+      "id": 44
+    }
+  ],
+  "links": [
+    {
+      "type": "Createkey",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 2,
+      "key": 1
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "2",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "3",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "4",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "5",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "6",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "execution",
+      "order": "9",
+      "source": 1,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "10",
+      "source": 1,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "11",
+      "source": 1,
+      "target": 11,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "12",
+      "source": 1,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "14",
+      "source": 1,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "21",
+      "source": 1,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "23",
+      "source": 1,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "25",
+      "source": 1,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "27",
+      "source": 1,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "29",
+      "source": 1,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "31",
+      "source": 1,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "34",
+      "source": 1,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "36",
+      "source": 1,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "40",
+      "source": 1,
+      "target": 40,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "43",
+      "source": 1,
+      "target": 43,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "7",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 7,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "13",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "15",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "16",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "17",
+      "source": 14,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "privilege escalation",
+      "order": "18",
+      "source": 14,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "19",
+      "source": 14,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "20",
+      "source": 14,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "22",
+      "source": 21,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "24",
+      "source": 23,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Readkey",
+      "phase": "discovery",
+      "order": "26",
+      "source": 25,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "discovery",
+      "order": "28",
+      "source": 27,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "discovery",
+      "order": "30",
+      "source": 29,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "lateral movement",
+      "order": "32",
+      "source": 31,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "33",
+      "source": 31,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "lateral movement",
+      "order": "35",
+      "source": 34,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "exfiltration",
+      "order": "37",
+      "source": 36,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "38",
+      "source": 36,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "39",
+      "source": 36,
+      "target": 39,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "41",
+      "source": 40,
+      "target": 41,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "42",
+      "source": 41,
+      "target": 42,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "44",
+      "source": 43,
+      "target": 44,
+      "key": 0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Initial Access ",
+        "content": "While previous Head Mare attacks relied solely on phishing emails with malicious attachments, they now also infiltrate victims’ infrastructure through compromised contractors with access to business automation platforms and RDP connections. This confirms the trend of hacktivists exploiting trusted relationships (T1199  –  Trusted Relationship and T1078  –  Valid Accounts). \nThe attackers also exploited software vulnerabilities, most commonly CVE-2023-38831 in WinRAR through phishing emails. In one incident, they exploited the Microsoft Exchange server vulnerability CVE-2021-26855 (ProxyLogon). Although patched in 2021, this vulnerability is still exploitable due to organizations using outdated operating systems and software. Our telemetry data revealed domain controllers still running Microsoft Windows Server 2012 R2 Server Standard x64 or, as in the aforementioned incidents, Microsoft Exchange Server 2016 used for email. \nThe attackers used ProxyLogon to execute a command to download and launch CobInt on the server. "
+    },
+    {
+        "title": "Persistence ",
+        "content": "The method of establishing persistence has changed. Instead of creating scheduled tasks, the attackers now create new privileged local users on a business automation platform server. They use these accounts to connect to the server via RDP to transfer and execute tools interactively. \nThey also install traffic tunneling tools like Localtonet for persistent access to the target host. They made Localtonet persistent with the help of Non-Sucking Service Manager (NSSM), which allows running any application as a Windows service, as well as monitoring and restarting it if it fails for some reason. This user-friendly tool is often used legitimately to install and manage programs that cannot function as services. Localtonet and NSSM help the malicious actor to maintain continuous access to the infected host. "
+    },
+    {
+        "title": "Command and Control ",
+        "content": "After exploiting the business automation platform server, attackers downloaded and installed the PhantomJitter backdoor. In the incidents we observed, the backdoor was downloaded into the victims’ infrastructure from the following URLs: \n1 http[:]//45.87.246[.]34:443/calc.exe   \n2 http[:]//185.158.248[.]107:443/calc.exe \nThe file was saved in the local directory as c.exe. Upon launch, it connected to the C2 server, allowing the operator to execute commands on the compromised host. \nIn addition to PhantomJitter, the attackers used CobInt, whose payload connected to the following C2 server: \nThe domain resolves to the IP address 45.156.27[.]115. "
+    },
+    {
+        "title": "Privilege Escalation ",
+        "content": "The attackers exploited previously compromised accounts of victims and their contractors, and created privileged local accounts, particularly when exploiting the business automation software server. If a user has sufficient permissions to remotely execute commands on the server, this software allows running a child command prompt process, such as cmd.exe, with privileges in the operating system corresponding to the program’s privileges. Since business automation software typically has administrator privileges in the OS, the child process also becomes privileged. The attackers exploited this opportunity: after gaining access to the vulnerable software server, they created a privileged local account on whose behalf they launched a command interpreter. "
+    },
+    {
+        "title": "Credential Access ",
+        "content": "The investigation identified tools for obtaining credentials. Besides the publicly available mimikatz utility, the attackers used secretsdump and ProcDump. Secretsdump was found on one victim’s system at the following paths: \nWhile no traces of the first command’s successful execution were found, the results of the second one were located at the following paths: "
+    },
+    {
+        "title": "Lateral Movement ",
+        "content": "The attackers used RDP to connect to systems, including with privileged accounts. They connected to NAS servers via SSH and used tools like mRemoteNG, smbexec, wmiexec, PAExec, and PsExec for remote host communication. "
+    }
+]

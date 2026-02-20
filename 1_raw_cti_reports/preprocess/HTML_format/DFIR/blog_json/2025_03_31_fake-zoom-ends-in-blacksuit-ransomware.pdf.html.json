@@ -1,0 +1,830 @@
+[
+    {
+        "level": 0,
+        "content": "Fake Zoom Ends in BlackSuit Ransomware"
+    },
+    {
+        "level": 2,
+        "content": "Key Takeaways"
+    },
+    {
+        "level": 3,
+        "content": "The threat actor gained initial access by a fake Zoom installer that used d3f@ckloader and IDAT loader to drop SectopRAT. \nAfter nine days of dwell time, the SectopRAT malware dropped Cobalt Strike and Brute Ratel. \nLateral movement was achieved using various remote services and later RDP. To facilitate RDP lateral movement the threat actor employed a malware with proxy capabilities known as QDoor. \nThe threat actor used WinRAR to archive various files and then upload them to a cloud SaaS application named Bublup. \nFinally, the threat actor deployed and executed BlackSuit ransomware across all Windows systems, using PsExec."
+    },
+    {
+        "level": 3,
+        "content": "Interested in joining the team as a volunteer analyst? Applyhereuntil April 21, 2025!"
+    },
+    {
+        "level": 2,
+        "content": "The DFIR Report Services"
+    },
+    {
+        "level": 3,
+        "content": "Explorethis casein-depth with our hands-on DFIR Labs!"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Private Threat Briefs: 20+ private DFIR reports annually. \nThreat Feed: Focuses on tracking Command and Control frameworks like Cobalt Strike, Metasploit, Sliver, etc. \nAll Intel: Includes everything from Private Threat Briefs and Threat Feed, plus private events, Threat Actor Insights reports, long-term tracking, data clustering, and other curated intel. \nPrivate Sigma Ruleset: Features 170+ Sigma rules derived from 50+ cases, mapped to ATT&CK with test examples. \nDFIR Labs: Offers cloud-based, hands-on learning experiences, using real data, from real intrusions. Interactive labs are available with different difficulty levels and can be accessed on-demand, accommodating various learning speeds."
+    },
+    {
+        "level": 3,
+        "content": "Case Summary \nServices \nAnalysts \nInitial Access \nExecution \nPersistence \nDefense Evasion \nCredential Access \nDiscovery \nLateral Movement \nCollection \nCommand and Control \nExfiltration \nImpact \nTimeline \nDiamond Model \nIndicators \nDetections \nMITRE ATT&CK"
+    },
+    {
+        "level": 2,
+        "content": "Case Summary"
+    },
+    {
+        "level": 3,
+        "content": "This case from May 2024 started with a malicious download from a website mimicking the teleconferencing application Zoom. When visiting the website and downloading a file that seems intended for installing Zoom, the user was, in fact, installing a malicious program created with Inno Setup."
+    },
+    {
+        "level": 3,
+        "content": "The malicious program was ad3f@ck loaderbased on the Pascal scripting language and included several references to the subsequent stages in the execution chain, such as OneDrive, Telegram, and Steam. After executing a batch script to exclude the payload folder from Windows Defender and mark it as hidden, the program connected to a Steam Community page for the next stage IP address."
+    },
+    {
+        "level": 3,
+        "content": "Two archive files were downloaded from this IP and extracted by another batch script. The script then proceeded to execute a payload from each archive. From one archive the script ran the legitimate Zoom installer so that the end user would get the program they thought they downloaded lowering the chances of the user reporting the event to IT or security staff."
+    },
+    {
+        "level": 3,
+        "content": "The second payload executed wasIDAT loaderand an encrypted payload file, that resulted in the injection of SectopRAT into MSBuild.exe. The MSbuild.exe process called out to Pastebin to receive an IP address to use for it’s command and control endpoint. After this, command and control traffic was established and activity ceased for eight days."
+    },
+    {
+        "level": 3,
+        "content": "On the ninth day of the intrusion, SectopRAT spawned a new command shell and executed a new payload. This was for a Brute Ratel payload, commonly referred to as ‘Badgers’. This Badger ran a series of Windows commands for discovery before executing a Cobalt Strike executable beacon. The Cobalt Strike beacon injected into a dllhost process and then was observed accessing LSASS memory."
+    },
+    {
+        "level": 3,
+        "content": "After this, the threat actor began moving laterally using Cobalt Strike psexec_psh to launch a remote service for a PowerShell Cobalt beacon on a domain controller. Once on the domain controller they continued discovery actions using utilities like nltest, net, and systeminfo. They continued to run Cobalt Strike beacons across several more hosts throughout the environment, repeating the pattern observed on the domain controller."
+    },
+    {
+        "level": 3,
+        "content": "On one domain controller and a backup server the threat actor dropped a binary svhost.exe. This file was a proxy tool know as QDoor. The threat actors executed this file using WMIC on the hosts and passed an IP address to provide a remote server for QDoor to proxy traffic to. Using this tunnel the threat actor proxied RDP traffic from their server to connect to hosts through the domain controller."
+    },
+    {
+        "level": 3,
+        "content": "They first connected to a file share server where they used the Edge browser to download WinRAR. They then used WinRAR to create an archive of targeted file shares. They then exfiltrated these archives using the SaaS project management suite Bublup via the Edge browser."
+    },
+    {
+        "level": 3,
+        "content": "Following this they then connected to the first domain controller via RDP. There they downloaded WinRAR again using the Edge browser, followed by a RAR archive from the temporary file sharing sitetemp.sh. This RAR archive contained all the files needed to stage and deploy their ransomware."
+    },
+    {
+        "level": 3,
+        "content": "After extracting the archive contents they began to proceed with ransomware deployment. They executed a batch file that copied the ransomware executable to remote hosts using a series of text files containing the remote targets using PsExec. This was followed with a second batch script that utilized the same text files and PsExec to run the ransomware on remote hosts."
+    },
+    {
+        "level": 3,
+        "content": "The ransomware was BlackSuit, which after execution on the remote hosts it used vssadmin to delete shadow copies, encrypted the local files, and then drop a ransom note. After completing the remote ransomware deployment the threat actor used WMIC to execute the ransomware locally on the domain controller they used to stage the remote deployment. The Time to Ransomware (TTR) in this case was a little over 194 hours over nine calendar days."
+    },
+    {
+        "level": 2,
+        "content": "Analysts"
+    },
+    {
+        "level": 3,
+        "content": "Analysis and reporting completed by@pigerlin, UC1 and@Miixxedup"
+    },
+    {
+        "level": 2,
+        "content": "Initial Access"
+    },
+    {
+        "level": 3,
+        "content": "This case starts with an initial tweet by ‘@crep1x’ on X, showing thefollowing:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Figure 01 – initial tweet, mentioning the domain ‘zoommanager[.]com"
+    },
+    {
+        "level": 3,
+        "content": "Upon visiting zoommanager[.]com, the user was greeted with a cloned Zoom web page, offering the user to install Zoom, a popular teleconferencing tool."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Figure 02 – Initial Malicious Zoom via zoommanager[.]com"
+    },
+    {
+        "level": 3,
+        "content": "Upon pressing the ‘Download’ button, the victim downloads a malicious binaryZoom_v_2.00.4.exe"
+    },
+    {
+        "level": 3,
+        "content": "The manner in which the victim arrived at this page was unclear in this case. Well-established methods for distribution include malicious advertising, such as in the ‘ads’ section of a Google search for terms like ‘Zoom’, or through access brokers who set up lures for popular tools to trick the victim into downloading the malware."
+    },
+    {
+        "level": 3,
+        "content": "The cloned webpage was only slightly modified to include a small function at the top, loadlink(), which triggers a backend PHP script located at ./download/dwnl.php. This script was added as an on-click event to some of the ‘Download’ buttons."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The threat actor didn’t replace all the links, as most links were still redirected to the legitimate Zoom domain. Also, some of the ‘download’ related functionality had not been replaced and was still referencing the legitimate Zoom page:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Execution"
+    },
+    {
+        "level": 3,
+        "content": "The Zoom installer was created usingInno Setup, a free installer for Windows programs, and served as the delivery mechanism for a multi-stage malware deployment and execution chain."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The trojanized installer was a downloader, more publicly known as “d3f@ckloader”, and is built upon the Pascal Scripting language. String analysis of the compiled code revealed references to various zip/cmd files, executables and URLs. The embedded URLs pointed to various platforms, including OneDrive, Telegram, and Steam."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Upon execution, the batch script 21.cmd was launched from the C:\\Program Files\\Windows NT directory. The script was no longer available on the beachhead system at the time of analysis however based on similar d3f@ckloader samples, we assess it was configured to set the ‘hidden’ attribute to all folders and files in the script’s running directory and add the root folder C: to Windows Defender’s exclusion list."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "This data was observed insandbox executionsof the sample:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The malware then established a connection to a Steam community profile page to obtain the IP address hosting the second-stage malware."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The Inno Download Plugin (idp.dll), a component of Inno Setup, was used to fetch two ZIP files from the remote IP address. The User-Agent associated with these web requests is very distinctive, making it a useful detection characteristic commonly identified byNIDS(network-based intrusion detection system) signatures."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Following this, the batch script, named 4554.cmd was executed. It was configured to extract the contents of both zip files in the C:\\Program Files\\Windows NT directory and run two executables that were stored within those archives."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The first archive contained the executable 1522.exe and represented a benign Zoom installer, likely employed to mask the malicious activity and maintain user trust. In the second archive resided a collection of files, including a signed executable 152.exe, various DLL files that contain HijackLoader (aka IDAT loader) and its encrypted payload file, artillery.mdb."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The execution flow of 152.exe parallels a previously reported instance, documented byRapid7, where a similar chain spawns an instance of cmd.exe and ultimately decrypts, loads and injects a SectopRAT payload into the MSBuild.exe process."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "This injected MSBuild.exe process then reached out to pastebin to receive its C2 configuration."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Execution graph:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Brute Ratel"
+    },
+    {
+        "level": 3,
+        "content": "On the ninth day of the intrusion we observed the SectopRAT process spawn a new command shell and execute the DLL 2905.dll using regsvr32.exe ."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "YARA rule-based memory scanning revealed binary patterns within the loaded process that are consistent with the Brute Ratel C4 framework."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "One minute before the 2905.dll file was dropped to disk, another DLL, 3004.dll, was also dropped. This DLL was also a Brute Ratel Badger but had a different C2 configuration and was never executed during the intrusion. It is unclear if this was an oversight by the threat actor or was dropped by accident."
+    },
+    {
+        "level": 3,
+        "content": "Cobalt Strike"
+    },
+    {
+        "level": 3,
+        "content": "The same DLL was observed facilitating the execution of a Cobalt Strike beacon, run32.exe , that resided in Windows’ temp directory."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Memory scans confirmed this executable as a Cobalt Strike beacon with several various YARA rule hits."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Persistence"
+    },
+    {
+        "level": 3,
+        "content": "Upon execution of 152.exe, Hijackloader established persistence on the beachhead system by the creation of a startup entry:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Defense Evasion"
+    },
+    {
+        "level": 3,
+        "content": "The Cobalt Strike beacon payload was successfully injected into the dllhost.exe process as indicated by Sysmon event id 10 in the screenshot below."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "During the initial loader execution the threat actor used the Windowsattributility to change the attributes using the following command:"
+    },
+    {
+        "level": 3,
+        "content": "The command flags provided perform the following actions:"
+    },
+    {
+        "level": 3,
+        "content": "+s Sets the System file attribute. If a file uses this attribute set, you must clear the attribute before you can change any other attributes for the file. \n+h Sets the Hidden file attribute. If a file uses this attribute set, you must clear the attribute before you can change any other attributes for the file. \n/D Appliesattriband any command-line options to directories."
+    },
+    {
+        "level": 3,
+        "content": "This would have hidden the initial access loader files from being visible when browsing via Explorer, lowering the chance of being discovered."
+    },
+    {
+        "level": 3,
+        "content": "During the intrusion the threat actor dropped SectopRAT to disk in %USERPROFILE%\\AppData\\Local\\Temp."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "This file was then loaded and executed in memory using MSbuild.exe. The same YARA rule triggered for both the on disk file and on the process memory for MSbuild.exe confirming the link."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The MSbuild process was then observed being used for SectopRAT C2 communication covered further in theCommand and Controlsection."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Credential Access"
+    },
+    {
+        "level": 3,
+        "content": "Evidence from the intrusion shows that the Cobalt Strike pass-the-hash module was leveraged, resulting in a new cmd.exe process being spawned by dllhost.exe, which indicates a successful attempt to elevate privileges to the local ‘SYSTEM.’"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Subsequently, the dllhost.exe process initiated a request for access to the LSASS process with the specific permissions mask of 0x1FFFFF (PROCESS_ALL_ACCESS). This access request pattern indicated an attempt to perform credential dumping from the LSASS process memory space."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Indicative of this behavior is the 0x1FFFFF Granted access (full process access) and the UNKNOWN in the CallTrace:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "CallStackTrace showing multiple offsets including ‘UNKNOWN’"
+    },
+    {
+        "level": 3,
+        "content": "Additional evidence of this activity included the use of Logon type 9 alongside an authentication type of seclogo strongly indicates credential use, akin to the runas command’s /netonly method, as used by Cobalt Strike’s ‘pass the hash’ technique. (CobaltstrikeWindows Access Tokens and Alternate Credentials | Cobalt StrikeWindows Access Tokens and Alternate Credentials | Cobalt Strikecobaltstrike.com/blog/windows-access-tokens-and-alternate-credentials"
+    },
+    {
+        "level": 3,
+        "content": ")."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Rubeus"
+    },
+    {
+        "level": 3,
+        "content": "During the intrusion the threat actor appeared to have tried to use Rubeus for credential access, based on YARA hits for the tool in the memory captures from the beachhead. It was discovered within the process memory space of the Brute Ratel Badger. The tool can perform a variety of credential access techniques and we were unable to identify any specific invocations indicating the methods attempted during this intrusion."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Discovery"
+    },
+    {
+        "level": 3,
+        "content": "The threat actor initially ran hostname, followed by the following commands over a 30-minute time span. Notably, there was a considerable time difference between some of these commands:"
+    },
+    {
+        "level": 3,
+        "content": "After this, the threat actor decided to drop a new access capability, a Cobalt Strike beacon. This beacon continued with a follow-up recon command:"
+    },
+    {
+        "level": 3,
+        "content": "Shortly after getting access to one of the domain controllers in the environment, the threat actor executed the following commands in quick succession:"
+    },
+    {
+        "level": 3,
+        "content": "Almost simultaneously, the threat actor moved to a backup server in the environment, performing the same remove service execution and deploying Cobalt Strike. Quickly after is the execution of the command for collection of the installed AV/EDR products via the WMIC."
+    },
+    {
+        "level": 3,
+        "content": "While WMIC is deprecated since W10 21H1, it is still regularly used for multiple administrative tasks or by threat actors."
+    },
+    {
+        "level": 3,
+        "content": "Moving onto multiple machines in the environment, dropping Cobalt Strike Beacons, the actor performed the following Discovery commands:"
+    },
+    {
+        "level": 2,
+        "content": "Lateral Movement"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Remote Service"
+    },
+    {
+        "level": 3,
+        "content": "The main method used by the threat actor to move laterally was by using the jump psexec_psh feature of Cobalt Strike. By using this technique, they installed Cobalt Strike on multiple hosts in rapid succession via PowerShell and base64 encoded payload."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "By using Zeek, we can observe all the calls done over RPC to create and execute this service."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Cyb3rSn0rlaxhave created areally good resource on how to detect these kinds of techniques"
+    },
+    {
+        "level": 3,
+        "content": "Leveraging Cyberchef, the recipedescribed in our earlier report, we can decode the shellcode."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "RDP"
+    },
+    {
+        "level": 3,
+        "content": "Using the proxy capability inside QDoor, they used RDP to access a file server and domain controller. This could be observed in the event ID 4624 LogonType 10 logs:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Since QDoor’s C2 communication is unencrypted it’s possible to spot this behavior with Suricata."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "While performing these RDP actions the threat actor leaked their back end hostname via various log events:"
+    },
+    {
+        "level": 3,
+        "content": "event ID 4779:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "event ID 4624 LogonType 3:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Collection"
+    },
+    {
+        "level": 3,
+        "content": "On the file server via a RDP session, they used the Edge browser to download WinRAR and used it to begin compressing file share data into an archive. Here we used Dissect’sEdge browser pluginto extract data collected through KAPE."
+    },
+    {
+        "level": 3,
+        "content": "They then executed WinRAR with the following command to compress a file share folder."
+    },
+    {
+        "level": 2,
+        "content": "Command and Control"
+    },
+    {
+        "level": 3,
+        "content": "In this case, four separate command and control channels were used, SectopRAT, Brute Ratel, QDoor and Cobalt Strike. All these frameworks were used by the threat actor to move in and out of the victim’s environment."
+    },
+    {
+        "level": 3,
+        "content": "SectopRAT:"
+    },
+    {
+        "level": 3,
+        "content": "The following rules triggered on the traffic, after SectopRAT injected itself into the MSBuild.exe process for 45.141.87[.]218."
+    },
+    {
+        "level": 3,
+        "content": "This rule fired when traffic to the destination port 15647 was observed:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "This rule fired during C2 beaconing activity to destination port 9000 that looked like:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Brute Ratel Badger:"
+    },
+    {
+        "level": 3,
+        "content": "5.181.159[.]31 with the associated domain megupdate.com"
+    },
+    {
+        "level": 3,
+        "content": "When looking for this activity, the following rules were associated to this IP:"
+    },
+    {
+        "level": 3,
+        "content": "ET INFO Observed ZeroSSL SSL/TLS Certificate"
+    },
+    {
+        "level": 3,
+        "content": "For this Badger (2905.dll), the following config was extracted:"
+    },
+    {
+        "level": 3,
+        "content": "Another sample (3004.dll) was found in the environment, containing a different configured C2:"
+    },
+    {
+        "level": 3,
+        "content": "Cobalt Strike Beacon:"
+    },
+    {
+        "level": 3,
+        "content": "The beacon had the following configuration (trimmed):"
+    },
+    {
+        "level": 3,
+        "content": "This is interesting as this matches the second Badger which was configured to use atyk[.]iodomain, but showed no traces of execution.Tykis an open source universal API management tool for REST, GraphQL, gRPC and async APIs, enabling quick API setup and access. This kind of activity is becoming more common, as this enables threat actors leveraging legitimate infrastructure for their malicious campaigns. An example, showing the usage of Cobalt Strike, is this blog from 2022 written by Askar onshells.systems, showing the exact same uri’s as in this campaign."
+    },
+    {
+        "level": 3,
+        "content": "It is unclear why the threat actor decided to continue with Cobalt Strike instead of Brute Ratel during lateral movement, especially if the unexecuted Badger contained a similar Tyk C2 domain."
+    },
+    {
+        "level": 3,
+        "content": "QDoor"
+    },
+    {
+        "level": 3,
+        "content": "During this intrusion we observed a proxy used by the threat actor. This proxy turned out to be a tool called QDoor that has been seen in multiple other case involving BlackSuit ransomware. It has been written about by ConnectWise in which its functionality is explained in more detail:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "QDoor can also be run with command-line arguments, by passing an address for C2 configuration, which was the case in this intrusion:"
+    },
+    {
+        "level": 3,
+        "content": "This activity triggered the following ET rule, indicating an tunneled RDP sessions over the established proxy facilitated by QDoor:"
+    },
+    {
+        "level": 2,
+        "content": "Exfiltration"
+    },
+    {
+        "level": 3,
+        "content": "After creating a RAR archive as noted in theCollectionsection, the threat actor moved to exfiltrate this data. Using Edge, they went to mystuff.bublup.com.Bublupis a SASS project management suite that includes cloud based storage."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Bublup uses amazon S3 as their back-end for storage."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The threat actor then proceeded to upload the rar archives to the cloud storage service."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "In total, 934.38 MB was transferred to the cloud storage service"
+    },
+    {
+        "level": 2,
+        "content": "Impact"
+    },
+    {
+        "level": 3,
+        "content": "Near the end of day nine, the threat actor prepared for ransomware deployment by downloading a set of files necessary for its propagation. The file archive utility WinRar 7.0.1 was downloaded using Microsoft Edge and installed on one of the domain controllers."
+    },
+    {
+        "level": 3,
+        "content": "The Edge history file C:\\Users\\<redacted>\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\History contained the following entry:"
+    },
+    {
+        "level": 3,
+        "content": "WinRAR was used to uncompress an archive fetched from the temporary storage websitetemp.sh."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The contents of the RAR archive were extracted into the local user’s Downloads directory."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The RAR archive contained the following files:"
+    },
+    {
+        "level": 3,
+        "content": "123.exe \nPsExec.exe \ncomps[1-4].txt \nCOPY.bat \nEXE.bat"
+    },
+    {
+        "level": 3,
+        "content": "The threat actor created a network share to stage the files and facilitate the deployment process:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The batch script COPY.BAT was then executed and distributed the BlackSuit ransomware payload named 123.exe to multiple remote hosts using PsExec. The files comps[1-4].txt – represented target lists containing private IP addresses of hosts on the victim’s network."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The second batch script EXE.bat contained within the RAR archive, was executed to initiate the encryption process on the designated remote hosts using PsExec."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The ransomware targeted data recovery mechanisms by attempting to delete all Volume Shadow Copies (VSS)."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Finally, the threat actor used WMIC on their staging domain controller, to execute the ransomware a final time."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The following ransom note was displayed on all affected systems post-encryption."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Diamond Model"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Timeline"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Indicators"
+    },
+    {
+        "level": 3,
+        "content": "Atomic"
+    },
+    {
+        "level": 3,
+        "content": "Computed"
+    },
+    {
+        "level": 2,
+        "content": "Detections"
+    },
+    {
+        "level": 3,
+        "content": "Network"
+    },
+    {
+        "level": 3,
+        "content": "Sigma"
+    },
+    {
+        "level": 3,
+        "content": "DFIR Private Rules:"
+    },
+    {
+        "level": 3,
+        "content": "Sigma Repo:"
+    },
+    {
+        "level": 3,
+        "content": "Yara"
+    },
+    {
+        "level": 3,
+        "content": "External rules:"
+    },
+    {
+        "level": 3,
+        "content": "https://www.linkedin.com/pulse/qdoor-new-backdoor-tool-blacksuits-arsenal-connectwise-uwvhc/"
+    },
+    {
+        "level": 3,
+        "content": "FromYaraforge:"
+    },
+    {
+        "level": 2,
+        "content": "MITRE ATT&CK"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Internal case #TB29354 #PR35002"
+    }
+]

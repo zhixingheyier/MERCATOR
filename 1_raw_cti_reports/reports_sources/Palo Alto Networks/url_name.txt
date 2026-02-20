@@ -1,0 +1,5 @@
+https://unit42.paloaltonetworks.com/javaghost-cloud-phishing/ 2025-February-28_javaghost-cloud-phishing
+https://unit42.paloaltonetworks.com/new-linux-backdoor-auto-color/ 2025-February-24_new-linux-backdoor-auto-color
+https://unit42.paloaltonetworks.com/malware-obfuscation-techniques/ 2025-March-3_malware-obfuscation-techniques
+https://unit42.paloaltonetworks.com/macos-malware-targets-crypto-sector/ 2025-February-26_macos-malware-targets-crypto-sector
+https://unit42.paloaltonetworks.com/macos-stealers-growing/ 2025-February-4_macos-stealers-growing

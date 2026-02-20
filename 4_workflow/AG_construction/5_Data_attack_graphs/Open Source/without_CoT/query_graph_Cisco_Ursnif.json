@@ -1,0 +1,350 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Microsoft Word",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "VBA macro",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "PowerShell",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "C2",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "executable",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "executable",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "Ursnif",
+      "id": 7
+    },
+    {
+      "type": "reg",
+      "value": "APHohema",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "WMIC",
+      "id": 9
+    },
+    {
+      "type": "reg",
+      "value": "Authicap",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": "powershell",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "HKCU:\\Software\\AppDataLow\\Software\\Microsoft\\236FF8AB-268A-4D1B-4807-  000000000000",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "HKCU:\\Software\\AppDataLow\\Software\\Microsoft\\236FF8AB-268A-4D1B-4807-  000000000000",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "Authicap",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "kernel32.dll",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "Invoke-Expression",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "SleepEx",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "VirtualAllocEx",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "malicious DLL",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "QueueUserAPC",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "current thread",
+      "id": 21
+    },
+    {
+      "type": "file",
+      "value": "%TEMP%\\[four hexadecimal characters].bin",
+      "id": 22
+    },
+    {
+      "type": "file",
+      "value": "%TEMP%\\[MakeCab directive file]",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "makecab.exe",
+      "id": 24
+    },
+    {
+      "type": "file",
+      "value": "%TEMP%\\[CAB files]",
+      "id": 25
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "5",
+      "source": 3,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "7",
+      "source": 3,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "13",
+      "source": 3,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "14",
+      "source": 3,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "15",
+      "source": 3,
+      "target": 15,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "16",
+      "source": 3,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "17",
+      "source": 3,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "execution",
+      "order": "6",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "exfiltration",
+      "order": "22",
+      "source": 7,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "23",
+      "source": 7,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "24",
+      "source": 7,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "26",
+      "source": 7,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 9,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Readkey",
+      "phase": "execution",
+      "order": "9",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "10",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "11",
+      "source": 11,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "12",
+      "source": 11,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "defense evasion",
+      "order": "18",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "defense evasion",
+      "order": "19",
+      "source": 17,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "20",
+      "source": 17,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "defense evasion",
+      "order": "21",
+      "source": 17,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "exfiltration",
+      "order": "25",
+      "source": 24,
+      "target": 23,
+      "key": 0
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "FireEye",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "210.176.3.130",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "payload",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "C:Documents and SettingsAll UsersApplication Data28542CC0.dll",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 5
+    },
+    {
+      "type": "socket",
+      "value": "180.150.228.102",
+      "id": 6
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    }
+  ]
+}

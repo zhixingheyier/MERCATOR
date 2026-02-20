@@ -1,0 +1,146 @@
+[
+    {
+        "level": 0,
+        "content": "Iranian Cyber Actors Impersonate Model Agency in Suspected Espionage Operation"
+    },
+    {
+        "level": 1,
+        "content": "Executive Summary"
+    },
+    {
+        "level": 3,
+        "content": "Unit 42 recently identified suspected covert Iranian infrastructure impersonating a German model agency. This infrastructure hosted a fraudulent website designed to mimic the authentic agency’s branding and content."
+    },
+    {
+        "level": 3,
+        "content": "Visitors unknowingly triggered obfuscated JavaScript designed to capture detailed visitor information, such as:"
+    },
+    {
+        "level": 3,
+        "content": "Browser languages \nScreen resolutions \nIP addresses \nBrowser fingerprints"
+    },
+    {
+        "level": 3,
+        "content": "Attackers likely collected these data points to enable selective targeting."
+    },
+    {
+        "level": 3,
+        "content": "The website replaces a real model's profile with a fake one, including a currently inactive link to a private album. This suggests preparation for targeted social engineering attacks, likely using the fake profile as a lure. We have not yet observed direct victim interaction, though it is possible victims would arrive at the fake website through spear phishing."
+    },
+    {
+        "level": 3,
+        "content": "The operation's complexity, methods and targeting lead us to believe with high confidence that these are the actions of an Iranian threat group. With lower confidence, we suspect a group overlapping withAgent Serpens, also known as APT35 or Charming Kitten, is behind this campaign. This group is known for conducting espionage campaigns against Iranian dissidents, journalists and activists, particularly those living abroad."
+    },
+    {
+        "level": 3,
+        "content": "In this article, we will cover details of the fake website’s functionality, including the obfuscated data collection routines and the fictitious profile likely used for social engineering."
+    },
+    {
+        "level": 3,
+        "content": "Individuals and organizations, particularly those involved with Iranian activist communities, should remain vigilant for similar operations and treat unsolicited contacts cautiously before engaging."
+    },
+    {
+        "level": 3,
+        "content": "Palo Alto Networks customers are better protected through the following products and services:"
+    },
+    {
+        "level": 3,
+        "content": "Advanced URL FilteringandAdvanced DNS Securityidentify known domains and URLs associated with this activity as malicious. \nAdvanced Threat Preventionhas an inbuilt machine learning-based detection that can detect exploits in real time."
+    },
+    {
+        "level": 3,
+        "content": "If you think you might have been compromised or have an urgent matter, contact theUnit 42 Incident Response team."
+    },
+    {
+        "level": 1,
+        "content": "Technical Analysis of the Fake Mega Model Agency Site"
+    },
+    {
+        "level": 3,
+        "content": "While monitoring infrastructure we assess is likely tied to Iranian cyber actors, we discovered the domainmegamodelstudio[.]com. This domain was registered on Feb. 18, 2025, and has resolved to64.72.205[.]32since March 1, 2025. This domain hosts a website impersonating the Hamburg-basedMega Model Agency, as illustrated in Figure 1."
+    },
+    {
+        "level": 3,
+        "content": "This actor-created website closely replicates the actual website's branding, layout and content. However, the clone includes an obfuscated script designed to harvest detailed visitor information and potentially lure specific targets to a fictitious model’s profile."
+    },
+    {
+        "level": 3,
+        "content": "This fake website exhibits the hallmarks of social engineering attacks performed by known Iranian advanced persistent threat groups (APTs). Most notably, it appears to link to Agent Serpens, a threat actor that the security community has widely reported to perform espionage campaigns against individuals and organizations critical of the Iranian regime,including in Germany [PDF]."
+    },
+    {
+        "level": 3,
+        "content": "Upon visiting any page of the fake website, obfuscated JavaScript code runs in the victim’s browser. The likely goal of the code is to enable selective targeting by determining sufficient device- and network-specific details about visitors."
+    },
+    {
+        "level": 3,
+        "content": "The script performs the following tasks:"
+    },
+    {
+        "level": 3,
+        "content": "Enumerating browser languages and plugins, retrieve screen resolution and collect timestamps to track a visitor’s locale and environment \nRevealing the user’s local and public IP address usingWebRTC-based IP address leaking \nLeveraging canvas fingerprinting, using SHA-256 to produce a device-unique hashCanvas fingerprinting is a technique that uses the HTML5 canvas element to identify unique characteristics about a user’s device and generate a corresponding fingerprint \nCanvas fingerprinting is a technique that uses the HTML5 canvas element to identify unique characteristics about a user’s device and generate a corresponding fingerprint \nStructuring the collected data (e.g., language, screen size, canvas hash) as JSON and delivering it to the endpoint/ads/trackvia aPOSTrequestThis naming convention suggests an attempt to disguise the collection as benign advertising traffic rather than storing and processing potential target fingerprints \nThis naming convention suggests an attempt to disguise the collection as benign advertising traffic rather than storing and processing potential target fingerprints"
+    },
+    {
+        "level": 3,
+        "content": "In addition to its data collection routines, the fake website contains functionality designed to dynamically alter on-page references to a specific model and replace them with details and images of a model named “Shir Benzion.” We assess that this replacement profile is likely fictitious and part of a social engineering tactic."
+    },
+    {
+        "level": 3,
+        "content": "Attackers also inject a link to a private album into the profile for this fictitious model, though it appears to be non-functional at the time of writing. We assess that this is likely a placeholder intended for targeted social engineering attacks, potentially serving as a mechanism for harvesting credentials or delivering malware payloads. We illustrate these observations in Figures 2 and 3."
+    },
+    {
+        "level": 3,
+        "content": "The fake website’s current functionality, combined with the potential for further malicious development, indicates that this campaign is both an ongoing and evolving threat."
+    },
+    {
+        "level": 1,
+        "content": "Conclusion"
+    },
+    {
+        "level": 3,
+        "content": "This operation, involving detailed visitor profiling and sophisticated impersonation tactics, demonstrates a continued escalation in suspected Iranian cyberespionage activity. Such activities present significant risks to various organizations and individuals, such as those advocating for or supporting Iranian dissidents."
+    },
+    {
+        "level": 3,
+        "content": "Individuals and organizations should treat unsolicited contacts offering seemingly appealing opportunities cautiously. People should independently verify the legitimacy of contacts, websites and offers before engaging or sharing sensitive information."
+    },
+    {
+        "level": 3,
+        "content": "Palo Alto Networks customers are better protected from the threats discussed in this article through the following products and services:"
+    },
+    {
+        "level": 3,
+        "content": "Advanced URL FilteringandAdvanced DNS Securitysubscriptions for theNext-Generation Firewallidentify known domains and URLs associated with this activity as malicious. \nAdvanced Threat Preventionhas an inbuilt machine learning-based detection that can detect exploits in real time."
+    },
+    {
+        "level": 3,
+        "content": "If you think you may have been compromised or have an urgent matter, get in touch with theUnit 42 Incident Response teamor call:"
+    },
+    {
+        "level": 3,
+        "content": "North America: Toll Free: +1 (866) 486-4842 (866.4.UNIT42) \nUK: +44.20.3743.3660 \nEurope and Middle East: +31.20.299.3130 \nAsia: +65.6983.8730 \nJapan: +81.50.1790.0200 \nAustralia: +61.2.4062.7950 \nIndia: 00080005045107"
+    },
+    {
+        "level": 3,
+        "content": "Palo Alto Networks has shared these findings with our fellow Cyber Threat Alliance (CTA) members. CTA members use this intelligence to rapidly deploy protections to their customers and to systematically disrupt malicious cyber actors. Learn more about theCyber Threat Alliance."
+    },
+    {
+        "level": 1,
+        "content": "Indicators of Compromise"
+    },
+    {
+        "level": 3,
+        "content": "Domain:megamodelstudio[.]com \nDescription: The domain pointing to the website impersonating Mega Model Agency \nIP address:64.72.205[.]32 \nDescription: The IP address of the server hosting the fake Mega Model Agency website \nURL:hxxps://www.megamodelstudio[.]com/model \nDescription: The URL for the main page of the fake Mega Model Agency website \nURL:hxxps://www.megamodelstudio[.]com/women \nDescription: The URL for the women’s page of the fake Mega Model Agency website \nURL:hxxps://www.megamodelstudio[.]com/women/Shir-Benzion \nDescription: The URL for the fictitious “Shir Benzion” profile"
+    },
+    {
+        "level": 1,
+        "content": "Additional Resources"
+    },
+    {
+        "level": 3,
+        "content": "[PDF] — Bundesamt für Verfassungsschutz (Federal Office for the Protection of the Constitution)"
+    },
+    {
+        "level": 3,
+        "content": ""
+    }
+]

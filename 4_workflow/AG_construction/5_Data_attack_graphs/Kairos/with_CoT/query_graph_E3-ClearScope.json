@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "www.mit.gov.jo",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "shared_files",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "/data/data/org.mozilla.fennec_firefox_dev",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "payload",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "payload",
+      "id": 6
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    }
+  ]
+}

@@ -1,0 +1,480 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "execution_*",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "attached file",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "attached file",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": ".NET",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "executable",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "executable",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "additional executable",
+      "id": 7
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA% directory",
+      "id": 9
+    },
+    {
+      "type": "socket",
+      "value": "remote Microsoft SQL server",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "raw binary file",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "Interaction.Shell()",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "malware",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "Escelar malware",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "%TEMP%\\\\JO[Computer Name][Computer Virtual Memory].exe",
+      "id": 16
+    },
+    {
+      "type": "file",
+      "value": "JCS.Components.NeroBar.dll",
+      "id": 17
+    },
+    {
+      "type": "socket",
+      "value": "https://internetbanking.caixa.gov.br/SIIBC/index.processa",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "http://www.bradesco.com.br/",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "http://www.bb.com.br/",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "https://www.itau.com.br/",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "https://www.santander.com.br/",
+      "id": 22
+    },
+    {
+      "type": "socket",
+      "value": "https://www.sicredi.com.br/",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "http://www.hsbc.com.br/1/2/br/para-sua-empresa",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "Google Chrome",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "Internet Explorer",
+      "id": 26
+    },
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "Escalar",
+      "id": 28
+    },
+    {
+      "type": "file",
+      "value": "authentication code",
+      "id": 29
+    },
+    {
+      "type": "process",
+      "value": "Escelar",
+      "id": 30
+    },
+    {
+      "type": "socket",
+      "value": "Gmail",
+      "id": 31
+    },
+    {
+      "type": "socket",
+      "value": "Hotmail",
+      "id": 32
+    },
+    {
+      "type": "socket",
+      "value": "webmail website",
+      "id": 33
+    },
+    {
+      "type": "socket",
+      "value": "Microsoft SQL server",
+      "id": 34
+    },
+    {
+      "type": "socket",
+      "value": "emails sent",
+      "id": 35
+    }
+  ],
+  "links": [
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "4",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "6",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "10",
+      "source": 6,
+      "target": 8,
+      "key": 1
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "7",
+      "source": 6,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "8",
+      "source": 6,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "9",
+      "source": 6,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "11",
+      "source": 6,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "14",
+      "source": 6,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "12",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "13",
+      "source": 12,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "17",
+      "source": 14,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "18",
+      "source": 14,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "19",
+      "source": 14,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "20",
+      "source": 14,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "21",
+      "source": 14,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "22",
+      "source": 14,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "23",
+      "source": 14,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "24",
+      "source": 14,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "command and control",
+      "order": "25",
+      "source": 14,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "command and control",
+      "order": "26",
+      "source": 14,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "command and control",
+      "order": "30",
+      "source": 14,
+      "target": 26,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "27",
+      "source": 14,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "29",
+      "source": 14,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "31",
+      "source": 14,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "15",
+      "source": 15,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "16",
+      "source": 15,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "28",
+      "source": 27,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "32",
+      "source": 30,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "33",
+      "source": 30,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "34",
+      "source": 30,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "35",
+      "source": 30,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "credential access",
+      "order": "36",
+      "source": 30,
+      "target": 35,
+      "key": 0
+    }
+  ]
+}

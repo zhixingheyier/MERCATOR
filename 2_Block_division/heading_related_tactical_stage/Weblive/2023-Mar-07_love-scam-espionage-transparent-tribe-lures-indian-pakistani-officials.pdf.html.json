@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Initial access",
+        "content": "As described above, the maliciousMeetUpapp has been available atmeetup-chat[.]com, and we believe with high confidence that the maliciousMeetsAppwas available atmeetsapp[.]org. Neither app would be automatically installed from these locations; the victims had to choose to download and install the apps manually. Considering that only a handful individuals were compromised, we believe that potential victims were highly targeted and lured using romance schemes, with Transparent Tribe operators most likely establishing first contact via another messaging platform. After gaining the victims’ trust, they suggested moving to another – allegedly more secure – chat app that was available on one of the malicious distribution websites.\nThere was no subterfuge suggesting the app was available in Google Play."
+    }
+]

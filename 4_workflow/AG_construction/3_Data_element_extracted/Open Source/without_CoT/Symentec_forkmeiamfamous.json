@@ -1,0 +1,22 @@
+[
+    {
+        "phase": "initial access",
+        "content": "These attacks were already well underway when another group began to deploy a previously unknown piece of malware. In October 2014, the Seaduke payload began to appear within target networks. Although Seaduke was developed in Python, the overall framework bears a striking resemblance to Cozyduke in terms of operation.  It's unclear why the attackers waited until October to deploy Seaduke. Was it reserved for a more specific attack? Was part of their cover blown, necessitating the use of an alternative framework?\nThe Seaduke framework was designed to be highly configurable. Hundreds of reconfigurations were identified on compromised networks. The communication protocol employed had many layers of encryption and obfuscation, using over 200 compromised web servers for command and control. Seaduke required a significant investment of time and resources in the preparatory and operational phases of the attack.",
+        "relationship": "[Relationships]: None."
+    },
+    {
+        "phase": "execution",
+        "content": "The attackers control Cozyduke via compromised websites, issuing instructions to infected machines by uploading \"tasks\" to a database file. Cozyduke will periodically contact these websites to retrieve task information to be executed on the local machine.  One such task (an encoded PowerShell script) instructed Cozyduke to download and execute Seaduke from a compromised website.",
+        "relationship": "[Relationships]: n/a"
+    },
+    {
+        "phase": "command and control",
+        "content": "The attackers can operate Seaduke in a broadly similar fashion to Cozyduke. The Seaduke control infrastructure is essentially distinct, opening up the possibility of sub-teams concurrently exploiting the target network. Unlike Cozyduke, Seaduke operators upload \"task\" files directly to the command-and-control (C&C) server; there is no database as such present. Seaduke securely communicates with the C&C server over HTTP/HTTPS beneath layers of encoding (Base64) and encryption (RC4, AES). To an untrained eye, the communications look fairly benign, no doubt an effort to stay under the radar on compromised networks.\nSeaduke has many inbuilt commands which are available to the attackers. They have the ability to retrieve detailed bot/system information, update bot configuration, upload files, download files, and self-delete the malware from the system. The self-delete function is interestingly called \"seppuku\". This is a form of Japanese ritual suicide.",
+        "relationship": "1. [Relationships]: <process:Seaduke,upload,file:task files>. \n2. [Relationships]: <process:Seaduke,communicate,socket:C&C server>. \n3. [Relationships]: <process:Seaduke,use,socket:HTTP/HTTPS>. \n4. [Relationships]: <process:Seaduke,use,socket:Base64>. \n5. [Relationships]: <process:Seaduke,use,socket:RC4>. \n6. [Relationships]: <process:Seaduke,use,socket:AES>. \n7. [Relationships]: <process:Seaduke,retrieve,file:bot/system information>. \n8. [Relationships]: <process:Seaduke,update,file:bot configuration>. \n9. [Relationships]: <process:Seaduke,upload,file:files>. \n10. [Relationships]: <process:Seaduke,download,file:files>. \n11. [Relationships]: <process:Seaduke,self-delete,file:malware>. \n12. [Relationships]: <process:Seaduke,call,func:seppuku>. "
+    },
+    {
+        "phase": "impact",
+        "content": "The attackers have also developed a number of additional payloads. Operators can push these payloads onto infected machines for very specific attacks.\nImpersonation using Kerberos pass-the-ticket attacks (Mimikatz PowerShell)\nEmail extraction from the MS Exchange Server using compromised credentials\nArchiving sensitive information\nData exfiltration via legitimate cloud services\nSecure file deletion",
+        "relationship": "[Relationships]: n/a"
+    }
+]

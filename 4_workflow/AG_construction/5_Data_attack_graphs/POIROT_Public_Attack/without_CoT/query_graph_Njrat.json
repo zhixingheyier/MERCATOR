@@ -1,0 +1,332 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Authorization form may - 2013 - 115444.scr",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "Authorization.exe",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "Authorization.exe",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "chrome.exe",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "[CWD]\\.tmp",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "C:\\Extracted\\.tmp",
+      "id": 6
+    },
+    {
+      "type": "socket",
+      "value": "217.66.231.245:1177",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\msnco.exe",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "C:\\Documents and Settings\\%USERNAME%\\Start Menu\\Programs\\Startup\\b6554e5bcfef391ff7a7ffda58092e10.exe",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "[CWD]\\ Authorization.exe.config",
+      "id": 10
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\b6554e5bcfef391ff7a7ffda58092e10",
+      "id": 11
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\b6554e5bcfef391ff7a7ffda58092e10",
+      "id": 12
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\StandardProfile\\AuthorizedApplications\\List\\[%APPDATA%]\\msnco.exe",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "C2 node",
+      "id": 15
+    },
+    {
+      "type": "socket",
+      "value": "socket:C2 node",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "opened windows",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "analyst",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "WHOIS",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "hxxp://bongdacongdong.vn/authorization.exe",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "112.213.89.144",
+      "id": 22
+    },
+    {
+      "type": "socket",
+      "value": "31.170.165.90",
+      "id": 23
+    }
+  ],
+  "links": [
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "4",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "5",
+      "source": 3,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "6",
+      "source": 3,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "7",
+      "source": 3,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "8",
+      "source": 3,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "9",
+      "source": 3,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "10",
+      "source": 3,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "11",
+      "source": 3,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "12",
+      "source": 3,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "15",
+      "source": 3,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "18",
+      "source": 3,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "21",
+      "source": 3,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "23",
+      "source": 3,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "24",
+      "source": 3,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "25",
+      "source": 3,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "13",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "14",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "exfiltration",
+      "order": "16",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "exfiltration",
+      "order": "17",
+      "source": 17,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "exfiltration",
+      "order": "20",
+      "source": 17,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "19",
+      "source": 19,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "22",
+      "source": 20,
+      "target": 15,
+      "key": 0
+    }
+  ]
+}

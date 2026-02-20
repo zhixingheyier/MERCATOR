@@ -1,0 +1,151 @@
+[
+    {
+        "phase": "initial access",
+        "content": "After connecting to the C&C server, we downloaded the Waterbear RAT (A) in memory, which contains several command codes inside (see Table 1 for the list of RAT commands). In this case, the Waterbear RAT (A) was only used to download the Waterbear plugin via RAT command 1010 and activate the first export function, \"Start\", in the plugin to inject the chosen process. \nThe Waterbear plugin contains Waterbear downloader versions 0.27 and 0.28, both unencrypted, varying based on the process's bit version. If the process is 32-bit, version 0.27 of the Waterbear downloader will run. On the other hand, version 0.28 will execute to facilitate further downloads on the 64-bit process.Waterbear downloader versions 0.27 and 0.28 are the latest that we know of. Their behaviors are the same as the versions before 2020. \nIn this case, the Waterbear plugin injects into a 64-bit process, which results in version 0.28 of the Waterbear downloader trying to connect to the new C&C IP address - which is assigned by Waterbear RAT (A)  -  and download Waterbear RAT (B), which is almost the same as the previous one, just with a different RSA key inside. \nWaterbear RAT (B) will be used to collect the information from the infected machine, including the list of drives and files, and then further spread the Waterbear downloader to other machines. Interestingly, Earth Hundun will replace the C&C string with an internal IP address after downloading the new stage of the RAT or downloader. This is to erase activity traces or connect to other C&C servers in the victim's environment, showing that the threat actor can arbitrarily choose its connection targets.",
+        "relationship": "1. [Relationships]: <process:Waterbear RAT, download, file:Waterbear RAT>. \n2. [Relationships]: <process:Waterbear RAT, activate, process:Waterbear plugin>. \n3. [Relationships]: <process:Waterbear plugin, inject, process:chosen process>. \n4. [Relationships]: <process:Waterbear plugin, connect, socket:C&C IP address>. \n5. [Relationships]: <process:Waterbear RAT, collect, file:list of drives and files>. \n6. [Relationships]: <process:Waterbear RAT, spread, file:Waterbear downloader>. \n7. [Relationships]: <process:Earth Hundun, replace, socket:C&C string>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:Waterbear RAT, Write, file:Waterbear RAT>. \n[System-level Relationships]: <process:Waterbear RAT, Fork, process:Waterbear plugin>. \n[System-level Relationships]: <process:Waterbear plugin,Inject,process:chosen process>. \n[System-level Relationships]: <process:Waterbear plugin,Connect,socket:C&C IP address>. \n[System-level Relationships]: <process:Waterbear RAT,Read,file:list of drives and files>. \n[System-level Relationships]: <process:Waterbear RAT,Write,file:Waterbear downloader>. \n[System-level Relationships]: <process:Earth Hundun,Connect,socket:C&C string>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "Since discussing Waterbear's functions in our previous blog entry, there have been more that have been implemented, with the latest version shown in the following table:\nTable 1. List of Waterbear RAT commands\nBefore receiving the backdoor command, the RAT sends the victim's information to the C&C server via command code 8002:\nTable 2. The structure of victim information that Waterbear sends to the C&C server\nThis section will explain Earth Hundun's use of Deuterbear and provide a comprehensive analysis of the Deuterbear RAT.",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "execution",
+        "content": "The installation pathway of Deuterbear is depicted in Figure 3. Note that it is similar to Waterbear, which implements two stages to install the backdoor.\nIn the first stage, the loader employs a basic XOR calculation to decrypt the downloader, facilitating the retrieval of the first stage RAT from the C&C server. Subsequently, the threat actor applies the first stage RAT to survey the victim's system and identify an appropriate folder for persistence. This is where the second-stage Deuterbear components will be installed, including the loader with CryptUnprotectData decryption, the encrypted downloader, and associated registries (the decryption flow was discussed in the previous blog entry).\nIn most of the infected systems, only the second stage Deuterbear is available. Our monitoring indicates that all components of the first stage Deuterbear are totally removed after the \"persistence installation\" is completed. It seems that Earth Hundun prefers to keep the loaders using CryptUnprotectData decryption, even in cases where the successful installation of Deuterbear is achieved during the first stage. This strategy effectively protects their tracks and prevents the malware from easily being analyzed by threat researchers, particularly in simulated environments rather than real victim systems.",
+        "relationship": "1. [Relationships]: <process:loader,decrypt,file:downloader>. \n2. [Relationships]: <process:threat actor,apply,file:first stage RAT>. \n3. [Relationships]: <process:first stage Deuterbear,install,file:loader>. \n4. [Relationships]: <process:first stage Deuterbear,install,file:encrypted downloader>. \n5. [Relationships]: <process:first stage Deuterbear,modify,reg:registries>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:loader,Read,file:downloader>. \n[System-level Relationships]: <process:threat actor,Write,file:first stage RAT>. \n[System-level Relationships]: <process:first stage Deuterbear,Create,file:loader>. \n[System-level Relationships]: <process:first stage Deuterbear,Create,file:encrypted downloader>. \n[System-level Relationships]: <process:first stage Deuterbear,Writekey,reg:registries>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "The Deuterbear RAT directly inherits several components from the downloader, including:\nAll anti-analysis techniques (please refer to our previous report for more details). \nHTTPS tunnel. \nRoutine to receive and send traffic. \nRC4 key to decrypt and encrypt traffic. \nRoutine to decrypt and encrypt the desired function. \nKey to decrypt and encrypt the desired function.\nDue to having the same HTTPS channel and RC4 traffic key, Deuterbear RAT doesn't require a handshake with the C&C server to update communication protocols. This enables the threat actor to seamlessly control the client, regardless of whether the process is in the downloader or RAT status. Prior to executing backdoor commands, the Deuterbear RAT transmits victim information to the C&C server via RAT command 975 with the structure (Table 3) highly reminiscent of the Waterbear RAT (Table 2).\nTable 3. The structure of victim information that Deuterbear sends to the C&C server",
+        "relationship": "1. [Relationships]: <process:Deuterbear RAT,inherits,process:downloader>. \n2. [Relationships]: <process:Deuterbear RAT,uses,socket:HTTPS tunnel>. \n3. [Relationships]: <process:Deuterbear RAT,receives,socket:traffic>. \n4. [Relationships]: <process:Deuterbear RAT,sends,socket:traffic>. \n5. [Relationships]: <process:Deuterbear RAT,decrypts,socket:traffic>. \n6. [Relationships]: <process:Deuterbear RAT,encrypts,socket:traffic>. \n7. [Relationships]: <process:Deuterbear RAT,transmits,socket:C&C server>. \n8. [Relationships]: <process:Deuterbear RAT,uses,socket:RAT command 975>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,process:downloader>. \n[System-level Relationships]: <process:Deuterbear RAT,Connect,socket:HTTPS tunnel>. \n[System-level Relationships]: <process:Deuterbear RAT,Receive,socket:traffic>. \n[System-level Relationships]: <process:Deuterbear RAT,Send,socket:traffic>. \n[System-level Relationships]: <process:Deuterbear RAT,Receive,socket:traffic>. \n[System-level Relationships]: <process:Deuterbear RAT,Send,socket:traffic>. \n[System-level Relationships]: <process:Deuterbear RAT,Send,socket:C&C server>. \n[System-level Relationships]: <process:Deuterbear RAT,Connect,socket:RAT command 975>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "Comparing Deuterbear with Waterbear reveals several functionalities directly replicated from the Waterbear RAT, such as process management, file management, and remote shell capabilities.\nAlthough Deuterbear streamlines its capabilities, retaining only 20 RAT commands (Table 4) compared to over 60 for Waterbear (Table 1), the Deuterbear RAT accepts more plugins to enhance flexibility and accommodate additional functionalities, including two shellcodes and a portable executable (PE) DLL via RAT command 979. After installing the plugins, the threat actor sends the next traffic to determine which plugin is launched. There are three kinds of protocols:\nExecute the first shellcode and the first export function of PE(DLL) \nExecute the second shellcode and the first export function of PE(DLL) \nOnly execute the first export function of PE(DLL)\nTable 4. List of Deuterbear RAT commands\nExamples of similarities in backdoor commands between Waterbear and Deuterbear are shown in the images from Figure 4 to Figure 6.",
+        "relationship": "1. [Relationships]: <process:Deuterbear,accepts,socket:shellcode>. \n2. [Relationships]: <process:Deuterbear,accepts,file:PE(DLL)>. \n3. [Relationships]: <process:threat actor,sends,socket:traffic>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:Deuterbear,Receive,socket:shellcode>. \n[System-level Relationships]: <process:Deuterbear,Write,file:PE(DLL)>. \n[System-level Relationships]: <process:threat actor,Send,socket:traffic>. "
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Waterbear RAT, download, file:Waterbear RAT>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Waterbear RAT, Write, file:Waterbear RAT>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Waterbear RAT, activate, process:Waterbear plugin>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Waterbear RAT, Fork, process:Waterbear plugin>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Waterbear plugin, inject, process:chosen process>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Waterbear plugin,Inject,process:chosen process>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Waterbear plugin, connect, socket:C&C IP address>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Waterbear plugin,Connect,socket:C&C IP address>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Waterbear RAT, collect, file:list of drives and files>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Waterbear RAT,Read,file:list of drives and files>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Waterbear RAT, spread, file:Waterbear downloader>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Waterbear RAT,Write,file:Waterbear downloader>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Earth Hundun, replace, socket:C&C string>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Earth Hundun,Connect,socket:C&C string>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:loader,decrypt,file:downloader>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:loader,Read,file:downloader>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:threat actor,apply,file:first stage RAT>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:threat actor,Write,file:first stage RAT>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:first stage Deuterbear,install,file:loader>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:first stage Deuterbear,Create,file:loader>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:first stage Deuterbear,install,file:encrypted downloader>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:first stage Deuterbear,Create,file:encrypted downloader>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:first stage Deuterbear,modify,reg:registries>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:first stage Deuterbear,Writekey,reg:registries>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,inherits,process:downloader>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,process:downloader>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,uses,socket:HTTPS tunnel>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Connect,socket:HTTPS tunnel>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,receives,socket:traffic>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Receive,socket:traffic>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,sends,socket:traffic>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Send,socket:traffic>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,decrypts,socket:traffic>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Receive,socket:traffic>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,encrypts,socket:traffic>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Send,socket:traffic>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,transmits,socket:C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Send,socket:C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear RAT,uses,socket:RAT command 975>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear RAT,Connect,socket:RAT command 975>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear,accepts,socket:shellcode>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear,Receive,socket:shellcode>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:Deuterbear,accepts,file:PE(DLL)>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Deuterbear,Write,file:PE(DLL)>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:threat actor,sends,socket:traffic>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:threat actor,Send,socket:traffic>. "
+            }
+        ]
+    }
+]

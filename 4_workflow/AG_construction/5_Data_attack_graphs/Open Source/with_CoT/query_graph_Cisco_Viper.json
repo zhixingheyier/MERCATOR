@@ -1,0 +1,269 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "loc_6D9030",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "%TEMP% folder decoy document",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "decoy document",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "decoy document",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "implant",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "RAT functionalities",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "current command line",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "shortcut in the %TEMP% directory",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "shortcut to the currently logged-in user's Startup folder",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "shortcut",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\dsfjj45k.tmp",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "winmgmts:\\\\localhost\\root\\SecurityCenter2",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "installed product name",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "implant command line",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "HTTP form query variables",
+      "id": 15
+    },
+    {
+      "type": "socket",
+      "value": "HTTP POST request",
+      "id": 16
+    },
+    {
+      "type": "socket",
+      "value": "C2 server",
+      "id": 17
+    },
+    {
+      "type": "socket",
+      "value": "HTTP form variables",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "URLs",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "ipconfig",
+      "id": 20
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "persistence",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "persistence",
+      "order": "6",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "7",
+      "source": 5,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "8",
+      "source": 5,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "collection",
+      "order": "10",
+      "source": 5,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "collection",
+      "order": "11",
+      "source": 5,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "12",
+      "source": 5,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "13",
+      "source": 5,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "14",
+      "source": 5,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "collection",
+      "order": "15",
+      "source": 5,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "16",
+      "source": 5,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "17",
+      "source": 5,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "18",
+      "source": 5,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "19",
+      "source": 5,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "9",
+      "source": 10,
+      "target": 5,
+      "key": 0
+    }
+  ]
+}

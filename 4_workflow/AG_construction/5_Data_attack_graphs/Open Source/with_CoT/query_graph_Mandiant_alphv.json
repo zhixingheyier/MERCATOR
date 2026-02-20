@@ -1,0 +1,355 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "METASPLOIT module",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "Veritas Backup Exec 16.x, 20.x and 21.x vulnerabilities",
+      "id": 2
+    },
+    {
+      "type": "socket",
+      "value": "session",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "Mandiant",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "exploitation of the Veritas vulnerabilities",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "UNC4466",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "Windows server",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "Metasploit persistence module",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "Others",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "Internet Explorer",
+      "id": 10
+    },
+    {
+      "type": "socket",
+      "value": "hxxps://download.advanced-ipscanner[.]com",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "ADRecon",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "reports",
+      "id": 13
+    },
+    {
+      "type": "socket",
+      "value": "SOCKS5 tunneling",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "LIGOLO",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "REVSOCKS",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "Mimikatz",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "LSASS",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "C:\\Windows\\System32\\mimilsa.log",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "Nanodump",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "C:\\Windows\\Temp\\ directory",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "Start-BitsTransfer",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "ALPHV ransomware",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "tasks",
+      "id": 24
+    },
+    {
+      "type": "file",
+      "value": "ALPHV encryptor",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "ALPHV encryptor",
+      "id": 26
+    }
+  ],
+  "links": [
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "6",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "8",
+      "source": 6,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "discovery",
+      "order": "9",
+      "source": 6,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "discovery",
+      "order": "10",
+      "source": 6,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "12",
+      "source": 6,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "13",
+      "source": 6,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "14",
+      "source": 6,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "16",
+      "source": 6,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "credential access",
+      "order": "19",
+      "source": 6,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "22",
+      "source": 6,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "23",
+      "source": 6,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "24",
+      "source": 6,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "7",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "discovery",
+      "order": "11",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "15",
+      "source": 16,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "credential access",
+      "order": "17",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "credential access",
+      "order": "18",
+      "source": 17,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "credential access",
+      "order": "20",
+      "source": 20,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "credential access",
+      "order": "21",
+      "source": 20,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "impact",
+      "order": "25",
+      "source": 24,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "26",
+      "source": 24,
+      "target": 26,
+      "key": 0
+    }
+  ]
+}

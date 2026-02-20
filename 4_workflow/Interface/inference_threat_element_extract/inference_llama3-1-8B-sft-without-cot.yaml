@@ -1,0 +1,8 @@
+model_name_or_path: raw_model_path (e.g., xx/xx/LLM-Research/Meta-Llama-3.1-8B)
+adapter_name_or_path: fine-tuned_model_weight_path (e.g., xx/xx/3_finetuned_LLMs/M_classifier/fine-tuned_M_classifier/weights)
+template: default
+finetuning_type: lora
+# infer_backend: huggingface
+infer_backend: vllm
+vllm_enforce_eager: true
+vllm_max_lora_rank: 64

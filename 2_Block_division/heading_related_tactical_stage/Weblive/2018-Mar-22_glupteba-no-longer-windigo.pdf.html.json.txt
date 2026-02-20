@@ -1,0 +1,9 @@
+
+【Persistence】
+==============================
+  Glupteba acquires persistence by adding an entry in the Run registry key. Thus, every time Windows boots up, Glupteba will be launched. Here’s the entry that is created:
+  HKCU\Software\Microsoft\Windows\CurrentVersion\Run\CloudNet =  "%APPDATA%\EpicNet Inc\CloudNet\cloudnet.exe"
+  Other entare also created in the Windows Registry. The most interesting are the following:
+  HKCU\Software\EpicNet Inc.\CloudNet\Value = "20180223"HKCU\Software\EpicNet Inc.\CloudNet\GUID = "CDC0432A-0298-40B1-9A71-D61F94C013A7"
+  The GUID entry is set to the bot id that is created via a call to CoCreateGuid. As for the Value entry, it contains the PE timestamp of Glupteba’s binary.
+

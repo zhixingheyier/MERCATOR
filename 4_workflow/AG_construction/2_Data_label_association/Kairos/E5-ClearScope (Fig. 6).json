@@ -1,0 +1,7 @@
+[
+    {
+        "title": "e5-clearscope (fig. 6).",
+        "content": "A user accidentally installs a malicious appstarter APK de.belu.appstarter, which loads an attack module called busybox. This module gives the attacker control from 77.138.117.150. The attacker then installs the driver msm_g711tlaw into the victim host for privilege escalation. The attack exfiltrates calllog.db, calendar.db, and mmssms.db and takes a screenshot. Two days later, the attacker exploits appstarter again to try to connect to the C&C server(128.55.12.233) but failed. The ground truth also describes some malicious activity of attack payloads called lockwatch and mozilla. Upon close inspection, we discover that the provenance data related to the malicious activity is corrupted. We remove the corrupted data and omit the malicious activity in Fig. 6.",
+        "phase": "initial access"
+    }
+]

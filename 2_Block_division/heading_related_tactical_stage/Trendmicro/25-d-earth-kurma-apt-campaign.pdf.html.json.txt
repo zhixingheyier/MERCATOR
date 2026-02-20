@@ -1,0 +1,59 @@
+
+【Impact】
+==============================
+  Our telemetry shows that that Earth Kurma targeted victims primarily in Southeast Asia, including the Philippines, Vietnam, Thailand and Malaysia. Earth Kurma’s targets likely indicate cyberespionage as the motivation.
+
+
+【Lateral Movement】
+==============================
+  We were unable to confirm the arrival vectors used in the attacks, as our analysis started years after the victims were first compromised.Multiple tools were used in the lateral movement stage. Various utilities were used to scan the victims’ infrastructures and deploy malware, including NBTSCAN, LADON, FRPC, WMIHACKER and ICMPinger. They also deployed a keylogger, KMLOG, to steal credentials from victims.
+  To survey the victims’ infrastructures, the threat actors used a tool named ICMPinger to scan the hosts. It is a simple network scanning tool based on the ICMP protocol to test if the specified hosts are still alive. They delete this tool once their operations conclude.
+  They also used another open-source tool calledLadonto inspect the infrastructure. To bypass detection, Ladon is wrapped in a reflective loader compiled by PyInstaller. The XOR keys used to decode the payload differ among all the samples we’ve collected.
+  To move laterally, they also used another open-source tool calledWMIHACKER, which  could execute commands over port 135 without the need for SMB.
+  In some of the cases we observed, they also execute commands over the SMB protocol (such as using “net use”) to inspect the infrastructure as well as deploy malware.
+  C:\Windows\system32\cmd.exe /C sc.exe -a 172.20.40.0-172.20.40.255 -t 500 -f lg.txt -c 1 -o 100 –nC:\Windows\system32\cmd.exe /C net use \\172.20.40.41\c$ {password} /u:{user}C:\Windows\system32\cmd.exe /C copy vdmsc.dll \\172.20.40.41\c$\users\{user} \videosC:\Windows\system32\cmd.exe /C copy msv.dat \\172.20.40.41\c$\windows\system32C:\Windows\system32\cmd.exe /C sc \\172.20.40.41 create katech binpath= "cmd /c start /b rundll32.exe c:\users\{user}\videos\vdmsc.dll,Init"C:\Windows\system32\cmd.exe /C sc \\172.20.40.41 start katechC:\Windows\system32\cmd.exe /C sc \\172.20.40.41 delete katechC:\Windows\system32\cmd.exe /C net use \\172.20.40.41\c$ /del /y
+  The threat actors also tried to steal the credentials from the victims by using a custom tool called KMLOG. It’s a simple keylogger that logs every keystroke to a file named “%Appdata%\Roaming\Microsoft\Windows\Libraries\infokey.zip.”
+  To hide the keystroke log file, it is prepended with a fake ZIP file header (PK header). What follows the header is the real body of the logging content.
+  Table 1. The structure of the keystroke logging file
+
+
+【Persistence】
+==============================
+  In the persistence stage, the actors deployed different loaders to maintain their foothold, including DUNLOADER, TESDAT and DMLOADER. These loaders are used to load payload files into memory and execute them. These loaders are then used to deploy more malware and exfiltrate data over public cloud services like Dropbox and OneDrive. In some cases, rootkits, including KRNRAT and MORIYA, were implanted by the loaders to bypass the scanning.
+  Loaders
+  Between 2022 and 2024, we observed multiple loaders implanted in victim environments, including DUNLOADER, TESDAT and DMLOADER. Most of the final payloads are Cobalt Strike beacons.
+  The first loader we encountered is DUNLOADER. It’s capable of loading the payloads from either of the locations and decode it in one-byte XOR operations:
+  From a file named “pdata.txt” 
+  From its own resource blob named “BIN”
+  This loader is a DLL file and always ensures that it’s executed by “rundll32.exe” by checking if the name of the parent process contains a specific string literal “und”. In most cases, this DLL should contain an export function called “Start.”
+  The newer loader we later found is called TESDAT. It always loads a payload file with a “.dat” extension (like “mns.dat”). Instead of using common APIs like CreateThread to execute the decoded shellcode, it always calls an API called “SwitchToFiber,” which we think is an attempt to avoid detection. Our analysis showed two variants for TESDAT loaders. It can be either an EXE file or a DLL file with an export function called “Init.”
+  We also noticed that the actors would name the loaders with some random strings and put them inside the folders that were often accessed by the victims instead of those commonly used by attackers (i.e., %ProgramData% or %Public%). This was presumably intended to blend the loaders with legitimate user files. Here are some filename examples:
+  C:\Users\{user}\downloads\wcrpc.dll 
+  C:\Users\{user}\downloads\mflpro\acrg.dll 
+  C:\Users\{user}\documents\ViberDownloads\mfsvc.dll 
+  C:\Users\{user}\downloads\fwdjustification\dilx.exe 
+  C:\Users\{user}\downloads\ffap3560pcl6220510w636iml\drasc.dll 
+  C:\Users\{user}\downloads\1\2\3\prikc.exe 
+  C:\Users\{user}\Downloads\Rufus\gpupdat.exe
+  More recently, we observed a new loader, DMLOADER, was implanted. Instead of loading an additional payload file, it loads the embedded payload and decodes it as an in-memory PE buffer. This loader usually has an export function called “DoMain” or “StartProtect.” In the decoded PE payload, it should have an export function called “MThread.”
+  Rootkits
+  After the loaders are implanted in the victim machines, we found rootkits installed on some compromised machines. To install the rootkits, the threat actor abused a living-off-the-land binary called “syssetup.dll” and dropped an INF file to install them. An example of the used command line is as follows:
+  C:\Windows\SysWOW64\rundll32.exe syssetup,SetupInfObjectInstallAction DefaultInstall 128 c:\users\{user}\downloads\SmartFilter.inf
+  The first rootkit we observed is called MORIYA, which could hide the malicious payload in the TCP traffic.
+  MORIYA works as a TCP traffic interceptor. It tries to monitor if an incoming TCP packet is from the command-and-control (C&C) server by checking its first six magic bytes. The magic bytes could be registered by issuing a specific IOCTL code 0x222004 from its user-mode agent. If any packet is matched, it tries to inject the malicious payload into the body of the response packet. The variant we found works exactly the same as the one from this MORIYAreport.
+  The MORIYA variant we found has an additional shellcode injection capability. At the end of its execution, it tries to load a payload file from the location ”\\SystemRoot\\system32\\drivers\\{driver_name}.dat.” The payload will be decrypted in AES and injected into the process of svchost.exe. This payload should be its user-mode agent.
+  The shellcode will eventually be invoked by using the API NtCreateThreadEx. To bypass detection, it tries to invoke the call by directly using the syscall number. To get the valid syscall numbers on the targeted system, it enumerates the NTDLL’s export functions, finds the ones with names starting with “Zw” or “Nt” and saves the syscall number of each. This code snippet is reused fromthis post.
+  The other rootkit we found is called KRNRAT. It’s a full-featured backdoor with various capabilities, including process manipulation, file hiding, shellcode execution, traffic concealment, and C&C communication. We named this rootkit KRNRAT because of its internal name, just as written in its PDB string: N:\project\li\ThreeTools\KrnRat\code\x64\Debug\SmartFilter.pdb
+  Our analysis showed that KRNRAT is based upon multiple open-source projects:
+  https://github.com/w1nds/ishellcode 
+  https://github.com/DarthTon/Blackbone 
+  https://github.com/XaFF-XaFF/Cronos-Rootkit 
+  https://github.com/JKornev/hidden 
+  https://github.com/amitschendel/venom-rootkit
+  KRNRAT supports numerous IOCTL codes and capabilities. Its debug strings are also self-explanatory. Here’s the full table of the supported IOCTL codes.
+  Table 2. The command codes supported in KRNRAT
+  At the end of its execution, it also loads the additional payload file and injects it into the svchost.exe process. This shellcode injection capability works exactly the same as the MORIYA variant we found. This time, we were able to collect the payload, which turns out to be the user-mode agent for KRNRAT and is the backdoor. This means that its user-mode agent is always memory-resident.
+  The backdoor is a stager. It connects to the C&C server and downloads the next-stage payload back. It tries to hide the process and connections by issuing the specific IOCTL codes to the KRNRAT rootkit.
+  Table 3. The structure of the backdoor’s configuration in the registry
+  The final payload from the C&C server would be the so-calledSManager.
+

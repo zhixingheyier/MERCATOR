@@ -1,0 +1,52 @@
+[
+    {
+        "phase": "initial access",
+        "content": "The attacker (81.49.200.166) connects to a vulnerable Nginx server and obtains a shell. Through the shell, the attacker successfully downloads a malicious payload to /tmp/vUgefal and executes the payload with root privileges. The elevated process vUgefal attempts to move laterally to 154.145.113.18 and 61.167.39.128. However, only the attempt at infecting 61.167.39.128 is successful. vUgefal further plans to inject malicious payload to the sshd process. To do so, the attacker downloads the payload to /var/log/devc, but the attempted process injection fails.",
+        "relationship": "1. [Relationships]: <process:attacker,connects to,socket:81.49.200.166>. \n2. [Relationships]: <process:attacker,obtains,process:shell>. \n3. [Relationships]: <process:attacker,downloads,file:/tmp/vUgefal>. \n4. [Relationships]: <process:vUgefal,executes,file:/tmp/vUgefal>. \n5. [Relationships]: <process:vUgefal,attempts to move to,socket:154.145.113.18>. \n6. [Relationships]: <process:vUgefal,attempts to move to,socket:61.167.39.128>. \n7. [Relationships]: <process:vUgefal,injects to,process:sshd>. \n8. [Relationships]: <process:attacker,downloads,file:/var/log/devc>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:attacker,Connect,socket:81.49.200.166>. \n[System-level Relationships]: <process:attacker,Inject,process:shell>. \n[System-level Relationships]: <process:attacker,Write,file:/tmp/vUgefal>. \n[System-level Relationships]: <process:vUgefal,Execute,file:/tmp/vUgefal>. \n[System-level Relationships]: <process:vUgefal,Connect,socket:154.145.113.18>. \n[System-level Relationships]: <process:vUgefal,Connect,socket:61.167.39.128>. \n[System-level Relationships]: <process:vUgefal,Inject,process:sshd>. \n[System-level Relationships]: <process:attacker,Write,file:/var/log/devc>. "
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,connects to,socket:81.49.200.166>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Connect,socket:81.49.200.166>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,obtains,process:shell>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Inject,process:shell>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,downloads,file:/tmp/vUgefal>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Write,file:/tmp/vUgefal>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:vUgefal,executes,file:/tmp/vUgefal>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:vUgefal,Execute,file:/tmp/vUgefal>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:vUgefal,attempts to move to,socket:154.145.113.18>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:vUgefal,Connect,socket:154.145.113.18>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:vUgefal,attempts to move to,socket:61.167.39.128>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:vUgefal,Connect,socket:61.167.39.128>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:vUgefal,injects to,process:sshd>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:vUgefal,Inject,process:sshd>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,downloads,file:/var/log/devc>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Write,file:/var/log/devc>. "
+            }
+        ]
+    }
+]

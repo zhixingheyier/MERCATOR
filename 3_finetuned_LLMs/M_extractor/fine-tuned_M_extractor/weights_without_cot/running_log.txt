@@ -1,0 +1,827 @@
+[INFO|2025-06-26 17:39:03] tokenization_utils_base.py:2058 >> loading file tokenizer.model
+
+[INFO|2025-06-26 17:39:03] tokenization_utils_base.py:2058 >> loading file added_tokens.json
+
+[INFO|2025-06-26 17:39:03] tokenization_utils_base.py:2058 >> loading file special_tokens_map.json
+
+[INFO|2025-06-26 17:39:03] tokenization_utils_base.py:2058 >> loading file tokenizer_config.json
+
+[INFO|2025-06-26 17:39:03] tokenization_utils_base.py:2058 >> loading file chat_template.jinja
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2323 >> Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+[INFO|2025-06-26 17:39:04] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 17:39:04] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2058 >> loading file tokenizer.json
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2058 >> loading file tokenizer.model
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2058 >> loading file added_tokens.json
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2058 >> loading file special_tokens_map.json
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2058 >> loading file tokenizer_config.json
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2058 >> loading file chat_template.jinja
+
+[INFO|2025-06-26 17:39:04] tokenization_utils_base.py:2323 >> Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+
+[INFO|2025-06-26 17:39:04] logging.py:143 >> Add pad token: <|end_of_text|>
+
+[INFO|2025-06-26 17:39:04] logging.py:143 >> Loading dataset train_data_without_cot_6-26.json...
+
+[INFO|2025-06-26 17:39:10] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 17:39:10] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[WARNING|2025-06-26 17:39:10] logging.py:148 >> FlashAttention-2 is not installed.
+
+[INFO|2025-06-26 17:39:10] logging.py:143 >> Quantizing model to 4 bit with bitsandbytes.
+
+[INFO|2025-06-26 17:39:10] logging.py:143 >> KV cache is disabled during training.
+
+[INFO|2025-06-26 17:39:10] quantizer_bnb_4bit.py:279 >> The device_map was not initialized. Setting device_map to {'': 0}. If you want to use the model for inference, please set device_map ='auto' 
+
+[INFO|2025-06-26 17:39:10] modeling_utils.py:1121 >> loading weights file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/model.safetensors.index.json
+
+[INFO|2025-06-26 17:39:10] modeling_utils.py:2167 >> Instantiating LlamaForCausalLM model under default dtype torch.bfloat16.
+
+[INFO|2025-06-26 17:39:10] configuration_utils.py:1142 >> Generate config GenerationConfig {
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "use_cache": false
+}
+
+
+[INFO|2025-06-26 17:39:28] modeling_utils.py:4930 >> All model checkpoint weights were used when initializing LlamaForCausalLM.
+
+
+[INFO|2025-06-26 17:39:28] modeling_utils.py:4938 >> All the weights of LlamaForCausalLM were initialized from the model checkpoint at /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use LlamaForCausalLM for predictions without further training.
+
+[INFO|2025-06-26 17:39:28] configuration_utils.py:1095 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/generation_config.json
+
+[INFO|2025-06-26 17:39:28] configuration_utils.py:1142 >> Generate config GenerationConfig {
+  "bos_token_id": 128000,
+  "do_sample": true,
+  "eos_token_id": 128001,
+  "temperature": 0.6,
+  "top_p": 0.9
+}
+
+
+[INFO|2025-06-26 17:39:28] logging.py:143 >> Gradient checkpointing enabled.
+
+[INFO|2025-06-26 17:39:28] logging.py:143 >> Using torch SDPA for faster training and inference.
+
+[INFO|2025-06-26 17:39:28] logging.py:143 >> Upcasting trainable params to float32.
+
+[INFO|2025-06-26 17:39:28] logging.py:143 >> Fine-tuning method: LoRA
+
+[INFO|2025-06-26 17:39:28] logging.py:143 >> Found linear modules: gate_proj,k_proj,down_proj,up_proj,o_proj,v_proj,q_proj
+
+[INFO|2025-06-26 17:39:29] logging.py:143 >> trainable params: 41,943,040 || all params: 8,072,204,288 || trainable%: 0.5196
+
+[INFO|2025-06-26 17:39:29] trainer.py:748 >> Using auto half precision backend
+
+[INFO|2025-06-26 17:39:36] trainer.py:2414 >> ***** Running training *****
+
+[INFO|2025-06-26 17:39:36] trainer.py:2415 >>   Num examples = 314
+
+[INFO|2025-06-26 17:39:36] trainer.py:2416 >>   Num Epochs = 50
+
+[INFO|2025-06-26 17:39:36] trainer.py:2417 >>   Instantaneous batch size per device = 1
+
+[INFO|2025-06-26 17:39:36] trainer.py:2420 >>   Total train batch size (w. parallel, distributed & accumulation) = 32
+
+[INFO|2025-06-26 17:39:36] trainer.py:2421 >>   Gradient Accumulation steps = 8
+
+[INFO|2025-06-26 17:39:36] trainer.py:2422 >>   Total optimization steps = 450
+
+[INFO|2025-06-26 17:39:36] trainer.py:2423 >>   Number of trainable parameters = 41,943,040
+
+[INFO|2025-06-26 17:41:15] logging.py:143 >> {'loss': 1.3261, 'learning_rate': 4.0000e-05, 'epoch': 0.51, 'throughput': 525.60}
+
+[INFO|2025-06-26 17:42:32] logging.py:143 >> {'loss': 1.1208, 'learning_rate': 4.9990e-05, 'epoch': 1.10, 'throughput': 619.26}
+
+[INFO|2025-06-26 17:43:45] logging.py:143 >> {'loss': 0.4210, 'learning_rate': 4.9950e-05, 'epoch': 1.61, 'throughput': 656.22}
+
+[INFO|2025-06-26 17:45:01] logging.py:143 >> {'loss': 0.3166, 'learning_rate': 4.9878e-05, 'epoch': 2.20, 'throughput': 657.14}
+
+[INFO|2025-06-26 17:46:13] logging.py:143 >> {'loss': 0.2191, 'learning_rate': 4.9775e-05, 'epoch': 2.71, 'throughput': 655.44}
+
+[INFO|2025-06-26 17:47:31] logging.py:143 >> {'loss': 0.2265, 'learning_rate': 4.9642e-05, 'epoch': 3.30, 'throughput': 678.44}
+
+[INFO|2025-06-26 17:48:44] logging.py:143 >> {'loss': 0.1649, 'learning_rate': 4.9478e-05, 'epoch': 3.81, 'throughput': 681.35}
+
+[INFO|2025-06-26 17:50:00] logging.py:143 >> {'loss': 0.2055, 'learning_rate': 4.9283e-05, 'epoch': 4.41, 'throughput': 685.15}
+
+[INFO|2025-06-26 17:51:13] logging.py:143 >> {'loss': 0.1370, 'learning_rate': 4.9058e-05, 'epoch': 4.91, 'throughput': 685.67}
+
+[INFO|2025-06-26 17:52:30] logging.py:143 >> {'loss': 0.1503, 'learning_rate': 4.8804e-05, 'epoch': 5.51, 'throughput': 688.54}
+
+[INFO|2025-06-26 17:52:34] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-50
+
+[INFO|2025-06-26 17:52:34] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 17:52:34] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 17:52:34] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-50/tokenizer_config.json
+
+[INFO|2025-06-26 17:52:34] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-50/special_tokens_map.json
+
+[INFO|2025-06-26 17:53:53] logging.py:143 >> {'loss': 0.1447, 'learning_rate': 4.8519e-05, 'epoch': 6.10, 'throughput': 686.73}
+
+[INFO|2025-06-26 17:55:06] logging.py:143 >> {'loss': 0.0999, 'learning_rate': 4.8205e-05, 'epoch': 6.61, 'throughput': 691.26}
+
+[INFO|2025-06-26 17:56:24] logging.py:143 >> {'loss': 0.1103, 'learning_rate': 4.7863e-05, 'epoch': 7.20, 'throughput': 688.52}
+
+[INFO|2025-06-26 17:57:38] logging.py:143 >> {'loss': 0.0711, 'learning_rate': 4.7491e-05, 'epoch': 7.71, 'throughput': 689.73}
+
+[INFO|2025-06-26 17:58:55] logging.py:143 >> {'loss': 0.0755, 'learning_rate': 4.7092e-05, 'epoch': 8.30, 'throughput': 692.65}
+
+[INFO|2025-06-26 18:00:08] logging.py:143 >> {'loss': 0.0604, 'learning_rate': 4.6665e-05, 'epoch': 8.81, 'throughput': 691.83}
+
+[INFO|2025-06-26 18:01:25] logging.py:143 >> {'loss': 0.0477, 'learning_rate': 4.6212e-05, 'epoch': 9.41, 'throughput': 694.50}
+
+[INFO|2025-06-26 18:02:38] logging.py:143 >> {'loss': 0.0387, 'learning_rate': 4.5731e-05, 'epoch': 9.91, 'throughput': 695.15}
+
+[INFO|2025-06-26 18:03:55] logging.py:143 >> {'loss': 0.0303, 'learning_rate': 4.5225e-05, 'epoch': 10.51, 'throughput': 695.75}
+
+[INFO|2025-06-26 18:05:12] logging.py:143 >> {'loss': 0.0370, 'learning_rate': 4.4694e-05, 'epoch': 11.10, 'throughput': 696.49}
+
+[INFO|2025-06-26 18:05:16] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-100
+
+[INFO|2025-06-26 18:05:16] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 18:05:16] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 18:05:16] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-100/tokenizer_config.json
+
+[INFO|2025-06-26 18:05:16] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-100/special_tokens_map.json
+
+[INFO|2025-06-26 18:06:30] logging.py:143 >> {'loss': 0.0226, 'learning_rate': 4.4138e-05, 'epoch': 11.61, 'throughput': 693.71}
+
+[INFO|2025-06-26 18:07:47] logging.py:143 >> {'loss': 0.0216, 'learning_rate': 4.3559e-05, 'epoch': 12.20, 'throughput': 694.50}
+
+[INFO|2025-06-26 18:09:00] logging.py:143 >> {'loss': 0.0154, 'learning_rate': 4.2956e-05, 'epoch': 12.71, 'throughput': 693.78}
+
+[INFO|2025-06-26 18:10:17] logging.py:143 >> {'loss': 0.0181, 'learning_rate': 4.2331e-05, 'epoch': 13.30, 'throughput': 694.97}
+
+[INFO|2025-06-26 18:11:30] logging.py:143 >> {'loss': 0.0150, 'learning_rate': 4.1684e-05, 'epoch': 13.81, 'throughput': 695.31}
+
+[INFO|2025-06-26 18:12:48] logging.py:143 >> {'loss': 0.0140, 'learning_rate': 4.1017e-05, 'epoch': 14.41, 'throughput': 696.41}
+
+[INFO|2025-06-26 18:14:01] logging.py:143 >> {'loss': 0.0131, 'learning_rate': 4.0330e-05, 'epoch': 14.91, 'throughput': 696.51}
+
+[INFO|2025-06-26 18:15:17] logging.py:143 >> {'loss': 0.0199, 'learning_rate': 3.9623e-05, 'epoch': 15.51, 'throughput': 696.58}
+
+[INFO|2025-06-26 18:16:34] logging.py:143 >> {'loss': 0.0139, 'learning_rate': 3.8898e-05, 'epoch': 16.10, 'throughput': 697.56}
+
+[INFO|2025-06-26 18:17:47] logging.py:143 >> {'loss': 0.0080, 'learning_rate': 3.8156e-05, 'epoch': 16.61, 'throughput': 697.45}
+
+[INFO|2025-06-26 18:17:50] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-150
+
+[INFO|2025-06-26 18:17:50] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 18:17:50] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 18:17:50] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-150/tokenizer_config.json
+
+[INFO|2025-06-26 18:17:50] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-150/special_tokens_map.json
+
+[INFO|2025-06-26 18:19:08] logging.py:143 >> {'loss': 0.0131, 'learning_rate': 3.7398e-05, 'epoch': 17.20, 'throughput': 696.83}
+
+[INFO|2025-06-26 18:20:21] logging.py:143 >> {'loss': 0.0082, 'learning_rate': 3.6624e-05, 'epoch': 17.71, 'throughput': 696.66}
+
+[INFO|2025-06-26 18:21:39] logging.py:143 >> {'loss': 0.0117, 'learning_rate': 3.5836e-05, 'epoch': 18.30, 'throughput': 698.32}
+
+[INFO|2025-06-26 18:22:52] logging.py:143 >> {'loss': 0.0065, 'learning_rate': 3.5034e-05, 'epoch': 18.81, 'throughput': 698.68}
+
+[INFO|2025-06-26 18:24:09] logging.py:143 >> {'loss': 0.0081, 'learning_rate': 3.4220e-05, 'epoch': 19.41, 'throughput': 697.54}
+
+[INFO|2025-06-26 18:25:23] logging.py:143 >> {'loss': 0.0054, 'learning_rate': 3.3394e-05, 'epoch': 19.91, 'throughput': 698.41}
+
+[INFO|2025-06-26 18:26:40] logging.py:143 >> {'loss': 0.0074, 'learning_rate': 3.2557e-05, 'epoch': 20.51, 'throughput': 698.02}
+
+[INFO|2025-06-26 18:27:57] logging.py:143 >> {'loss': 0.0098, 'learning_rate': 3.1712e-05, 'epoch': 21.10, 'throughput': 698.87}
+
+[INFO|2025-06-26 18:29:11] logging.py:143 >> {'loss': 0.0056, 'learning_rate': 3.0858e-05, 'epoch': 21.61, 'throughput': 699.39}
+
+[INFO|2025-06-26 18:30:28] logging.py:143 >> {'loss': 0.0057, 'learning_rate': 2.9996e-05, 'epoch': 22.20, 'throughput': 699.02}
+
+[INFO|2025-06-26 18:30:31] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-200
+
+[INFO|2025-06-26 18:30:31] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 18:30:31] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 18:30:31] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-200/tokenizer_config.json
+
+[INFO|2025-06-26 18:30:31] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-200/special_tokens_map.json
+
+[INFO|2025-06-26 18:31:46] logging.py:143 >> {'loss': 0.0036, 'learning_rate': 2.9129e-05, 'epoch': 22.71, 'throughput': 697.74}
+
+[INFO|2025-06-26 18:33:02] logging.py:143 >> {'loss': 0.0112, 'learning_rate': 2.8256e-05, 'epoch': 23.30, 'throughput': 698.11}
+
+[INFO|2025-06-26 18:34:15] logging.py:143 >> {'loss': 0.0030, 'learning_rate': 2.7379e-05, 'epoch': 23.81, 'throughput': 698.42}
+
+[INFO|2025-06-26 18:35:33] logging.py:143 >> {'loss': 0.0078, 'learning_rate': 2.6499e-05, 'epoch': 24.41, 'throughput': 698.01}
+
+[INFO|2025-06-26 18:36:46] logging.py:143 >> {'loss': 0.0018, 'learning_rate': 2.5618e-05, 'epoch': 24.91, 'throughput': 698.65}
+
+[INFO|2025-06-26 18:38:04] logging.py:143 >> {'loss': 0.0018, 'learning_rate': 2.4735e-05, 'epoch': 25.51, 'throughput': 699.80}
+
+[INFO|2025-06-26 18:39:21] logging.py:143 >> {'loss': 0.0013, 'learning_rate': 2.3853e-05, 'epoch': 26.10, 'throughput': 698.95}
+
+[INFO|2025-06-26 18:40:33] logging.py:143 >> {'loss': 0.0007, 'learning_rate': 2.2973e-05, 'epoch': 26.61, 'throughput': 699.30}
+
+[INFO|2025-06-26 18:41:51] logging.py:143 >> {'loss': 0.0009, 'learning_rate': 2.2094e-05, 'epoch': 27.20, 'throughput': 700.05}
+
+[INFO|2025-06-26 18:43:04] logging.py:143 >> {'loss': 0.0007, 'learning_rate': 2.1220e-05, 'epoch': 27.71, 'throughput': 699.57}
+
+[INFO|2025-06-26 18:43:08] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-250
+
+[INFO|2025-06-26 18:43:08] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 18:43:08] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 18:43:08] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-250/tokenizer_config.json
+
+[INFO|2025-06-26 18:43:08] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-250/special_tokens_map.json
+
+[INFO|2025-06-26 18:44:26] logging.py:143 >> {'loss': 0.0007, 'learning_rate': 2.0350e-05, 'epoch': 28.30, 'throughput': 699.58}
+
+[INFO|2025-06-26 18:45:40] logging.py:143 >> {'loss': 0.0004, 'learning_rate': 1.9486e-05, 'epoch': 28.81, 'throughput': 699.30}
+
+[INFO|2025-06-26 18:46:57] logging.py:143 >> {'loss': 0.0004, 'learning_rate': 1.8629e-05, 'epoch': 29.41, 'throughput': 700.25}
+
+[INFO|2025-06-26 18:48:10] logging.py:143 >> {'loss': 0.0003, 'learning_rate': 1.7780e-05, 'epoch': 29.91, 'throughput': 699.60}
+
+[INFO|2025-06-26 18:49:27] logging.py:143 >> {'loss': 0.0004, 'learning_rate': 1.6940e-05, 'epoch': 30.51, 'throughput': 699.86}
+
+[INFO|2025-06-26 18:50:44] logging.py:143 >> {'loss': 0.0005, 'learning_rate': 1.6109e-05, 'epoch': 31.10, 'throughput': 699.89}
+
+[INFO|2025-06-26 18:51:57] logging.py:143 >> {'loss': 0.0014, 'learning_rate': 1.5290e-05, 'epoch': 31.61, 'throughput': 699.94}
+
+[INFO|2025-06-26 18:53:14] logging.py:143 >> {'loss': 0.0032, 'learning_rate': 1.4483e-05, 'epoch': 32.20, 'throughput': 700.12}
+
+[INFO|2025-06-26 18:54:28] logging.py:143 >> {'loss': 0.0009, 'learning_rate': 1.3690e-05, 'epoch': 32.71, 'throughput': 700.24}
+
+[INFO|2025-06-26 18:55:44] logging.py:143 >> {'loss': 0.0008, 'learning_rate': 1.2910e-05, 'epoch': 33.30, 'throughput': 700.53}
+
+[INFO|2025-06-26 18:55:47] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-300
+
+[INFO|2025-06-26 18:55:47] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 18:55:47] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 18:55:47] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-300/tokenizer_config.json
+
+[INFO|2025-06-26 18:55:47] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-300/special_tokens_map.json
+
+[INFO|2025-06-26 18:57:02] logging.py:143 >> {'loss': 0.0006, 'learning_rate': 1.2145e-05, 'epoch': 33.81, 'throughput': 699.63}
+
+[INFO|2025-06-26 18:58:19] logging.py:143 >> {'loss': 0.0003, 'learning_rate': 1.1396e-05, 'epoch': 34.41, 'throughput': 699.35}
+
+[INFO|2025-06-26 18:59:33] logging.py:143 >> {'loss': 0.0005, 'learning_rate': 1.0665e-05, 'epoch': 34.91, 'throughput': 700.00}
+
+[INFO|2025-06-26 19:00:49] logging.py:143 >> {'loss': 0.0004, 'learning_rate': 9.9507e-06, 'epoch': 35.51, 'throughput': 700.18}
+
+[INFO|2025-06-26 19:02:08] logging.py:143 >> {'loss': 0.0003, 'learning_rate': 9.2556e-06, 'epoch': 36.10, 'throughput': 700.44}
+
+[INFO|2025-06-26 19:03:21] logging.py:143 >> {'loss': 0.0003, 'learning_rate': 8.5800e-06, 'epoch': 36.61, 'throughput': 700.21}
+
+[INFO|2025-06-26 19:04:39] logging.py:143 >> {'loss': 0.0003, 'learning_rate': 7.9250e-06, 'epoch': 37.20, 'throughput': 700.15}
+
+[INFO|2025-06-26 19:05:52] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 7.2912e-06, 'epoch': 37.71, 'throughput': 700.79}
+
+[INFO|2025-06-26 19:07:08] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 6.6794e-06, 'epoch': 38.30, 'throughput': 701.34}
+
+[INFO|2025-06-26 19:08:21] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 6.0905e-06, 'epoch': 38.81, 'throughput': 700.99}
+
+[INFO|2025-06-26 19:08:25] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-350
+
+[INFO|2025-06-26 19:08:25] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 19:08:25] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 19:08:25] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-350/tokenizer_config.json
+
+[INFO|2025-06-26 19:08:25] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-350/special_tokens_map.json
+
+[INFO|2025-06-26 19:09:44] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 5.5252e-06, 'epoch': 39.41, 'throughput': 700.46}
+
+[INFO|2025-06-26 19:10:57] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 4.9841e-06, 'epoch': 39.91, 'throughput': 700.26}
+
+[INFO|2025-06-26 19:12:14] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 4.4679e-06, 'epoch': 40.51, 'throughput': 700.42}
+
+[INFO|2025-06-26 19:13:30] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 3.9773e-06, 'epoch': 41.10, 'throughput': 700.63}
+
+[INFO|2025-06-26 19:14:43] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 3.5130e-06, 'epoch': 41.61, 'throughput': 700.58}
+
+[INFO|2025-06-26 19:16:00] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 3.0753e-06, 'epoch': 42.20, 'throughput': 700.94}
+
+[INFO|2025-06-26 19:17:13] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 2.6651e-06, 'epoch': 42.71, 'throughput': 700.94}
+
+[INFO|2025-06-26 19:18:31] logging.py:143 >> {'loss': 0.0003, 'learning_rate': 2.2826e-06, 'epoch': 43.30, 'throughput': 701.45}
+
+[INFO|2025-06-26 19:19:44] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 1.9284e-06, 'epoch': 43.81, 'throughput': 701.31}
+
+[INFO|2025-06-26 19:21:01] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 1.6030e-06, 'epoch': 44.41, 'throughput': 701.28}
+
+[INFO|2025-06-26 19:21:04] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-400
+
+[INFO|2025-06-26 19:21:04] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 19:21:04] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 19:21:04] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-400/tokenizer_config.json
+
+[INFO|2025-06-26 19:21:04] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-400/special_tokens_map.json
+
+[INFO|2025-06-26 19:22:18] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 1.3067e-06, 'epoch': 44.91, 'throughput': 701.44}
+
+[INFO|2025-06-26 19:23:34] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 1.0400e-06, 'epoch': 45.51, 'throughput': 701.13}
+
+[INFO|2025-06-26 19:24:52] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 8.0307e-07, 'epoch': 46.10, 'throughput': 701.69}
+
+[INFO|2025-06-26 19:26:06] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 5.9632e-07, 'epoch': 46.61, 'throughput': 701.64}
+
+[INFO|2025-06-26 19:27:24] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 4.1997e-07, 'epoch': 47.20, 'throughput': 701.71}
+
+[INFO|2025-06-26 19:28:38] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 2.7424e-07, 'epoch': 47.71, 'throughput': 701.00}
+
+[INFO|2025-06-26 19:29:56] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 1.5932e-07, 'epoch': 48.30, 'throughput': 701.20}
+
+[INFO|2025-06-26 19:31:09] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 7.5345e-08, 'epoch': 48.81, 'throughput': 701.35}
+
+[INFO|2025-06-26 19:32:26] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 2.2425e-08, 'epoch': 49.41, 'throughput': 701.51}
+
+[INFO|2025-06-26 19:33:40] logging.py:143 >> {'loss': 0.0002, 'learning_rate': 6.2300e-10, 'epoch': 49.91, 'throughput': 701.54}
+
+[INFO|2025-06-26 19:33:43] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-450
+
+[INFO|2025-06-26 19:33:43] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 19:33:43] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 19:33:43] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-450/tokenizer_config.json
+
+[INFO|2025-06-26 19:33:43] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/checkpoint-450/special_tokens_map.json
+
+[INFO|2025-06-26 19:33:44] trainer.py:2681 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+
+[INFO|2025-06-26 19:33:47] trainer.py:3984 >> Saving model checkpoint to saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot
+
+[INFO|2025-06-26 19:33:47] configuration_utils.py:691 >> loading configuration file /media/guo/E/work/mywork_1/LLM_model/LLM-Research/Meta-Llama-3.1-8B/config.json
+
+[INFO|2025-06-26 19:33:47] configuration_utils.py:765 >> Model config LlamaConfig {
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 128000,
+  "eos_token_id": 128001,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 14336,
+  "max_position_embeddings": 131072,
+  "mlp_bias": false,
+  "model_type": "llama",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 8,
+  "pretraining_tp": 1,
+  "rms_norm_eps": 1e-05,
+  "rope_scaling": {
+    "factor": 8.0,
+    "high_freq_factor": 4.0,
+    "low_freq_factor": 1.0,
+    "original_max_position_embeddings": 8192,
+    "rope_type": "llama3"
+  },
+  "rope_theta": 500000.0,
+  "tie_word_embeddings": false,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.51.3",
+  "use_cache": true,
+  "vocab_size": 128256
+}
+
+
+[INFO|2025-06-26 19:33:47] tokenization_utils_base.py:2510 >> tokenizer config file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/tokenizer_config.json
+
+[INFO|2025-06-26 19:33:47] tokenization_utils_base.py:2519 >> Special tokens file saved in saves/Llama-3.1-8B/lora/train_2025-06-26-11-22-30-just-test-witcoutot/special_tokens_map.json
+
+[WARNING|2025-06-26 19:33:47] logging.py:148 >> No metric eval_loss to plot.
+
+[WARNING|2025-06-26 19:33:47] logging.py:148 >> No metric eval_accuracy to plot.
+
+[INFO|2025-06-26 19:33:47] modelcard.py:450 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Causal Language Modeling', 'type': 'text-generation'}}
+
+[WARNING|2025-06-26 19:33:47] tuner.py:91 >> Failed to destroy process group: NCCL error in: /pytorch/torch/csrc/distributed/c10d/NCCLUtils.cpp:133, unhandled cuda error (run with NCCL_DEBUG=INFO for details), NCCL version 2.21.5
+ncclUnhandledCudaError: Call to CUDA function failed.
+Last error:
+Cuda failure 'out of memory'.
+
+[WARNING|2025-06-26 19:33:47] tuner.py:91 >> Failed to destroy process group: NCCL error in: /pytorch/torch/csrc/distributed/c10d/NCCLUtils.cpp:133, unhandled cuda error (run with NCCL_DEBUG=INFO for details), NCCL version 2.21.5
+ncclUnhandledCudaError: Call to CUDA function failed.
+Last error:
+Cuda failure 'out of memory'.
+

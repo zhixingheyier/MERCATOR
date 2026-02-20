@@ -1,0 +1,118 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "128.55.12.167:HTTP POST",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "Nginx",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "shell code",
+      "id": 4
+    },
+    {
+      "type": "socket",
+      "value": "4.21.51.250",
+      "id": 5
+    },
+    {
+      "type": "socket",
+      "value": "128.55.12.233:HTTP POST",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "hostname",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "passwd",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "username",
+      "id": 9
+    }
+  ],
+  "links": [
+    {
+      "type": "Send",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "initial access",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "5",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "6",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "7",
+      "source": 1,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    }
+  ]
+}

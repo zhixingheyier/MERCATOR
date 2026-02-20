@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Lateral movement",
+        "content": "Petya uses two primary methods to spread across networks:\nExecution across network shares: It attempts to spread to the target computers by copying itself to [COMPUTER NAME]\\\\admin$ using the acquired credentials. It is then executed remotely using either PsExec or the Windows Management Instrumentation Command-line (WMIC) tool. Both are legitimate tools.\nSMB exploits: It attempts to spread using variations of the EternalBlue and EternalRomance exploits.\nPetya checks for the presence of the following processes which are used by Norton products and Symantec Endpoint Protection:\nns.exe\nccsvchost.exe\nIf found, Petya will not use the EternalBlue and EternalRomance exploits to spread."
+    }
+]

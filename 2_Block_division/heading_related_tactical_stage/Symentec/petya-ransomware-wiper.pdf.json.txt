@@ -1,0 +1,11 @@
+
+【Lateral movement】
+==============================
+  Petya uses two primary methods to spread across networks:
+  Execution across network shares: It attempts to spread to the target computers by copying itself to [COMPUTER NAME]\\admin$ using the acquired credentials. It is then executed remotely using either PsExec or the Windows Management Instrumentation Command-line (WMIC) tool. Both are legitimate tools.
+  SMB exploits: It attempts to spread using variations of the EternalBlue and EternalRomance exploits.
+  Petya checks for the presence of the following processes which are used by Norton products and Symantec Endpoint Protection:
+  ns.exe
+  ccsvchost.exe
+  If found, Petya will not use the EternalBlue and EternalRomance exploits to spread.
+

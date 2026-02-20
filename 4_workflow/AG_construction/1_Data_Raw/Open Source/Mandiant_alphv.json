@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Timeline ",
+        "content": "In March 2021, Veritas published an advisory reporting three critical vulnerabilities in Veritas Backup Exec 16.x, 20.x and 21.x.   \nOn September 23, 2022, a METASPLOIT module was released which exploits these vulnerabilities and creates a session which the threat actor can use to interact with the victim system.   \nOn October 22, 2022, Mandiant first observed exploitation of the Veritas vulnerabilities in the wild. "
+    },
+    {
+        "title": "Initial Compromise and Establish Foothold ",
+        "content": "In late 2022, UNC4466 gained access to an internetexposed Windows server, running Veritas Backup Exec version 21.0 using the Metasploit module \\`exploit/multi/veritas/beagent_sha_auth_rce\\`. Shortly after, the Metasploit persistence module was invoked to maintain persistent access to the system for the remainder of this intrusion. "
+    },
+    {
+        "title": "Internal Reconnaissance ",
+        "content": "After gaining access to the Veritas Backup Exec server, UNC4466 used Internet Explorer, the browser installed by default on older Windows systems, to download Famatech's Advanced IP Scanner from its website, hxxps://download.advanced-ipscanner[.]com. This tool is capable of scanning individual IP addresses or IP address ranges for open ports, and returns hostnames, operating system and hardware manufacturer information. \nUNC4466 also made use of ADRecon to gather network, account, and host information in the victim's environment. When executed by a privileged domain account, ADRecon generates several reports about the Active Directory environment, including the Trusts, Sites, Subnets, password policies, user and computer account listings. These reports can be generated in a variety of formats, including CSV, XML, JSON, and HTML. "
+    },
+    {
+        "title": "Command and Control ",
+        "content": "UNC4466 leveraged SOCKS5 tunneling to communicate with compromised systems in the victim network. This technique is typically used to evade network defenses or other preventative network controls. Two separate tools were deployed to execute this technique, LIGOLO and REVSOCKS. "
+    },
+    {
+        "title": "Escalate Privileges ",
+        "content": "The threat actor utilized multiple credential access tools, including Mimikatz, LaZagne and Nanodump to gather clear-text credentials and credential material. \nIn November 2022, UNC4466 utilized the MIMIKATZ Security Support Provider injection module (\\`MISC::MemSSP\\`). This module collects credentials in clear text as they are used, by manipulating the Local Security Authority Server Service (LSASS) on victim systems. This module creates a file named \\`C:\\Windows\\System32\\mimilsa.log\\`. \nmimikatz # privilege::debug   \nPrivilege '20\" OK   \nmimikatz # MISC::MemSSP   \nInjected \n[Nanodump] was also used to dump LSASS memory. Like the examples shown on Helpsystems' GitHub page, the output file specified was a file in the \\`C:\\Windows\\Temp\\` directory. "
+    },
+    {
+        "title": "Command and Control ",
+        "content": "UNC4466 made use of BITS transfers (using the Start-BitsTransfer PowerShell cmdlet) to download various resources to the staging directory c:\\ProgramData\\`. Using this technique, SOCKS5 tunneling tools, REVSOCKS and LIGOLO were downloaded from their official GitHub repositories. "
+    },
+    {
+        "title": "Complete Mission ",
+        "content": "UNC4466 deploys the Rust-based ALPHV ransomware. In Late 2022, UNC4466 added immediate tasks to the default domain policy. These tasks were configured to perform actions which disabled security software, downloaded the ALPHV encryptor, then execute it. "
+    },
+    {
+        "title": "Exposure ",
+        "content": "As of this blog post's date, one commercial Internet scanning service reported over 8500 IP addresses which advertise the \"Symantec/Veritas Backup Exec ndmp\" service on the default port 10000, as well as port 9000 and port 10001. While this search result does not directly identify vulnerable systems, as the application versions were not identifiable, it demonstrates the prevalence of Internet exposed instances that could potentially be probed by attackers. "
+    },
+    {
+        "title": "Detection Opportunities ",
+        "content": "Defenders should place priority on monitoring internet-exposed Veritas Backup Exec Windows installations, for versions before 21.2. Mandiant observed the exploitation of Veritas Backup Exec can leave a noticeable imprint on the Backup Exec log files. Where feasible, these log files should be forwarded to a SIEM or similar technology which enables detection and alerting when certain events are recorded. \nIn addition to any available network connection logging, Veritas Backup Exec logs will record evidence of connections to remote systems. \n[nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmpc \nThese connections should be triaged for any unknown IP addresses. Additionally, these logs can also record the execution of suspicious pre and post backup job commands. \n[nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmps [nnnn] YYYY-mm-ddTHH:MM:SS.sss [ndmp\\ndmpc \nUNC4466 \nDS0015 - Application log \nBackup Exec logs \nConnections to unknown IP addresses   \nSuspicious pre or post job commands being set (SetPreCommandEnvironment SetPostCommandEnvironment). E.g: C:\\Windows\\System32\\cmd.exe /c \"C:\\Windows\\Temp\\UNKNOWN_EXEC.ex e\" \nWindows Event Logs Suspicious BITS transfers with the source argument targeting unknown hosts and GitHub repositories. Pre-ransomware activity: deletion of volume shadow copies DS0017 – Command Disabling AMSI: use of Set-MpPreference PowerShell cmdlet Ingress tool transfer: Use of StartBitsTransfer PowerShell cmdlet DS0022 – File New Executables created in staging directories: C:\\ProgramData, C:\\Windows\\Temp, C:\\Windows\\Tasks DS0024 – Windows Registry "
+    }
+]

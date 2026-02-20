@@ -1,0 +1,6 @@
+
+【Persistence 】
+==============================
+  For coin miner malware, persistence is key. These types of malware employ various techniques to stay undetected for long periods of time in order to mine coins using stolen computer resources. 
+  To stay hidden, Dofoil modifies the registry. The hollowed explorer.exe process creates a copy of the original malware in the Roaming AppData folder and renames it to ditereah.exe. It then creates a registry key or modifies an existing one to point to the newly created malware copy. In the sample we analyzed, the malware modified the OneDrive Run key. 
+

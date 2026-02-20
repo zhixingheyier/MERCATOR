@@ -1,0 +1,450 @@
+[
+    {
+        "level": 0,
+        "content": "Navigating Through The Fog"
+    },
+    {
+        "level": 2,
+        "content": "Key Takeaways"
+    },
+    {
+        "level": 3,
+        "content": "An open directory associated with a ransomware affiliate, likely linked to the Fog ransomware group, was discovered in December 2024. It contained tools and scripts for reconnaissance, exploitation, lateral movement, and persistence. \nInitial access was gained using compromised SonicWall VPN credentials, while other offensive tools facilitated credential theft, exploitation of Active Directory vulnerabilities, and lateral movement. \nPersistence was maintained through AnyDesk, automated by a PowerShell script that preconfigured remote access credentials. \nSliver C2 executables were hosted on the server for command-and-control operations, alongside Proxychains tunneling. \nThe victims spanned multiple industries, including technology, education, and logistics, across Europe, North America, and South America, highlighting the affiliate’s broad targeting scope."
+    },
+    {
+        "level": 3,
+        "content": "This report was previously provided to our All Intel customers as a Threat Actor Insight Report. If you’re interested in receiving reports like this, pleasecontact us."
+    },
+    {
+        "level": 2,
+        "content": "The DFIR Report Services"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Private Threat Briefs: 20+ private DFIR reports annually. \nThreat Feed: Focuses on tracking Command and Control frameworks like Cobalt Strike, Metasploit, Sliver, etc. \nAll Intel: Includes everything from Private Threat Briefs and Threat Feed, plus private events, Threat Actor Insights reports, long-term tracking, data clustering, and other curated intel. \nPrivate Sigma Ruleset: Features 180+ Sigma rules derived from 50+ cases, mapped to ATT&CK with test examples. \nDFIR Labs: Offers cloud-based, hands-on learning experiences, using real data, from real intrusions. Interactive labs are available with different difficulty levels and can be accessed on-demand, accommodating various learning speeds."
+    },
+    {
+        "level": 3,
+        "content": "Contact ustoday for pricing or demo!"
+    },
+    {
+        "level": 3,
+        "content": "Table of Contents:"
+    },
+    {
+        "level": 3,
+        "content": "Case Summary \nServices \nAnalysts \nAdversary \nInfrastructure \nCapabilities \nVictims \nDiamond Model \nIndicators \nMITRE ATT&CK"
+    },
+    {
+        "level": 2,
+        "content": "Case Summary"
+    },
+    {
+        "level": 3,
+        "content": "The DFIR Report’s Threat Intel Group identified an open directory in December 2024, hosted at 194.48.154.79:80. The directory was likely linked to a ransomware operator associated with the Fog group, first observed in mid-2024. Analysis of its contents revealed a comprehensive toolkit used for reconnaissance, exploitation, credential theft, and command-and-control activities."
+    },
+    {
+        "level": 3,
+        "content": "Among the tools were SonicWall Scanner for exploiting VPN credentials, DonPAPI for extracting Windows DPAPI-protected credentials, Certipy for abusing Active Directory Certificate Services (AD CS), Zer0dump, and Pachine/noPac for exploiting Active Directory vulnerabilities like CVE-2020-1472."
+    },
+    {
+        "level": 3,
+        "content": "The affiliate also leveraged AnyDesk for persistence through an automated PowerShell script and hosted Sliver C2 components on the server for managing implants. Proxychains and Powercat were used to facilitate stealthy lateral movement and reverse shells. Victim data found in the directory indicated targets across multiple industries, including technology, education, and logistics, with a geographic focus on Italy, Greece, Brazil, and the USA."
+    },
+    {
+        "level": 3,
+        "content": "Further information about Fog ransomware can be found at the following blog posts:Arctic Wolf,SentinelOneandany.run."
+    },
+    {
+        "level": 2,
+        "content": "Analysts"
+    },
+    {
+        "level": 2,
+        "content": "Adversary"
+    },
+    {
+        "level": 3,
+        "content": "The DFIR Report’s Threat Intel Group assesses with moderate confidence the open directory was used by an affiliate of the Fog ransomware group based on:"
+    },
+    {
+        "level": 3,
+        "content": "Evidence of victims being compromised in the open directory that later appeared on Fog Ransomware’s Dedicated Leak Site (DLS) \nCommunity notes on VirusTotal for the IP address"
+    },
+    {
+        "level": 3,
+        "content": "In a saved open-directory content retrieved through fofa.info, there is a folder called ouroverde.net.br which is a threat actor’s victim."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "This company is listed in the Fog’s data leak site, as shown in the following image."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The internal domain of “fourlis.net” was mentioned in bash history of the host which indicated the threat actor had successfully compromised that network."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "While this specific victim did not appear on the data leak site, anarticleduring the same period of time was released:"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "In the comment sections ofVirusTotal, a user mentioned that the server was used as a command-and-control server, potentially also for data exfiltration."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Infrastructure"
+    },
+    {
+        "level": 3,
+        "content": "Sliver:The threat actor leveraged the server to hostSliverC2, as listed inThreatFoxand based on the files residing in the open-directory."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The DFIR Threat Intelligence Group observed this server hosting the Sliver team server port 31337 on2024-12-11, but it was not seen again after that first sighting."
+    },
+    {
+        "level": 3,
+        "content": "In a very close timeframe, another Sliver C2 was deployed in the same ASN, AS62240, which is owned byClouvider, a hosting provider. Potentially, the same threat actor bought multiple servers from the same provider to deploy its command-and-control servers. However, no other links beyond the hosting provider and C2 framework were found."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Capabilities"
+    },
+    {
+        "level": 2,
+        "content": "Initial Access"
+    },
+    {
+        "level": 3,
+        "content": "Valid Account"
+    },
+    {
+        "level": 3,
+        "content": "SonicWall Scanner:The server contained a ZIP file called sonic_scan.zip, in which a Python script and a file, data.txt, with potentially compromised VPN credentials were present, that had the following structure:"
+    },
+    {
+        "level": 3,
+        "content": "Target IP Address \nUsername \nPassword \nDomain Name \nVPN Software"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The script sonic_scan/main.py allows the threat actor to authenticate to SonicWall VPN appliances and execute a port scan by performing the following actions:"
+    },
+    {
+        "level": 3,
+        "content": "Reads and parses data.txt to get the IP address, username, password and domain name (if any) of the target appliance. \nFor every entry in data.txt, which represents a potential valid account, obtains the domain name associated with the specific IP address and then executes the NetExtender process to login into the target VPN. NetExtender is a SonicWall command-line utility which allows access a VPN server. Specifically, NetExtender is executed via this command-line: netextender <target IP address> –username <target username> –password <username password> –domain <target domain name> –always-trust . \nAfter the execution of NetExtender, the script parses the output produced by the VPN and, if the connection was successful, a loop is initiated until the string “NetExtender connected successfully” is found. During this loop, IP addresses are extracted and appended to a list which is then provided to Nmap for port scanning. \nOnce the Nmap scan is completed, the NetExtender process is terminated."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Arctic Wolfalso linked the usage of compromised SonicWall credentials to Fog Ransomware."
+    },
+    {
+        "level": 2,
+        "content": "Lateral Movement"
+    },
+    {
+        "level": 3,
+        "content": "Remote Services: SMB/Windows Admin Shares"
+    },
+    {
+        "level": 3,
+        "content": "NetExec:NetExec is a post-exploitation tool that evolved from CrackMapExec. It has multiple features and functionalities for remote command execution, network enumeration and privilege escalation."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Persistence"
+    },
+    {
+        "level": 3,
+        "content": "Create or Modify System Process: Windows Service"
+    },
+    {
+        "level": 3,
+        "content": "AnyDesk:To establish persistence on a compromised Windows host, the threat actor leverages the well-known Remote Monitoring and Management (RMM) tool AnyDesk. The PowerShell script “any.ps1” automates the download and installation of AnyDesk, including the setting of the passwordAdmin#123to access the RMM."
+    },
+    {
+        "level": 3,
+        "content": "A comprehensive description of AnyDesk and all the potential techniques to detect are detailed inlolrmm.io."
+    },
+    {
+        "level": 2,
+        "content": "Credential Access"
+    },
+    {
+        "level": 3,
+        "content": "Credentials from Password Stores"
+    },
+    {
+        "level": 3,
+        "content": "DonPAPI & Impacket dpapi:DonPAPI provides functionalities to locate and retrieve Windows Data Protection API (DPAPI) protected credentials from compromised Windows systems, such as:"
+    },
+    {
+        "level": 3,
+        "content": "Chromium browser credentials, cookies and tokens. \nFirefox browser credentials and cookies. \nWindows certificates. \nCredential manager. \nVaults credentials."
+    },
+    {
+        "level": 3,
+        "content": "The .bash_history shows that the threat actor employed DonPAPI with the following command-line options:"
+    },
+    {
+        "level": 3,
+        "content": "-pvk <pvk name>.pvk:specifies the Private Key File (PVK) used to decrypt DPAPI-protected credentials. \n–no_vnc:disables the collection of VNC credentials. \n–no_remoteops:disables the collection of credentials from remote systems. \n–GetHashes:enables the collection of NTLM hashes. \n–no_recent:disables the collection of recent files and documents \n–no_sysadmins:excludes systems administrators from the credential collection process \n-o <filename>:saves the output into a specific folder."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The threat actor also employs dpapi.py from the Impacket suite to retrieve domain backup keys."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Steal or Forge Authentication Certificates"
+    },
+    {
+        "level": 3,
+        "content": "Certipy:Certipy is a Python-based tool created for interacting with Active Directory Certificate Services (AD CS), specifically to enumerate, identify and exploit vulnerable certificate templates with the final aim of impersonating high-privileged accounts."
+    },
+    {
+        "level": 3,
+        "content": "The following image shows how the threat actor launched the find functionality to detect vulnerable AD CS templates."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Steal or Forge Kerberos Tickets: Kerberoasting"
+    },
+    {
+        "level": 3,
+        "content": "Orpheus:Orpheus is an offensive Python tool designed by Trustedsec based on Impacket’s GetUserSPNs.py and kerberosv5.py. The tool is built with defense evasion mechanisms since it changes the encryption type from RC4 (eType 23), which is common for Kerberoasting attack, to AES-256 (eType 18) that is usual in legitimate traffic."
+    },
+    {
+        "level": 3,
+        "content": "Based on the available .bash_history file, the threat actor only downloaded the tool."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Privilege Escalation"
+    },
+    {
+        "level": 3,
+        "content": "Exploitation for Privilege Escalation"
+    },
+    {
+        "level": 3,
+        "content": "Zer0dump:Zer0dump is a Proof-of-Concept (PoC) exploit for Zerologon vulnerability (CVE-2020-1472). The tool allows the compromise of unpatched Domain Controllers to obtain Domain Admins privileges in Active Directory environments."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The Zerologon exploitation is made by the following steps:"
+    },
+    {
+        "level": 3,
+        "content": "Leverages a cryptographic weakness in Netlogon’s AES-CFB8 implementation, which allows a threat actor to bypass authentication by sending Netlogon messages with a ClientCredential field filled with zeros. \nResets the Domain Controller’s machine account password to an empty string, effectively granting administrative access to the domain. \nIntegrates with Impacket’s secretsdump.py to extract credentials from the compromised Domain Controller. \nAfter exploitation, zer0dump attempts to restore the original machine account password."
+    },
+    {
+        "level": 3,
+        "content": "Pachine & noPac:Pachine and noPac are offensive tools developed to exploit CVE-2021-42278 and CVE-2021-42287 vulnerabilities, allowing privilege escalation in Active Directory. They leverage the Kerberos Privilege Attribute Certificate (PAC) to potentially impersonate a domain administrator starting from a standard domain account."
+    },
+    {
+        "level": 3,
+        "content": "The Pachine’s scan options enumerate the domain controller to determine if it is vulnerable to CVE-2021-42278."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "To exploit the previously mentioned vulnerabilities, noPac requires valid domain account credentials which are abused to obtain a Kerberos ticket that can be leveraged to compromise a domain admin."
+    },
+    {
+        "level": 3,
+        "content": "The following image shows the usage of noPac to impersonate the domain administrator administrator."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The main difference between the two tools is that:"
+    },
+    {
+        "level": 3,
+        "content": "Pachine adds machine accounts and obtains TGS for specific SPNs. \nNoPac also provides the capability to drop shells and dump hashes."
+    },
+    {
+        "level": 2,
+        "content": "Command & Control"
+    },
+    {
+        "level": 3,
+        "content": "Proxy"
+    },
+    {
+        "level": 3,
+        "content": "Proxychains:Proxychains is a tool used to route network traffic through proxy servers and it supports multiple types of proxies such as SOCKS4, SOCKS5 and HTTPS. Proxychains can be combined with post-exploitation frameworks (e.g., Sliver, Cobalt Strike, etc.) to route the traffic through the implant."
+    },
+    {
+        "level": 3,
+        "content": "The following image shows how the threat actor leveraged proxychains to execute Python scripts like certipy or noPac.py from the command and control server into the target environment."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The following image shows how proxychains works. The tool is very powerful because a threat actor can execute tools from the command-and-control server leaving less footprint compared to the artifacts that could be left if those were run on a monitored system."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Application Layer Protocol: Web Protocols"
+    },
+    {
+        "level": 3,
+        "content": "Sliver:There were two binaries associated with Sliver present on the open directory: slv.bin and sliver-client_linux. We also note in the infrastructure section that this IP address was once observed as a Sliver C2."
+    },
+    {
+        "level": 3,
+        "content": "It was not possible to analyze slv.bin and obtain further information out of the shellcode since it was encrypted. Likely, it was used to connect back to the same Sliver server. The binary sliver-client_linux, is the executable used to connect to a Sliver server, however no further usage of Sliver was observed."
+    },
+    {
+        "level": 3,
+        "content": "Protocol Tunneling"
+    },
+    {
+        "level": 3,
+        "content": "Powercat:A copy of Powercat was present on the host as powercat.ps1. Powercat is a PowerShell-based networking tool designed to replicate the functionalities provided by Netcat. It can be used for:"
+    },
+    {
+        "level": 3,
+        "content": "Networking communications since it supports both TCP and UDP connections. \nBind and reverse shell creation to listen for incoming connections or connect back to a command-and-control server. \nData transfer over TCP, UDP and also DNS (dnscat2) which can be useful for evading network detection mechanisms. \nPayload generation and encoding. \nTraffic tunnelling to connect to systems that otherwise would be inaccessible."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "Victim"
+    },
+    {
+        "level": 3,
+        "content": "Countries"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "All the IP addresses found in the file data.txt, present in the ZIP file sonic_scan.zip, are located in Italy and are associated with AS5602 Retelit Digital Services S.p.A. which is a company that provides IT and cyber security services. Other victims are located in the following countries:"
+    },
+    {
+        "level": 3,
+        "content": "Greece \nUSA \nBrazil"
+    },
+    {
+        "level": 3,
+        "content": "IndustriesThe impacted sectors by the threat actor were the following:"
+    },
+    {
+        "level": 3,
+        "content": "Technology \nEducation \nRetail \nTransportation & Logistics"
+    },
+    {
+        "level": 2,
+        "content": "Diamond Model"
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 2,
+        "content": "MITRE ATT&CK"
+    },
+    {
+        "level": 3,
+        "content": ""
+    }
+]

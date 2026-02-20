@@ -1,0 +1,53 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "impact_*",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "GPU Driver Extension",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "mining software",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "mining pool",
+      "id": 4
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    }
+  ]
+}

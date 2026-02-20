@@ -1,0 +1,110 @@
+[
+    {
+        "title": "3CX Software Supply Chain Compromise Initiated by a Prior Software Supply Chain Compromise; Suspected North Korean Actor Responsible ",
+        "content": "April 20, 2023 "
+    },
+    {
+        "title": "Mandiant ",
+        "content": "Written by: Jeff Johnson, Fred Plan, Adrian Sanchez, Renato Fontana, Jake Nicastro, Dimiter Andonov, Marius Fodoreanu, Daniel Scot \nIn March 2023, Mandiant Consulting responded to a supply chain compromise that affected 3CX Desktop App software. During this response, Mandiant identified that the initial compromise vector of 3CX’s network was via malicious software downloaded from Trading Technologies website. This is the first time Mandiant has seen a software supply chain attack lead to another software supply chain attack. "
+    },
+    {
+        "title": "Overview ",
+        "content": "3CX Desktop App is enterprise software that   \nprovides communications for its users including chat, video calls, and voice calls. In late March,   \n2023, a software supply chain compromise spread malware via a trojanized version of 3CX’s legitimate software that was available to download from their website. The affected software was 3CX   \nDesktopApp 18.12.416 and earlier, which contained malicious code that ran a downloader,   \nSUDDENICON, which in turn received additional command and control (C2) servers from encrypted icon files hosted on GitHub. The decrypted C2   \nserver was used to download a third stage identified as ICONICSTEALER, a dataminer that steals browser information. Mandiant tracks this activity as   \nUNC4736, a suspected North Korean nexus cluster of activity. "
+    },
+    {
+        "title": "Software Supply Chain Exploitation Explained ",
+        "content": "Mandiant Consulting’s investigation of the 3CX supply chain compromise has uncovered the initial intrusion vector: a malware-laced software package distributed via an earlier software supply chain compromise that began with a tampered installer for X_TRADER, a software package provided by Trading Technologies (Figure 1). Mandiant determined that a complex loading process led to the deployment of VEILEDSIGNAL, a multi-stage modular backdoor, and its modules. "
+    },
+    {
+        "title": "VEILEDSIGNAL Backdoor Analysis ",
+        "content": "Mandiant Consulting identified an installer with the filename X_TRADER_r7.17.90p608.exe  (MD5: ef4ab22e565684424b4142b1294f1f4d) which led to the deployment of a malicious modular backdoor: VEILEDSIGNAL. \nAlthough the X_TRADER platform was reportedly discontinued in 2020, it was still available for download from the legitimate Trading Technologies website in 2022. This file was signed with the subject “Trading Technologies International, Inc” and contained the executable file Setup.exe that was also signed with the same digital certificate. The code signing certificate used to digitally sign the malicious software was set to expire in October 2022. \nThe installer contains and executes Setup.exe which drops two trojanized DLLs and a benign executable. Setup.exe uses the benign executable to side-load one of the malicious DLLs. Side-loading relies on legitimate Windows executables to load and execute a malicious file that has been disguised as a legitimate dependency. The loaded malicious DLLs contains and uses SIGFLIP and DAVESHELL to decrypt and load the payload into memory from the other dropped malicious executable. SIGFLIP relies on RC4 stream-cipher to decrypt the payload of choice and uses the byte sequence FEEDFACE to find the shellcode, in this case DAVESHELL, during the decryption stage. \nSIGFLIP and DAVESHELL extract and execute a modular backdoor, VEILEDSIGNAL, and two corresponding modules. VEILEDSIGNAL relies on the two extracted modules for process injection and communications with the C2 server. \nVEILEDSIGNAL and the accompanying two components provide the following functionality: \nThe VEILEDSIGNAL backdoor supports three commands: send implant data, execute shellcode, and terminate itself. \nThe process injection module injects the C2 module in the first found process instance of Chrome, Firefox, or Edge. It also monitors the named pipe and reinjects the communication module if necessary. \nThe C2 module creates a Windows named pipe and listens for incoming communications, which it then sends to the C2 server encrypted with AES-256 in Galois Counter Mode (GCM). \nThe C2 configuration of the identified sample of   \nVEILEDSIGNAL (MD5:   \nc6441c961dcad0fe127514a918eaabd4) relied on the following hard-coded URL:   \nwww.tradingtechnologies[.]com/trading/ordermanagement . "
+    },
+    {
+        "title": "VEILEDSIGNAL Similarities and Code Comparison ",
+        "content": "The compromised X_TRADER and 3CXDesktopApp applications both contain, extract, and run a payload in the same way, although the final payload is different. Mandiant analyzed these samples and observed the following similarities: \nUsage of the same RC4 key 3jB(2bsG#@c7  in the SIGFLIP tool configuration to encrypt and decrypt the payload. \nUsage of SIGFLIP, a publicly available project on GitHub leveraging CVE-2013-3900 (MS13-098).   \nReliance on DAVESHELL, a publicly available open-source project that converts PE-COFF files to position-independent code or shellcode and that leverages reflective loading techniques to load the payload in memory.   \nUse of the hardcoded cookie variable tutma in the payloads.   \nBoth payloads encrypt data with AES-256 GCM cipher. "
+    },
+    {
+        "title": "Compromise of the 3CX Build Environment ",
+        "content": "The attacker used a compiled version of the publicly available Fast Reverse Proxy project, to move laterally within the 3CX organization during the attack. The file MsMpEng.exe  (MD5: 19dbffec4e359a198daf4ffca1ab9165), was dropped in C:\\Windows\\System32 by the threat actor. \nMandiant was able to reconstruct the attacker’s steps throughout the environment as they harvested credentials and moved laterally. Eventually, the attacker was able to compromise both the Windows and macOS build environments. On the Windows build environment, the attacker deployed a TAXHAUL launcher and COLDCAT downloader that persisted by performing DLL search order hijacking through the IKEEXT service and ran with LocalSystem privileges. The macOS build server was compromised with POOLRAT backdoor using Launch Daemons as a persistence mechanism. \nPrevious reporting mentioned the macOS build server was compromised with SIMPLESEA. Mandiant Intelligence completed analysis of the sample and determined it to be the backdoor POOLRAT instead of a new malware family. "
+    },
+    {
+        "title": "Threat Actor Spotlight: UNC4736 ",
+        "content": "UNC4736 demonstrates varying degrees of overlap with multiple North Korean operators tracked by Mandiant Intelligence, especially with those involved in financially-motivated cybercrime operations. These clusters have demonstrated a sustained focus on cryptocurrency and fintech-related services over time. \nMandiant assesses with moderate confidence that UNC4736 is related to financially motivated North Korean “AppleJeus” activity as reported by CISA. This is further corroborated with findings from Google TAG who reported the compromise of www.tradingtechnologies[.]com  in February 2022, preceding the distribution of compromised X_TRADER updates from the site. \nTAG reported on a cluster of North Korean activity exploiting a remote code execution \nvulnerability in Chrome, CVE-2022-0609, and identified it as overlapping with “AppleJeus” targeting cryptocurrency services.   \nThe site www.tradingtechnologies[.]com was compromised and hosting a hidden IFRAME to exploit visitors, just two months before the site was known to deliver a trojanized X_TRADER software package.   \nWithin the 3CX environment, Mandiant identified the POOLRAT backdoor using journalide[.]org  as its configured C2 server.   \nAn older sample of POOLRAT (MD5: 451c23709ecd5a8461ad060f6346930c) was previously reported by CISA as part of the trojanized CoinGoTrade application used in the AppleJeus operation (Figure 2). The older sample’s infrastructure also has ties to another trojanized trading application, JMT Trading, also tracked under AppleJeus. \nWeak infrastructure overlap was also identified between UNC4736 and two clusters of suspected APT43 activity, UNC3782 and UNC4469. \nDNS resolutions reveal infrastructure overlap between UNC4736 and activity linked to APT43 with moderate confidence (Tables 1 – 3) APT43 frequently targets cryptocurrency users and related services, highlighting such campaigns are widespread across North Koreanexus cyber operators. "
+    },
+    {
+        "title": "Outlook and Implications ",
+        "content": "The identified software supply chain compromise is the first we are aware of which has led to a cascading software supply chain compromise. It shows the potential reach of this type of compromise, particularly when a threat actor can chain intrusions as demonstrated in this investigation. Research on UNC4736 activity suggests that it is most likely linked to financially motivated North Korean threat actors. Cascading software supply chain compromises demonstrate that North Korean operators can exploit network access in creative ways to develop and distribute malware, and move between target networks while conducting operations aligned with North Korea’s interests. "
+    },
+    {
+        "title": "Malware Definitions ",
+        "content": "ICONICSTEALER \nICONICSTEALER is a $\\mathsf{C}/\\mathsf{C}++$ data miner that collects application configuration data as well as browser history. "
+    },
+    {
+        "title": "DAVESHELL ",
+        "content": "DAVESHELL is shellcode that functions as an inmemory dropper. Its embedded payload is mapped into memory and executed. "
+    },
+    {
+        "title": "SIGFLIP ",
+        "content": "SigFlip is a tool for patching authenticode signed PE-COFF files to inject arbitrary code without affecting or breaking the file's signature. "
+    },
+    {
+        "title": "POOLRAT ",
+        "content": "POOLRAT is a $\\mathsf{C}/\\mathsf{C}++$ macOS backdoor capable of collecting basic system information and executing commands. The commands performed include running arbitrary commands, secure deleting files, reading and writing files, updating the configuration. "
+    },
+    {
+        "title": "TAXHAUL ",
+        "content": "TAXHAUL is a DLL that, when executed, decrypts a shellcode payload expected   \nat  C:\\Windows\\System32\\config\\TxR\\<machine hardware profile GUID>.TxR.0.regtrans-ms . Mandiant has seen TAXHAUL persist via DLL search order hijacking. "
+    },
+    {
+        "title": "COLDCAT ",
+        "content": "COLDCAT is a complex downloader. COLDCAT generates unique host identifier information, and beacons it to a C2 that is specified in a separate file via POST request with the data in the cookie header. After a brief handshake, the malware expects base64 encoded shellcode to execute in response. "
+    },
+    {
+        "title": "VEILEDSIGNAL ",
+        "content": "VEILEDSIGNAL is a backdoor written in C that is able to execute shellcode and terminate itself. \nAdditionally, VEILEDSIGNAL relies on additional modules that connect via Windows named pipes to interact with the C2 infrastructure. "
+    },
+    {
+        "title": "Acknowledgments ",
+        "content": "Special thanks to Michael Bailey, Willi Ballenthin, Michael Barnhart, and Jakub Jozwiak for their collaboration and review. Mandiant would also like to thank the Google Threat Analysis Group (TAG) and Microsoft Threat Intelligence Center (MSTIC) for their collaboration in this research. "
+    },
+    {
+        "title": "Technical Annex: MITRE ATT&CK ",
+        "content": "Resource Development \nT1588 Obtain Capabilities  \nT1588.004 Digital Certificates  \nT1608 Stage Capabilities  \nT1608.003 Install Digital Certificate\nInitial Access \nT1190 Exploit Public-Facing Application T1195 Supply Chain Compromise T1195.002 Compromise Software Supply Chain \nPersistence \nT1574 Hijack Execution Flow T1574.002 DLL Side-Loading \nPrivilege Escalation \nT1055 Process Injection T1574 Hijack Execution Flow T1574.002 DLL Side-Loading \nDefense Evasion   \nT1027 Obfuscated Files or Information   \nT1036 Masquerading   \nT1036.001 Invalid Code Signature   \nT1055 Process Injection   \nT1070 Indicator Removal   \nT1070.001 Clear Windows Event Logs   \nT1070.004 File Deletion   \nT1112 Modify Registry   \nT1140 Deobfuscate/Decode Files or Information   \nT1497 Virtualization/Sandbox Evasion   \nT1497.001 System Checks   \nT1574 Hijack Execution Flow   \nT1574.002 DLL Side-Loading   \nT1620 Reflective Code Loading   \nT1622 Debugger Evasion   \nDiscovery   \nT1012 Query Registry   \nT1082 System Information Discovery   \nT1083 File and Directory Discovery   \nT1497 Virtualization/Sandbox Evasion   \nT1497.001 System Checks   \nT1614 System Location Discovery   \nT1614.001 System Language Discovery   \nT1622 Debugger Evasion   \nCommand and Control   \nT1071 Application Layer Protocol   \nT1071.001 Web Protocols   \nT1071.004 DNS   \nT1105 Ingress Tool Transfer   \nT1573 Encrypted Channel T1573.002 Asymmetric Cryptography   \nImpact   \nT1565 Data Manipulation   \nT1565.001 Stored Data Manipulation "
+    },
+    {
+        "title": "Technical Annex: Detection Rules ",
+        "content": "YARA Rules \nrule M_Hunting_3CXDesktopApp_Key { meta: disclaimer $=$ \"This rule is meant for hu \ndescription $=$ \"Detects a key found in md5 $=$ \"74bc2d0b6680faa1a5a76b27e5479cb date $=$ \"2023/03/29\" version $=$ \"1\" strings: \\$key = \"3jB(2bsG#@c7\" wide ascii condition: \\$key } \nrule M_Hunting_3CXDesktopApp_Export { meta: disclaimer $=$ \"This rule is meant for hu description $=$ \"Detects an export used md5 $=$ \"7faea2b01796b80d180399040bb6983 date $=$ \"2023/03/31\" version $=$ \"1\" strings: $\\$5t r1=$ \"DllGetClassObject\" wide ascii $\\$5t r2$ \"3CXDesktopApp\" wide ascii condition: all of $(\\$5t r^{*})$   \n}   \nrule TAXHAUL   \n{ meta: author $=$ \"Mandiant\" created $=$ \"04/03/2023\" modified $=$ \"04/03/2023\" version $=$ \"1.0\" strings: \\$p00_0 = {410f45fe4c8d3d[4]eb??4533f64 \\$p00_1 = {4d3926488b01400f94c6ff90[4]4 \ncondition: uint16(0) $==$ 0x5A4D and any of them } \nrule M_Hunting_MSI_Installer_3CX_1   \n{   \nmeta:   \nauthor $=$ \"Mandiant\"   \nmd5 $=$ \"0eeb1c0133eb4d571178b2d9d14ce3e9, f3   \nstrings:   \n$\\begin{array}{r c l}{\\oint\\mathsf{S}\\mathsf{S}\\mathsf{1}}&{=\\left\\{\\begin{array}{c}{2\\theta}\\otimes\\theta\\otimes5\\mathsf{F}}\\ {2\\theta}\\end{array}\\right.64}&{33}&{64}&{63}&{6\\mathsf{F}}&{6\\mathsf{D}}&{7\\theta}\\ {\\oint\\mathsf{S}\\mathsf{S}\\mathsf{2}}&{=\\left\\{\\begin{array}{c}{2\\theta}\\otimes\\theta\\otimes5\\mathsf{F}}\\ {2\\theta}\\end{array}\\right.33}&{43}&{58}&{44}&{65}&{73}\\end{array}\\mathsf{6}\\mathsf{B}}\\ {\\oint\\mathsf{S}\\mathsf{S}\\mathsf{3}}&{=\\left\\{\\begin{array}{c}{2\\theta}\\otimes\\theta\\otimes5\\mathsf{F}}\\ {3\\mathsf{C}\\mathsf{S}\\mathsf{4}}\\end{array}\\right.66}&{66}&{60}&{7\\theta}&{65}&{67}\\ {\\oint\\mathsf{S}\\mathsf{S}\\mathsf{4}}&{=\\begin{array}{c}{\\mathsf{\"}3\\mathsf{C}\\mathsf{X}}\\ {\\mathsf{3}\\mathsf{C}\\mathsf{1}}\\end{array}\\right.\\mathsf{4}\\mathsf{c}\\mathsf{d}\\mathsf{1}^{\\mathrm{s}}}&{\\mathrm{asci}\\mathrm{1}}\\ {\\oint\\mathsf{S}\\mathsf{C}\\mathsf{1}}&{=\\left\\{\\begin{array}{c}{1\\mathsf{B}}\\ {\\mathsf{1}\\mathsf{B}}\\end{array}\\right.66}\\ {\\mathsf{4}}\\end{array}\\Delta\\mathsf{5}\\mathsf{4}\\mathsf{D}\\mathsf{6}\\mathsf{E}\\mathsf{C}\\mathsf{\\Delta}\\mathsf{8}\\mathsf{E}\\mathsf{D}\\mathsf{5}}&{\\mathsf{6}}\\ {\\oint\\mathsf{S}\\mathsf{C}\\mathsf{2}}&{=\\begin{array}{c}{\\mathsf{\"}2\\theta23\\mathsf{3}\\mathsf{6}\\mathsf{3}\\mathrm{\\Delta}\\mathsf{\\Gamma{a}}}\\end{array}$   \ncondition:   \n(uint32(0) $==$ 0xE011CFD0) and filesize > 90   \n}   \nrule M_Hunting_TAXHAUL_Hash_1   \n{   \nmeta:   \nauthor $=$ \"Mandiant\"   \ndisclaimer $=$ \"This rule is meant for hunti   \ndescription $=$ \"Rule looks for hardcoded va   \nmd5 $=$ \"e424f4e52d21c3da1b08394b42bc0829\"   \nstrings:   \n\\$c_x64 = { 25 A3 87 DE [4-20] 25 A3 87 DE   \ncondition:   \nfilesize $\\prec$ 15MB and uint16(0) $==$ 0x5a4d and   \n}   \n rule M_Hunting_SigFlip_SigLoader_Native {   \nmeta:   \nauthor $=$ \"Mandiant\"   \ndisclaimer $=$ \"This rule is meant for hunti description $=$ \"Rule looks for strings pres md5 $=$ \"a3ccc48db9eabfed7245ad6e3a5b203f\" strings:   \n$\\$1=\\textsc{\"}[\\textsc{*}]$ : Basic Loader...\" ascii wide $\\$52=\"\\left[!$ : Missing PE path or Encryption $\\$53=\"[!]$ : Usage: %s <PE_PATH> <Encryptio $\\$54=[*]$ : Loading/Parsing PE File '%s'\" $\\$5$ : Could not read file %s\" ascii w $\\$56=\"[!]$ : '%s' is not a valid PE file\" as $\\$57=\"[+]$ : Certificate Table RVA %x\" ascii $\\$58=\"[+]$ : Certificate Table Size %d\" asci $\\$59=[*]$ : Tag Found 0x%x%x%x%x\" ascii wid $\\$10=\\mathrm{\"}[!]$ : Could not locate data/shellco $\\$11=\"$ : Encrypted/Decrypted Data Size condition:   \nfilesize $\\prec$ 15MB and uint16(0) $==$ 0x5a4d an }   \nrule M_Hunting_Raw64_DAVESHELL_Bootstrap   \n{   \nmeta:   \nauthor $=$ \"Mandiant\"   \ndisclaimer $=$ \"This rule is meant for hunti   \ndescription $=$ \"Rule looks for bootstrap sh   \nmd5 $=$ \"8a34adda5b981498234be921f86dfb27\"   \nstrings:   \n\\$b6ba50888f08e4f39b43ef67da27521dcfc61f1e   \n$\\$632$ abbe82e1f957fb058c3770375da3bf71a8cab   \ncondition: \nfilesize < 15MB and any of them } \nuint16(0) $==$ 0x5A4D and uint32(uint32(0x3C) \n$(\\mathrm{uint16}(\\Theta)==\\Theta{\\times}5{\\mathrm{A}}4{\\mathrm{D}})$ ) and (uint32(uint32(0 } \nrule M_Hunting_VEILEDSIGNAL_4   \n{   \nmeta:   \nauthor $=$ \"Mandiant\"   \ndisclaimer $=$ \"This rule is meant for hunti   \nmd5 $=$ \"404b09def6054a281b41d309d809a428, c6   \nstrings:   \n$\\$561=\\left\\{$ FF 15 FC 76 01 00 8B F0 85 C0 74 ?   \n$\\$562~=~\\{~33~D2~33~C9~\\mathsf{F F}~15$ [4] 4C 8B CB 4C   \n$\\$511$ \"CreateThread\" fullword   \n$\\$512$ \"MultiByteToWideChar\" fullword   \n$\\$513$ \"LocalAlloc\" fullword   \n$\\$561=$ \"DllGetClassObject\" fullword   \ncondition:   \n(uint16(0) $==$ 0x5A4D) and (uint32(uint32(0   \n}   \nrule M_Hunting_VEILEDSIGNAL_5   \n{   \nmeta:   \nauthor $=$ \"Mandiant\"   \ndisclaimer $=$ \"This rule is meant for hunti   \nmd5 $=$ \"6727284586ecf528240be21bb6e97f88\"   \nstrings:   \n\\$sb1 = { 48 8D 15 [4] 48 8D 4C 24 4C E8 [4]   \n$\\$53$ \"chrome.exe\" wide fullword   \n$\\$552$ \"firefox.exe\" wide fullword   \n$\\$553$ \"msedge.exe\" wide fullword   \n\\$ss4 = \"\\\\\\\\.\\\\pipe\\\\\\*\" ascii fullword   \n$\\$55$ \"FindFirstFileA\" ascii fullword   \n$\\$556,7$ \"Process32FirstW\" ascii fullword $\\$557$ \"RtlAdjustPrivilege\" ascii fullword $\\$558$ \"GetCurrentProcess\" ascii fullword $\\$559$ \"NtWaitForSingleObject\" ascii fullw condition:   \n(uint16(0) $==$ 0x5A4D) and (uint32(uint32(0 }   \nrule M_Hunting_VEILEDSIGNAL_6   \n{   \nmeta:   \nauthor $=$ \"Mandiant\"   \ndisclaimer $=$ \"This rule is meant for hunti   \nmd5 $=$ \"00a43d64f9b5187a1e1f922b99b09b77\"   \nstrings:   \n$\\$551$ = \"C:\\\\Programdata\\\\\" wide   \n$\\$552$ \"devobj.dll\" wide fullword   \n$\\$553$ \"msvcr100.dll\" wide fullword   \n$\\$554$ \"TpmVscMgrSvr.exe\" wide fullword   \n$\\$55$ \"\\\\Microsoft\\\\Windows\\\\TPM\" wide fu   \n$\\$556,7$ \"CreateFileW\" ascii fullword   \ncondition:   \n(uint16(0) $==$ 0x5A4D) and (uint32(uint32(0   \n} \nrule MTI_Hunting_POOLRAT meta: author $=$ \"Mandiant\" disclaimer $=$ \"This rule is meant for h description $=$ \"Detects strings found i md5 $=$ \"451c23709ecd5a8461ad060f6346930 date $=$ \"10/28/2020\" version $=$ \"1\" strings: \\$str1 = \"name $=$ \\\"uid\\\"%s%s%u%s\" wide asc \n$\\$5t r2$ \"name $=$ \\\"session\\\"%s%s%u%s\" wide $\\$5tGamma3$ \"name $=$ \\\"action\\\"%s%s%s%s\" wide $\\$5t r4=$ \"name $=$ \\\"token\\\"%s%s%u%s\" wide a $\\$1$ boundary $=$ \"--N9dLfqxHNUUw8qaUPqggVTp condition: any of $\\$5tGamma$ ) or \\$boundary } \nrule M_Hunting_FASTREVERSEPROXY   \n{ meta: author $=$ \"Mandiant\" disclaimer $=$ \"This rule is meant for md5 $=$ \"19dbffec4e359a198daf4ffca1ab9 strings: $\\$53$ \"Go build ID:\" fullword $\\$532$ \"Go buildinf:\" fullword $\\$53$ \"net/http/httputil.(\\*ReverseP $\\$554$ \"github.com/fatedier/frp/clie $\\$55$ \"\\\"server_port\\\"\" ascii $\\$56$ \"github.com/armon/go-socks5.p condition: uint16(0) $==$ 0x5A4D and uint32(uint3   \n} "
+    },
+    {
+        "title": "Snort Rules ",
+        "content": "alert tcp any any -> any any (msg:\"Possibl alert tcp any any -> any any (msg:\"Possibl alert tcp any any -> any any (msg:\"Possibl "
+    },
+    {
+        "title": "Mandiant Security Validation ",
+        "content": "Organizations can validate their security controls using the following actions with Mandiant Security Validation. \nPosted in Threat Intelligence "
+    },
+    {
+        "title": "Related articles ",
+        "content": ""
+    },
+    {
+        "title": "Threat Intelligence ",
+        "content": "Threat Intelligence "
+    },
+    {
+        "title": "Defending Against UNC3944: Cybercrime Hardening Guidance from the Frontlines ",
+        "content": "By Mandiant • 21-minute read \nThreat Intelligence \nHello 0-Days, My Old Friend: A 2024 Zero-Day Exploitation Analysis \nBy Google Threat Intelligence Group $\\bullet$ 20- minute read "
+    },
+    {
+        "title": "Threat Intelligence ",
+        "content": "Threat Intelligence "
+    },
+    {
+        "title": "M-Trends 2025: Data, Insights, and Recommendations From the Frontlines ",
+        "content": "By Jurgen Kutscher • 4-minute read "
+    },
+    {
+        "title": "Windows Remote Desktop Protocol: Remote to Rogue ",
+        "content": "By Google Threat Intelligence Group • 22- minute read \nGoogle Cloud Google Cloud Products Privacy Terms \nHelp English "
+    }
+]

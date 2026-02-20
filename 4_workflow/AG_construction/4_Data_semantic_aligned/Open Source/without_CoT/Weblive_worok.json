@@ -1,0 +1,167 @@
+[
+    {
+        "phase": "command and control",
+        "content": "PowHeartBeat is a full-featured backdoor written in PowerShell, obfuscated using various techniques such as  compression, encoding, and encryption. Based on ESET telemetry, we believe PowHeartBeat replaced CLRLoad in more recent Worok campaigns as the tool used to launch PNGLoad.\nThe first layer of the backdoor code consists of multiple chunks of base64-encoded PowerShell code. Once the payload is reconstructed, it is executed viaIEX. Once decoded, another layer of obfuscated code is executed, which we can see in Figure 3.\nThe second layer of the backdoor first base64 decodes the next layer of its code, which is then decrypted withTriple DES(CBC mode). After decryption, this code is decompressed using thegzipalgorithm, thus giving the third layer of PowerShell code, which is the actual backdoor. It is divided into two main parts: configuration, and handling backdoor commands.\nThe main layer of backdoor code is also written in PowerShell and uses HTTP or ICMP to communicate with the C&C server. It works as depicted in Figure 4.",
+        "relationship": "1. [Relationships]: <process:PowHeartBeat,replaced,process:CLRLoad>. \n2. [Relationships]: <process:PowHeartBeat,executes,process:IEX>. \n3. [Relationships]: <process:PowHeartBeat,decrypts,file:next layer of its code>. \n4. [Relationships]: <process:PowHeartBeat,decompresses,file:third layer of PowerShell code>. \n5. [Relationships]: <process:main layer of backdoor code,communicates,socket:C&C server>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Fork,process:CLRLoad>. \n[System-level Relationships]: <process:PowHeartBeat,Fork,process:IEX>. \n[System-level Relationships]: <process:PowHeartBeat,Read,file:next layer of its code>. \n[System-level Relationships]: <process:PowHeartBeat,Loadlibrary,file:third layer of PowerShell code>. \n[System-level Relationships]: <process:main layer of backdoor code,Connect,socket:C&C server>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "The configuration contains multiple fields, including version number, optional proxy configuration, and C&C address. Table 1 describes the meanings of the configuration fields in the different versions we have observed.\nTable 1. Configuration field meanings\nFigure 5 shows an example of the configuration extracted from a PowHeartBeat sample (SHA-1:757ABA12D04FD1167528FDD107A441D11CD8C427).\nFigure 5. Configuration example",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "command and control",
+        "content": "In an infinite loop, the backdoor sends a GET request to the C&C server, asking for a command to issue. The encrypted answer is decrypted by the backdoor, which processes the command, and writes the command output to a file whose content is then sent to the C&C server via a POST request.\nThe format of the GET requests is the following:\nNote that the request is constructed using the eponymous configuration fields.\nIn the response from the C&C server, the third byte of the content is the command identifier that indicates the command to be processed by the backdoor. We'll call itcommand_id. The remaining content of the response will be passed as an argument to the command that is processed. This content is encrypted with the algorithm shown in Figure 6,taskIdbeing the value of the cookie named afterCookieTaskId's value from the configuration.\nFigure 6. Requests content data encryption algorithm\nThe response from the C&C server also contains another cookie, whose name is specified by the backdoor'sCookieTerminalIdconfiguration variable. The value of this cookie is repeated in the POST request from the backdoor, and it must not be empty. After executing the backdoor command, PowHeartBeat sends the result as a POST request to the C&C server. The result is sent as a file whose name is<command_id>.png.",
+        "relationship": "1. [Relationships]: <process:backdoor,sends,socket:C&C server>. \n2. [Relationships]: <process:backdoor,asks,socket:C&C server>. \n3. [Relationships]: <process:backdoor,decrypts,socket:answer>. \n4. [Relationships]: <process:backdoor,processes,file:command output>. \n5. [Relationships]: <process:backdoor,writes,file:file>. \n6. [Relationships]: <process:backdoor,sends,socket:C&C server>. \n7. [Relationships]: <process:PowHeartBeat,sends,socket:C&C server>. \n8. [Relationships]: <process:backdoor,sets,socket:CookieTerminalId>. \n9. [Relationships]: <process:backdoor,sets,socket:CookieTaskId>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:backdoor,Send,socket:C&C server>. \n[System-level Relationships]: <process:backdoor,Connect,socket:C&C server>. \n[System-level Relationships]: <process:backdoor,Receive,socket:answer>. \n[System-level Relationships]: <process:backdoor,Write,file:command output>. \n[System-level Relationships]: <process:backdoor,Write,file:file>. \n[System-level Relationships]: <process:backdoor,Send,socket:C&C server>. \n[System-level Relationships]: <process:PowHeartBeat,Send,socket:C&C server>. \n[System-level Relationships]: <process:backdoor,Connect,socket:CookieTerminalId>. \n[System-level Relationships]: <process:backdoor,Connect,socket:CookieTaskId>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "Starting from version 2.4 of PowHeartBeat, HTTP was replaced by ICMP, sent packets having a timeout of six seconds and beingunfragmented. Communication through ICMP is most likely a way to evade detection.\nThere is no major change in versions 2.4 and later, but we noticed some modifications in the code:\nPowHeartBeat sends a heartbeat packet at each loop that contains the stringabcdefghijklmnopqrstuvwxyz, before requesting a command. This informs the C&C server that the backdoor is ready to receive commands. \nRequests to get commands performed by the backdoor contain the stringabcdefghijklmnop.\nHeartbeat packets have the format described in Figure 7.\nThe difference betweenclient IDandclient flagis thatclient IDdiffers in every sample whereasclient flagis the same in every sample that uses ICMP.heartbeat flagindicates that the backdoor is sending a heartbeat. The response from the C&C server has the format described in Figure 8.\nflaghere indicates whether there is a command to issue to the backdoor. Requests to get commands have the format described in Figure 9.\nNote that the backdoor's ICMP mode allows receiving an unlimited amount of data, divided into chunks, and the variablesdata length,current positionandtotal lengthare used to keep track of the transmitted data. Responses to these requests have the format described in Figure 10.\nAs in HTTP responses, the command identifier is the third byte ofdata.\nAfter seven consecutive ICMP replies with empty or inconsistently formatted content, transfers between the backdoor and C&C server are considered finished.\nConcerning the requests to send the result of the issued command to the C&C server, server mode is changed for post mode, and the final string (abcdefghijklmnop) is changed for the result data.",
+        "relationship": "1. [Relationships]: <process:PowHeartBeat,sends,socket:heartbeat packet>. \n2. [Relationships]: <process:PowHeartBeat,requests,socket:command>. \n3. [Relationships]: <process:PowHeartBeat,performs,socket:requests to get commands>. \n4. [Relationships]: <process:PowHeartBeat,sends,socket:Heartbeat packets>. \n5. [Relationships]: <process:PowHeartBeat,requests,socket:responses from the C&C server>. \n6. [Relationships]: <process:PowHeartBeat,receives,socket:unlimited amount of data>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Send,socket:heartbeat packet>. \n[System-level Relationships]: <process:PowHeartBeat,Connect,socket:command>. \n[System-level Relationships]: <process:PowHeartBeat,Connect,socket:requests to get commands>. \n[System-level Relationships]: <process:PowHeartBeat,Send,socket:Heartbeat packets>. \n[System-level Relationships]: <process:PowHeartBeat,Connect,socket:responses from the C&C server>. \n[System-level Relationships]: <process:PowHeartBeat,Receive,socket:unlimited amount of data>. "
+    },
+    {
+        "phase": "execution",
+        "content": "PowHeartBeat has various capabilities, including command/process execution and file manipulation. Table 2 lists all commands supported by the various analyzed samples.\nTable 2. PowHeartBeat command descriptions\nIn case of errors on the backdoor side, the backdoor uses a specific command identifier 0x00 in the POST request to the C&C server, thus indicating an error occurred.\nNote that before sending the information back to the C&C server, the data is gzip-compressed.",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "command and control",
+        "content": "PNGLoad is the second-stage payload deployed by Worok on compromised systems and, according to ESET telemetry, loaded either by CLRLoad or PowHeartBeat. While we don't see any code in PowHeartBeat that directly loads PNGLoad, the backdoor has the capabilities to download and execute additional payloads from the C&C server, which is likely how the attackers have deployed PNGLoad on systems compromised with PowHeartBeat. PNGLoad is a loader that uses bytes from PNG files to create a payload to execute. It is a 64-bit .NET executable \u2013 obfuscated with.NET Reactor\u2013 that masquerades as legitimate software. For example, Figure 11 shows the CLR headers of a sample masquerading as a WinRAR DLL.\nOnce deobfuscated, only one class is present. In this class, there is aMainPathattribute containing the directory path the backdoor searches, including its subdirectories, for files with a.pngextension, as shown in Figure 12.\nEach.pngfile located by this search ofMainPathis then checked for steganographically embedded content. First, the least-significant bit of each pixel's R (red), G (green), B (blue), and A (alpha) values are fetched and assembled into a buffer. Should the first eight bytes of that buffer match the magic number seen in Figure 13 and the next eight-byte value, control, be non-null, the file passes PNGLoad's steganographic content check. For such files, processing continues with the remainder of the buffer decrypted with a multiple-byte XOR, using the key stored in PNGLoad'sSecretKeyBytesattribute, and then the decrypted buffer is gzip-decompressed. The result is expected to be a PowerShell script, which is run immediately.\nInterestingly, operations performed by PNGLoad are logged in a file whose path is stored in the variableLogFilePath. Operations are only logged if a file is present whose path is specified by the internal variableIfLogFilePath.\nWe have not been able to obtain a sample.pngfile used along with PNGLoad, but the way PNGLoad operates suggests that it should work with valid PNG files. To hide the malicious payload, Worok uses Bitmap objects in C#, which only take pixel information from files, not the file metadata. This means that Worok can hide its malicious payloads in valid, innocuous-looking PNG images and thus hide in plain sight.",
+        "relationship": "1. [Relationships]: <process:PowHeartBeat,download and execute,process:PNGLoad>. \n2. [Relationships]: <process:PNGLoad,search,file:MainPath>. \n3. [Relationships]: <process:PNGLoad,check,file:.pngfile>. \n4. [Relationships]: <process:PNGLoad,run,file:PowerShell script>. \n5. [Relationships]: <process:PNGLoad,log,file:LogFilePath>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Fork,process:PNGLoad>. \n[System-level Relationships]: <process:PNGLoad,Read,file:MainPath>. \n[System-level Relationships]: <process:PNGLoad,Read,file:.pngfile>. \n[System-level Relationships]: <process:PNGLoad,Execute,file:PowerShell script>. \n[System-level Relationships]: <process:PNGLoad,Read,file:LogFilePath>. "
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,replaced,process:CLRLoad>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Fork,process:CLRLoad>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,executes,process:IEX>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Fork,process:IEX>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,decrypts,file:next layer of its code>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Read,file:next layer of its code>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,decompresses,file:third layer of PowerShell code>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Loadlibrary,file:third layer of PowerShell code>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:main layer of backdoor code,communicates,socket:C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:main layer of backdoor code,Connect,socket:C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,sends,socket:C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Send,socket:C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,asks,socket:C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Connect,socket:C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,decrypts,socket:answer>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Receive,socket:answer>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,processes,file:command output>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Write,file:command output>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,writes,file:file>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Write,file:file>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,sends,socket:C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Send,socket:C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,sends,socket:C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Send,socket:C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,sets,socket:CookieTerminalId>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Connect,socket:CookieTerminalId>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,sets,socket:CookieTaskId>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Connect,socket:CookieTaskId>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,sends,socket:heartbeat packet>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Send,socket:heartbeat packet>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,requests,socket:command>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Connect,socket:command>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,performs,socket:requests to get commands>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Connect,socket:requests to get commands>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,sends,socket:Heartbeat packets>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Send,socket:Heartbeat packets>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,requests,socket:responses from the C&C server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Connect,socket:responses from the C&C server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,receives,socket:unlimited amount of data>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Receive,socket:unlimited amount of data>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PowHeartBeat,download and execute,process:PNGLoad>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PowHeartBeat,Fork,process:PNGLoad>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PNGLoad,search,file:MainPath>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PNGLoad,Read,file:MainPath>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PNGLoad,check,file:.pngfile>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PNGLoad,Read,file:.pngfile>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PNGLoad,run,file:PowerShell script>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PNGLoad,Execute,file:PowerShell script>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:PNGLoad,log,file:LogFilePath>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:PNGLoad,Read,file:LogFilePath>. "
+            }
+        ]
+    }
+]

@@ -1,0 +1,66 @@
+[
+    {
+        "phase": "initial access",
+        "content": "At the beginning of the infection chain, the victim receives an invisible iMessage attachment with a zero-click exploit. The ultimate goal of this exploit is to silently open a unique URL on the backuprabbit[.]com domain. The HTML page hosted on that URL contains obfuscated JavaScript code of the NaCl cryptography library, as well as an encrypted payload. This payload is the JavaScript validator. This validator performs a lot of various checks, including different arithmetic operations like Math.log(-1) or Math.sqrt(-1), availability of components such as Media Source API, WebAssembly and others. \nAnd, as we already mentioned, it performs a fingerprinting technique called Canvas Fingerprinting by drawing a yellow triangle on a pink background with WebGL and calculating its checksum: \n1 context.bufferData(context.ELEMENT_ARRAY_BUFFER, l, context.STATIC_DRAW);   \n2 context.useProgram(C);   \n3 context.clearColor(0.5, 0.7, 0.2, 0.25);   \n4 context.clear(context.COLOR_BUFFER_BIT);   \n5 context.drawElements(context.TRIANGLES, l.length, context.UNSIGNED_SHORT, 0);   \n6 ${\\mathsf{C}}.{\\mathsf{L}}=$ context.getAttribLocation(C, Z('VE'));   \n7 ${\\mathsf{C}}\\cdot{\\mathsf{N}}=$ context.getUniformLocation(C, Z('Zv'));   \n8 context.enableVertexAttribArray(C.L);   \n9 context.vertexAttribPointer(C.L, 3, context.FLOAT, !1, 0, 0);   \n10 context.uniform2f(C.W, 1, 1);   \n11 context.drawArrays(context.TRIANGLE_STRIP, 0, 3);   \n12 var $\\textrm{h}=$ new Uint8Array(262144);   \n13 context.readPixels(0, 0, 256, 256, context.RGBA, context.UNSIGNED_BYTE, h);   \n14 data['xT'] $=$ h[88849];   \n15 data['jHWOO'] $=$ h[95054];   \n16 data['aRR'] $=$ h[99183];   \n17 data['ffJEi $\\mathrm{~\\ensuremath~{~\\mathbf~{~J~}~}~}=\\mathsf{h}[130012]$ ;   \n18 for (var ${\\mathfrak{p}}={\\mathfrak{0}}$ , $\\_0$ ; $\\_h$ .length; $-^{++)}$   \n19 $0+=\\mathsf{h}[\\mathsf{\\Gamma}_{-}]$ ;   \n20 data['WjOn'] = p; \nCode drawing the triangle \nThe drawn triangle \nThis triangle is, in fact, why we dubbed this whole campaign Operation Triangulation. \nAfter running the validator, it encrypts and sends all collected information to another unique URL on backuprabbit[.]com in order to receive (or not) the next stage of the infection chain. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "execution",
+        "content": "As we see from the infection chain graph, this validator gets launched prior to deployment of the TriangleDB implant. As opposed to the JavaScript Validator, which is a script, this validator is a MachO binary file (hence the name Binary Validator). When launched, it decrypts its configuration using AES. This configuration is a plist: \nThis plist contains a list of actions (such as DeleteLogs, DeleteArtifacts, etc.) that have to be performed by the validator. Specifically, it: \nRemoves crash logs from the /private/var/mobile/Library/Logs/CrashReporter directory that could have been created during the exploitation process; Searches for traces of the malicious iMessage attachment in various databases, such as ids-pubid.db or knowledgeC.db, and then removes them. To be able to do that, the validator's configuration contains 40 MD5 hashes of Apple IDs that are used for sending the malicious iMessages. We managed to crack the majority of these hashes, thus obtaining a list of attacker-controlled Apple ID email addresses: \nmailto:travislong544[at]yahoo.com mailto:norsarall87[at]outlook.com mailto:jesteristhebestband[at]gmail.com mailto:christineashleysmith[at]gmail.com mailto:homicidalwombat[at]yahoo.com mailto:nigelmlevy[at]gmail.com mailto:supercatman15[at]hotmail.com mailto:shannonkelly404[at]gmail.com mailto:superhugger21[at]gmail.com mailto:parkourdiva[at]yahoo.com mailto:naturelover1972[at]outlook.com mailto:sasquatchdreams[at]outlook.com mailto:trunkfullofbeans[at]yahoo.com mailto:danielhbarnes2[at]gmail.com mailto:patriotsman121[at]gmail.com mailto:wheelsordoors[at]yahoo.com \nmailto:tinyjax89[at]gmail.com mailto:nonbaguette[at]yahoo.com mailto:slbrimms96[at]outlook.com mailto:costamaria91[at]outlook.com mailto:hyechink97[at]gmail.com mailto:greatoleg9393[at]mail.com mailto:popanddangle[at]outlook.com mailto:maxjar90[at]mail.com mailto:chongwonnam[at]gmail.com mailto:wopperplopper1[at]aol.com mailto:bajablaster101[at]gmail.com mailto:carlson31773[at]outlook.com mailto:fsozgur[at]outlook.com mailto:soccerchk835[at]gmail.com mailto:stephamartinez122[at]gmail.com mailto:popcornkerner[at]gmail.com \nGets a list of processes running on the device, as well as a list of network interfaces; \nChecks whether the target device is jailbroken. The validator implements checks for a wide range of jailbreak tools: Pangu, xCon, Evasion7, Electra, unc0ver, checkra1n and many more; Turns on personalized ad tracking; Collects a wide range of information about the victim, such as username, phone number, IMEI and Apple ID; Retrieves a list of installed applications. \nWhat is interesting about these actions is that the validator implements them both for iOS and macOS systems: \nWe also found that the validator implements an unused action, which was dubbed PSPDetect by the attackers. \nThis action retrieves a list of files from the validator's configuration (this list was empty for the validator configurations that we analyzed), checks if they are present in the file system and produces a list of found files as output. \nThe abbreviation PSP in the name of this action may mean \"personal security product,\" or, in simpler terms, a security solution. It is thus possible that this action may be launched on macOS devices in \norder to detect installed antivirus products. \nHaving executed all these actions, the validator encrypts and sends the obtained data (list of processes, user information, etc.) to the C2 server. In response, the server returns the TriangleDB implant, which we described before. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "command and control",
+        "content": "The threat actor behind Operation Triangulation exercises stealth not only by introducing two validators in the infection chain. In fact, they perform all operations with the TriangleDB implant very carefully. This can be observed from our analysis of commands sent by the attackers to the infected devices via this implant. \nAfter the implant establishes communication with the C2 server and sends a heartbeat, it receives multiple CRXShowTables and CRXFetchRecord commands from the C2 server. These commands are related to retrieval of logs that might show traces of the infection chain and/or the malware itself. Some of the files that are retrieved are: \nCrash log files (e.g. those in the /var/mobile/Library/Logs/CrashReporter); $\\bullet$ Database files (e.g. /private/var/mobile/Library/IdentityServices/ids-gossip.db). These database files may contain the Apple ID used by the attackers to send the malicious iMessage. \nOnce the attackers receive these files, they delete them from the device, so that the victim can't examine them and potentially find signs of compromise. Having completed log collection and deletion, the attackers send multiple CRXPollRecords commands to the implant, instructing it to periodically exfiltrate files from the /private/var/tmp directory. The names of the files to be uploaded to the C2 server should match one of the following regular expressions: \nUnknown \nThe files with these names contain execution results produced by modules. These modules are uploaded to the infected device through the CRXUpdateRecord and CRXRunRecord commands \u2013 we describe them below. ",
+        "relationship": "1. [Relationships]: <process:implant,establishes communication with,socket:C2 server>. \n2. [Relationships]: <process:implant,sends,socket:C2 server>. \n3. [Relationships]: <process:C2 server,sends,process:implant>. \n4. [Relationships]: <process:implant,deletes,file:Crash log files>. \n5. [Relationships]: <process:implant,deletes,file:Database files>. \n6. [Relationships]: <process:implant,exfiltrates,file:/private/var/tmp directory>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:implant,Connect,socket:C2 server>. \n[System-level Relationships]: <process:implant,Send,socket:C2 server>. \n[System-level Relationships]: <process:C2 server,Send,buffer:implant>. \n[System-level Relationships]: <process:implant,Delete,file:Crash log files>. \n[System-level Relationships]: <process:implant,Delete,file:Database files>. \n[System-level Relationships]: <process:implant,Write,file:/private/var/tmp directory>. "
+    },
+    {
+        "phase": "exfiltration",
+        "content": "For an unknown reason, the attackers decided to add an additional keychain exfiltration module, despite such functionality already being present in TriangleDB. This keychain module has the same logic as that in TriangleDB, but is largely based on code from the iphonedataprotection.keychainviewer project. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase": "collection",
+        "content": "Many apps on iOS use SQLite to store their internal data. It is thus of no surprise that the attackers implemented modules capable of stealing data from various SQLite databases. All these modules have the same codebase, and contain different SQL queries to be executed. Again, they have a configuration that is encrypted. When this is decrypted, only standard variables such as file path, AES key, query string, etc. can be found. \nThe code of these modules is quite peculiar. For example, the attackers implemented a wrapper around the fopen() function, adding the Z flag (indicating that a created file should be AES-encrypted and zlib-compressed) used in combination with the standard w (write) flag, as can be seen in the image below. \nWhat is also interesting is that the SQLite stealing modules contain three branches of code for different iOS versions: lower than 8.0, between 8.0 and 9.0, and 9.0 and later. \nEach module that we found performs different SQL database queries. For example, there is a module that processes application usage data from the knowledgeC.db database. Another module extracts photo-related metadata, such as whether a child is in the picture or not, if the person is male or female (see image below) and text that was automatically OCRed from media files. \nIt should also come as no surprise that the attackers expressed interest in WhatsApp, SMS and Telegram messages as well \u2013 we found modules exfiltrating this data too. ",
+        "relationship": "[Relationships]: None.",
+        "semantic_relationship": "None"
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:implant,establishes communication with,socket:C2 server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:implant,Connect,socket:C2 server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:implant,sends,socket:C2 server>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:implant,Send,socket:C2 server>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:C2 server,sends,process:implant>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:C2 server,Send,buffer:implant>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:implant,deletes,file:Crash log files>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:implant,Delete,file:Crash log files>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:implant,deletes,file:Database files>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:implant,Delete,file:Database files>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:implant,exfiltrates,file:/private/var/tmp directory>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:implant,Write,file:/private/var/tmp directory>. "
+            }
+        ]
+    }
+]

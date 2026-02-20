@@ -1,0 +1,196 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "dropper",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\Microsoft\\credprov.tlb",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "rundll32.exe",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\Microsoft\\shdocvw.tlp",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 5
+    },
+    {
+      "type": "reg",
+      "value": "HKCU\\Software\\Classes\\CLSID\\{42aedc87-2188-41fd-b9a3-0c966feabec1}\\InprocServer32",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\shdocvw.tlp",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "%APPDATA%\\shdocvw.tlp",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "explorer.exe",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "shdocvw.tlp",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "credprov.tlb",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "browser process",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "command and control server",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "processes",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "named pipe",
+      "id": 15
+    }
+  ],
+  "links": [
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "persistence",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "persistence",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "6",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "7",
+      "source": 5,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "10",
+      "source": 5,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "12",
+      "source": 5,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "defense evasion",
+      "order": "8",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "defense evasion",
+      "order": "9",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "defense evasion",
+      "order": "11",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "defense evasion",
+      "order": "13",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    }
+  ]
+}

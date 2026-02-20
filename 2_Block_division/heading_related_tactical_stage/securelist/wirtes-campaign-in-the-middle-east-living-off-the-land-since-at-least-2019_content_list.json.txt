@@ -1,0 +1,5 @@
+
+【Command and control 】
+==============================
+  In our initial sample analysis, the C2 domain we observed was stgeorgebankers[.]com. After conducting pivots through malware samples, we were able to identify multiple C2 domains that date back to at least December 2019. These C2 domains were occasionally behind CloudFlare to obscure the real C2 IP address. Thanks to collaboration with our partners, we were able to gather some of the original C2 IP addresses, which allowed us to discover that the servers are hosted in Ukraine and Estonia. 
+

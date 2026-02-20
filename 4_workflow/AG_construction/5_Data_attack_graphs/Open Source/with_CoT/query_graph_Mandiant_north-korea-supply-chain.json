@@ -1,0 +1,621 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "JumpCloud agent",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "lightweight Ruby script",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "Ruby script",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "second stage payload",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "second stage payload",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "additional backdoors",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "plists",
+      "id": 8
+    },
+    {
+      "type": "socket",
+      "value": "hxxps://primerosauxilioso",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "/usr/local/bin/com.docker.vmnat",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "/usr/local/bin/com.docker.vmnat.lock",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "/usr/local/bin/com.docker.vmnat",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "unknown URL",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "com.docker.vmnat",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "/private/var/db/oah",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "/private/var/db/oah",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "Apple's Rosetta 2 translator",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "com.docker.vmnat.aot",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "FULLHOUSE.DOORED",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "HTTP",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "command and control (C2) server",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "server",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "STRATOFEAR",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "C2 servers",
+      "id": 24
+    },
+    {
+      "type": "socket",
+      "value": "remote server",
+      "id": 25
+    },
+    {
+      "type": "file",
+      "value": "modules from disk",
+      "id": 26
+    },
+    {
+      "type": "file",
+      "value": "/Library/Fonts/ArialUnicode.ttf.md5",
+      "id": 27
+    },
+    {
+      "type": "file",
+      "value": "/Library/Fonts/ArialUnicode.ttf.md5.1",
+      "id": 28
+    },
+    {
+      "type": "file",
+      "value": ".tmp files",
+      "id": 29
+    },
+    {
+      "type": "process",
+      "value": "module types",
+      "id": 30
+    },
+    {
+      "type": "process",
+      "value": "TIEDYE",
+      "id": 31
+    },
+    {
+      "type": "socket",
+      "value": "C2 server",
+      "id": 32
+    },
+    {
+      "type": "file",
+      "value": "LaunchAgent",
+      "id": 33
+    },
+    {
+      "type": "file",
+      "value": "LaunchAgents/com.studentd.agent.plist",
+      "id": 34
+    },
+    {
+      "type": "file",
+      "value": "/Library/LaunchDaemons/com.studentd.agent.plist",
+      "id": 35
+    },
+    {
+      "type": "process",
+      "value": "RGB units",
+      "id": 36
+    },
+    {
+      "type": "socket",
+      "value": "L2TP IPsec tunnels",
+      "id": 37
+    },
+    {
+      "type": "process",
+      "value": "ORBs",
+      "id": 38
+    },
+    {
+      "type": "socket",
+      "value": "commercial VPN providers",
+      "id": 39
+    },
+    {
+      "type": "process",
+      "value": "UNC4899",
+      "id": 40
+    },
+    {
+      "type": "socket",
+      "value": "VPN providers",
+      "id": 41
+    },
+    {
+      "type": "socket",
+      "value": "ORB",
+      "id": 42
+    },
+    {
+      "type": "process",
+      "value": "DPRK threat actor",
+      "id": 43
+    },
+    {
+      "type": "socket",
+      "value": "Pyongyang IP",
+      "id": 44
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 4,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "5",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "initial access",
+      "order": "8",
+      "source": 3,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "9",
+      "source": 3,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "11",
+      "source": 3,
+      "target": 10,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "14",
+      "source": 3,
+      "target": 10,
+      "key": 2
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "15",
+      "source": 3,
+      "target": 10,
+      "key": 3
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "10",
+      "source": 3,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "12",
+      "source": 3,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "16",
+      "source": 3,
+      "target": 12,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "17",
+      "source": 3,
+      "target": 12,
+      "key": 2
+    },
+    {
+      "type": "Receive",
+      "phase": "initial access",
+      "order": "13",
+      "source": 3,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "18",
+      "source": 3,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "21",
+      "source": 3,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "23",
+      "source": 3,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "25",
+      "source": 3,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "40",
+      "source": 3,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "42",
+      "source": 3,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "44",
+      "source": 3,
+      "target": 40,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "47",
+      "source": 3,
+      "target": 43,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "6",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "7",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "19",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "20",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "22",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "24",
+      "source": 19,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "27",
+      "source": 19,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "35",
+      "source": 19,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "26",
+      "source": 21,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "28",
+      "source": 23,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "29",
+      "source": 23,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "command and control",
+      "order": "30",
+      "source": 23,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "31",
+      "source": 23,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "32",
+      "source": 23,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "33",
+      "source": 23,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "command and control",
+      "order": "34",
+      "source": 23,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "36",
+      "source": 31,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "37",
+      "source": 31,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "38",
+      "source": 31,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "39",
+      "source": 31,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "41",
+      "source": 36,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "43",
+      "source": 38,
+      "target": 39,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "45",
+      "source": 40,
+      "target": 41,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "46",
+      "source": 40,
+      "target": 42,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "48",
+      "source": 43,
+      "target": 44,
+      "key": 0
+    }
+  ]
+}

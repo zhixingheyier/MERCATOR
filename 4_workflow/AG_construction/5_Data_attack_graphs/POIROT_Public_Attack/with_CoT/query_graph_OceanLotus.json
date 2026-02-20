@@ -1,0 +1,775 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "binary",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "resource (XOR with a 128-byte",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "%temp%\\RobotoSlab-Regular.ttf",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "shellcode",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "shellcode",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "%temp%\\[0-9].tmp.exe",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "Windows API functions: VirtualAlloc",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "decrypted PE",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "decrypted PE",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "DLLEntry export function",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": "DLLEntry export function",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "executable",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "resource",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "resource:LZMA algorithm output",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 15
+    },
+    {
+      "type": "reg",
+      "value": "HKCU\\SOFTWARE\\Microsoft\\ Windows\\CurrentVersion\\Run;DeviceAssociationService;rastlsc.exe",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "dropper",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "rastlsc.exe",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "SyLog.bin",
+      "id": 19
+    },
+    {
+      "type": "file",
+      "value": "rastls.dll",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "files in %ProgramFiles% or %appdata%",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "rastlsc.exe",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "{BB7BDEC9-B59D-492E-A4AF-4C7B1C9E646B}.dll",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "rastls.dll",
+      "id": 24
+    },
+    {
+      "type": "file",
+      "value": "OUTLFLTR.DAT",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "McUtil.dll",
+      "id": 26
+    },
+    {
+      "type": "file",
+      "value": "mcoemcpy.exe",
+      "id": 27
+    },
+    {
+      "type": "file",
+      "value": "encrypted stage-two",
+      "id": 28
+    },
+    {
+      "type": "process",
+      "value": "mcscentr.adf",
+      "id": 29
+    },
+    {
+      "type": "file",
+      "value": "encrypted stage-two shellcode",
+      "id": 30
+    },
+    {
+      "type": "file",
+      "value": "{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll",
+      "id": 32
+    },
+    {
+      "type": "process",
+      "value": "DeviceAssociationService",
+      "id": 33
+    },
+    {
+      "type": "file",
+      "value": "backdoor",
+      "id": 34
+    },
+    {
+      "type": "process",
+      "value": "{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll",
+      "id": 35
+    },
+    {
+      "type": "file",
+      "value": "username (UTF-16)",
+      "id": 36
+    },
+    {
+      "type": "file",
+      "value": "hex result",
+      "id": 37
+    },
+    {
+      "type": "file",
+      "value": "mutex \\Sessions\\1\\BaseNamedObjects\\170015001b",
+      "id": 38
+    },
+    {
+      "type": "process",
+      "value": "backdoor",
+      "id": 39
+    },
+    {
+      "type": "file",
+      "value": "HTTPProv.dll",
+      "id": 40
+    },
+    {
+      "type": "file",
+      "value": "HTTPProv.dll entrypoint",
+      "id": 41
+    },
+    {
+      "type": "process",
+      "value": "HTTPProv.dll entrypoint",
+      "id": 42
+    },
+    {
+      "type": "file",
+      "value": "CreateInstance export function",
+      "id": 43
+    },
+    {
+      "type": "process",
+      "value": "CreateInstance export function",
+      "id": 44
+    },
+    {
+      "type": "socket",
+      "value": "DNS query",
+      "id": 45
+    },
+    {
+      "type": "socket",
+      "value": "domain",
+      "id": 46
+    },
+    {
+      "type": "socket",
+      "value": "C&C server:25123",
+      "id": 47
+    },
+    {
+      "type": "socket",
+      "value": "C&C server",
+      "id": 48
+    },
+    {
+      "type": "process",
+      "value": "HTTPprov",
+      "id": 49
+    },
+    {
+      "type": "socket",
+      "value": "HTTP protocol",
+      "id": 50
+    },
+    {
+      "type": "socket",
+      "value": "SOCKS proxy",
+      "id": 51
+    },
+    {
+      "type": "reg",
+      "value": "HKCU\\SOFTWARE\\Classes\\ AppXc52346ec40fb4061ad96be0e6cb7d16a\\DefaultIcon",
+      "id": 52
+    },
+    {
+      "type": "reg",
+      "value": "HKCU\\SOFTWARE\\Classes\\ CLSID{E3517E26-8E93-458D-A6DF-8030BC80528B}",
+      "id": 53
+    },
+    {
+      "type": "socket",
+      "value": "URL",
+      "id": 54
+    }
+  ],
+  "links": [
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "6",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "7",
+      "source": 5,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "8",
+      "source": 5,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "9",
+      "source": 5,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "10",
+      "source": 5,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "13",
+      "source": 5,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "15",
+      "source": 5,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "21",
+      "source": 5,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "25",
+      "source": 5,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "28",
+      "source": 5,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "31",
+      "source": 5,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "32",
+      "source": 5,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Decrypt",
+      "phase": "execution",
+      "order": "34",
+      "source": 5,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "35",
+      "source": 5,
+      "target": 31,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "36",
+      "source": 5,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "38",
+      "source": 5,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "39",
+      "source": 5,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "46",
+      "source": 5,
+      "target": 39,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "56",
+      "source": 5,
+      "target": 49,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "persistence",
+      "order": "11",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "12",
+      "source": 12,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "persistence",
+      "order": "14",
+      "source": 15,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "persistence",
+      "order": "19",
+      "source": 15,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "20",
+      "source": 15,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "42",
+      "source": 15,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "43",
+      "source": 15,
+      "target": 36,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "44",
+      "source": 15,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "45",
+      "source": 15,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "53",
+      "source": 15,
+      "target": 46,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "54",
+      "source": 15,
+      "target": 47,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "16",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "17",
+      "source": 17,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "persistence",
+      "order": "18",
+      "source": 17,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "23",
+      "source": 22,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "24",
+      "source": 22,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "22",
+      "source": 23,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "26",
+      "source": 24,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "27",
+      "source": 24,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "29",
+      "source": 26,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "30",
+      "source": 26,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "33",
+      "source": 29,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "37",
+      "source": 32,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "40",
+      "source": 35,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "41",
+      "source": 35,
+      "target": 22,
+      "key": 1
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "47",
+      "source": 39,
+      "target": 40,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "48",
+      "source": 39,
+      "target": 41,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "49",
+      "source": 39,
+      "target": 42,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "50",
+      "source": 39,
+      "target": 43,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "51",
+      "source": 39,
+      "target": 44,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "52",
+      "source": 39,
+      "target": 45,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "55",
+      "source": 39,
+      "target": 48,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "command and control",
+      "order": "59",
+      "source": 39,
+      "target": 52,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "57",
+      "source": 49,
+      "target": 50,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "58",
+      "source": 49,
+      "target": 51,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "command and control",
+      "order": "60",
+      "source": 49,
+      "target": 53,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "61",
+      "source": 49,
+      "target": 54,
+      "key": 0
+    }
+  ]
+}

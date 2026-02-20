@@ -1,0 +1,524 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "external link",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "defrt.html",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "payload",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "oehrjd.exe",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "VBA script",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "DD.inf",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "DD.inf",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "ema.tmp",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "des.jpg",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "rundll32",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "temporary files",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "INF file",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "DLL file",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "DLL file",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "https[:]//vertebromed[.]md/temp/dhssdf[.]exe",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "dhssdf.exe",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "IMG_3360_103pdf.exe",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "LokiBot",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "C2 IP",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "injector",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "predetermined strings",
+      "id": 21
+    },
+    {
+      "type": "file",
+      "value": "API string",
+      "id": 22
+    },
+    {
+      "type": "file",
+      "value": "payload",
+      "id": 23
+    },
+    {
+      "type": "file",
+      "value": "decrypted data",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "PEB (Process Environment Block)",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "NtGlobalFlag",
+      "id": 26
+    },
+    {
+      "type": "file",
+      "value": "\\VMWare and \\Oracle\\virtualbox guest additions",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "Sleep()",
+      "id": 28
+    },
+    {
+      "type": "process",
+      "value": "ProcessDebugObjectHandle",
+      "id": 29
+    },
+    {
+      "type": "file",
+      "value": "memory",
+      "id": 30
+    },
+    {
+      "type": "process",
+      "value": "LokiBot",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "web browsers",
+      "id": 32
+    },
+    {
+      "type": "process",
+      "value": "FTP",
+      "id": 33
+    },
+    {
+      "type": "process",
+      "value": "email",
+      "id": 34
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\Roaming\\576094",
+      "id": 35
+    },
+    {
+      "type": "file",
+      "value": "47DD9F.exe",
+      "id": 36
+    },
+    {
+      "type": "file",
+      "value": "47DD9F.exe(hidden)",
+      "id": 37
+    },
+    {
+      "type": "file",
+      "value": "D0BECCE5760947DD9FFD80DB",
+      "id": 38
+    },
+    {
+      "type": "file",
+      "value": "array of targeted software names",
+      "id": 39
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "6",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "7",
+      "source": 5,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "8",
+      "source": 5,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "initial access",
+      "order": "9",
+      "source": 5,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "10",
+      "source": 5,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "11",
+      "source": 5,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "12",
+      "source": 5,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "15",
+      "source": 5,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "18",
+      "source": 5,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "13",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "14",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "execution",
+      "order": "16",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "17",
+      "source": 17,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "19",
+      "source": 20,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "20",
+      "source": 20,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "21",
+      "source": 20,
+      "target": 22,
+      "key": 1
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "22",
+      "source": 20,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "23",
+      "source": 20,
+      "target": 23,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "24",
+      "source": 20,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "25",
+      "source": 20,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Readkey",
+      "phase": "execution",
+      "order": "26",
+      "source": 20,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "27",
+      "source": 20,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "28",
+      "source": 20,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "29",
+      "source": 20,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "30",
+      "source": 20,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "31",
+      "source": 20,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "collection",
+      "order": "32",
+      "source": 31,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "collection",
+      "order": "33",
+      "source": 31,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "collection",
+      "order": "34",
+      "source": 31,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "35",
+      "source": 31,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "collection",
+      "order": "36",
+      "source": 31,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Attribute",
+      "phase": "collection",
+      "order": "37",
+      "source": 31,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "38",
+      "source": 31,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "39",
+      "source": 31,
+      "target": 39,
+      "key": 0
+    }
+  ]
+}

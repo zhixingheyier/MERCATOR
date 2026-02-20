@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Initial Access",
+        "content": "The attack begins with a spear-phishing email: we have observed cases where the malicious emails were sent from a legitimate account, suggesting that compromised accounts could have been abused to deliver the malicious emails. The email embeds a OneDrive URL link that downloads a ZIP file which contains a malicious Excel file. The Excel filename and email subject are designed to capture the target’s interest. Some of file names and email subjects used in this campaign are listed below:\n<REDACTED>_修正済み履歴書 (Japanese translated to English: <REDACTED>_Revised Resume) \n臺日道路交通合作與調研相關公務出國報告 (Taiwanese translated to English: Report on Official Business Trips Abroad Related to Taiwan-Japan Road Transportation Cooperation and Research) \n應徵研究助理-<REDACTED> (Taiwanese translated to English: Research Assistant Application-<REDACTED>)"
+    }
+]

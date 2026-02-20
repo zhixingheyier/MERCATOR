@@ -1,0 +1,230 @@
+[
+    {
+        "level": 0,
+        "content": "Earth Kasha Updates TTPs in Latest Campaign Targeting Taiwan and Japan"
+    },
+    {
+        "level": 3,
+        "content": "Summary:"
+    },
+    {
+        "level": 3,
+        "content": "APT group Earth Kasha continues its activity with a new campaign in March 2025 that uses spear-phishing to deliver a new version of the ANEL backdoor, possibly for espionage based on the campaign’s victimology. \nIn this campaign, the APT group believed to be a part of the larger APT10 group is targeting government agencies and public institutions in Taiwan and Japan. Potential impact could include information theft and sensitive data related to governance being compromised. \nThe ANEL file from the 2025 campaign discussed in this blog implemented a new command to support an execution of BOF (Beacon Object File) in memory. This campaign also potentially leveraged SharpHide to launch the second stage backdoor NOOPDOOR. \nWe provide recommendations for organizations to proactively secure their systems, including implementing a zero-trust approach to external and unrecognized One Drive links, and the continuous monitoring for any potential abuse of DNS over HTTPS. \nTrend Vision One™ detects and blocks the IOCs discussed in this blog. Trend Vision One customers can also access hunting queries, threat insights, and threat intelligence reports to gain rich context and the latest updates on Earth Kasha."
+    },
+    {
+        "level": 3,
+        "content": "In our monitoring of advanced persistent threats, we observed a new campaign targeting Taiwan and Japan that can be attributed to Earth Kasha. We detected campaign activity in March 2025, and found that it uses spear-phishing to deliver a new version of the ANEL backdoor."
+    },
+    {
+        "level": 3,
+        "content": "Earth Kasha, believed to be a part of the larger APT10 umbrella, has been conducting espionage campaigns since at least 2017 and are known to shift their techniques, tactics and toolsets frequently. Prior activity from the group was recorded in2024, where they targeted individuals affiliated with political organizations, research institutions, thinktanks, and organizations related to international relations in Japan via spear-phishing. It appears that the group is expanding targets in their new spear-phishing campaign this year to include government agencies and public institutions in Taiwan and Japan."
+    },
+    {
+        "level": 3,
+        "content": "We assume that the motivation behind this campaign is espionage and information theft based on the victimology and post-exploitation TTPs. Considering that Earth Kasha’s origin is believed to be China, a potential espionage campaign targeting Taiwan and Japan has significant geopolitical implications."
+    },
+    {
+        "level": 3,
+        "content": "In this blog, we will discuss the TTPs, and malware observed in Earth Kasha’s latest campaign."
+    },
+    {
+        "level": 2,
+        "content": "Initial Access"
+    },
+    {
+        "level": 3,
+        "content": "The attack begins with a spear-phishing email: we have observed cases where the malicious emails were sent from a legitimate account, suggesting that compromised accounts could have been abused to deliver the malicious emails. The email embeds a OneDrive URL link that downloads a ZIP file which contains a malicious Excel file. The Excel filename and email subject are designed to capture the target’s interest. Some of file names and email subjects used in this campaign are listed below:"
+    },
+    {
+        "level": 3,
+        "content": "<REDACTED>_修正済み履歴書 (Japanese translated to English: <REDACTED>_Revised Resume) \n臺日道路交通合作與調研相關公務出國報告 (Taiwanese translated to English: Report on Official Business Trips Abroad Related to Taiwan-Japan Road Transportation Cooperation and Research) \n應徵研究助理-<REDACTED> (Taiwanese translated to English: Research Assistant Application-<REDACTED>)"
+    },
+    {
+        "level": 2,
+        "content": "Dropper"
+    },
+    {
+        "level": 3,
+        "content": "The malicious Excel file is a macro-enabled dropper that we call ROAMINGMOUSE. Since the Earth Kasha’s 2024 campaign, ROAMINGMOUSE has been used as an initial dropper to drop the ANEL components by implementing a simple sandbox evasion technique requiring user manipulation to trigger the malicious routine."
+    },
+    {
+        "level": 3,
+        "content": "The use of a malicious Excel file is different from Earth Kasha’s 2024 campaign where they used a malicious Word file. Apart from the change in file type, the malicious routine trigger was also switched from a mousemove event to the click event."
+    },
+    {
+        "level": 3,
+        "content": "ROAMINGMOUSE then decodes the embedded ZIP file by usingBase64, drops the ZIP on a disk, and expands its components. In this campaign, ROAMINGMOUSE dropped the following components:"
+    },
+    {
+        "level": 3,
+        "content": "JSLNTOOL.exe, JSTIEE.exe, or JSVWMNG.exe: A legitimate application signed by 株式会社ジャストシステム (JustSystems Inc.) \nJSFC.dll: A malicious loader, dubbed ANELLDR \n<RANDOM>: An encrypted ANEL payload \nMSVCR100.dll: A legitimate DLL, dependency of EXE"
+    },
+    {
+        "level": 3,
+        "content": "The components were dropped onto following file paths:"
+    },
+    {
+        "level": 3,
+        "content": "%LOCALAPPDATA%\\Microsoft\\Windows\\<RANDOM> \n%LOCALAPPDATA%\\Microsoft\\Media Player\\Transcoded Files Cache\\<RANDOM>"
+    },
+    {
+        "level": 3,
+        "content": "After dropping the components, ROAMINGMOUSE launches the legitimate EXE as an argument ofexplorer.exevia WMI. The EXE then loads a malicious DLL,JSFC.dll, in the same directory via DLL sideloading."
+    },
+    {
+        "level": 3,
+        "content": "A notable observation from our investigation is that if ROAMINGMOUSE detects an installation of McAfee application, it changes its execution method to create a batch file in the startup folder that executes a legitimate EXE as an argument ofexplorer.exewithout WMI."
+    },
+    {
+        "level": 2,
+        "content": "First stage backdoor: ANEL"
+    },
+    {
+        "level": 3,
+        "content": "JSFC.dll, a malicious loader dubbed ANELLDR, was observed in this campaign. It mostly has the same capabilities as the loader used in Earth Kasha’s previouscampaign. It decrypts an encrypted ANEL blob file in the same directory by usingAES-256-CBCand LZO, and executes the ANEL in memory."
+    },
+    {
+        "level": 3,
+        "content": "The ANEL file is known to embed its version number, which can help to understand how it evolves. However, since Earth Kasha’s previous campaign in 2024, the ANEL file has been observed to have its version number encrypted. The ANEL file we observed in this new campaign also encrypted its version number."
+    },
+    {
+        "level": 3,
+        "content": "As for capabilities, it should be noted that there are no significant changes on command and control (C&C) communication protocols: this campaign continues to use a combination of custom ChaCha20, XOR, and LZO. However, we found that the ANEL file from the 2025 campaign implemented a new command to support the execution of a BOF (Beacon Object File) in memory. Table 1 summarizes the changes of supported commands on each ANEL file version."
+    },
+    {
+        "level": 2,
+        "content": "ANEL backdoor post-exploitation"
+    },
+    {
+        "level": 3,
+        "content": "After installing the ANEL file, actors behind Earth Kasha obtained screenshots using a backdoor command and examined the victim’s environment. To do this, we observed that the following commands were used:"
+    },
+    {
+        "level": 3,
+        "content": "tasklist /v \nnet localgroup administrators \nnet user"
+    },
+    {
+        "level": 3,
+        "content": "The adversary appears to investigate the victim by looking through screenshots, running process lists, and domain information. We assume this is to find out whether they have infiltrated an intended target, as there are several cases where the threat actors did not proceed with the second stage backdoor. In the cases that they did proceed with the second stage backdoor, we observed that they downloaded NOOPDOOR components onto theC:\\ProgramDatafolder using a backdoor command and executed it using following commands:"
+    },
+    {
+        "level": 3,
+        "content": "cmd /c C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\MSBuild.exe C:\\ProgramData\\ctac.xml"
+    },
+    {
+        "level": 3,
+        "content": "We also observed that Earth Kasha in this latest campaign potentially leveragedSharpHidefor persistence: to launch NOOPDOOR through theHidden Start(hstart64.exe), and to hide a UI of MSBuild on autorun. It possibly injects SharpHide in the legitimate application process since the “msiexec.exe” was verified as legitimate, as can be observed in the following command:"
+    },
+    {
+        "level": 3,
+        "content": "C:\\WINDOWS\\system32\\msiexec.exe action=create keyvalue=\"C:\\ProgramData\\hstart64.exe\" arguments=\"/NOCONSOLE\\\"C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\MSBuild.exe C:\\ProgramData\\ctac.xml\\\"\""
+    },
+    {
+        "level": 3,
+        "content": "Earth Kasha then removed the ANEL working directories by using following commands:"
+    },
+    {
+        "level": 3,
+        "content": "rd /s /q \"C:\\Users\\<REDUCTED>\\AppData\\Local\\Microsoft\\Media Player\\Transcoded Files Cache\\<RANDOM>\""
+    },
+    {
+        "level": 3,
+        "content": "rd /s /q \"C:\\Users\\<REDUCTED>\\AppData\\Local\\Microsoft\\Windows\\<RANDOM>\""
+    },
+    {
+        "level": 2,
+        "content": "Second stage backdoor: NOOPDOOR"
+    },
+    {
+        "level": 3,
+        "content": "We also observed that the adversary installed NOOPDOOR as its second-stage backdoor; NOOPDOOR is the sophisticated backdoor exclusively used by Earth Kasha since at least 2021. NOOPDOOR has been observed to continuously evolve by adding or removing minor features. An interesting update observed in NOOPDOOR during this campaign is that it supports to useDNS over HTTPS (DoH)."
+    },
+    {
+        "level": 3,
+        "content": "DoH is a relatively new technology to secure the user’s privacy by resolving IP address over HTTPS, instead of DNS that doesn’t support encryption. The new version of NOOPDOOR is designed to hide its IP lookup using the DoH protocol during C&C. NOOPDOOR embeds public DNS servers supporting DoH, such as Google and Cloudflare."
+    },
+    {
+        "level": 3,
+        "content": "NOOPDOOR generates a C&C domain through Domain Generation Algorithm (DGA) based on the current datetime as we have described in ourprevious blog, and then tries to resolve IP over DoH to hide suspicious domain name resolutions. Figure 6 illustrates how DoH works to get an IP. The result of DNS resolution will be returned in the HTTPS body."
+    },
+    {
+        "level": 2,
+        "content": "Conclusion and security recommendations"
+    },
+    {
+        "level": 3,
+        "content": "Earth Kasha continues to be an active advanced persistent threat and is now targeting government agencies and public institutions in Taiwan and Japan in its latest campaign which we detected in March 2025. Malicious actors behind the group continue to use spear-phishing to target their victims but employ slightly modified TTPs from their previous campaigns. A malicious Excel file now carries ROAMINGMOUSE, when before they used a Word file; additionally, the malicious routine trigger was also switched from a mousemove event to the click event."
+    },
+    {
+        "level": 3,
+        "content": "The ANEL file we observed in this new campaign encrypts its version number like the ANEL file version from Earth Kasha’s previous campaign in 2024, but we found that the ANEL file from the 2025 campaign implemented a new command to support an execution of BOF (Beacon Object File) in memory. This latest campaign also potentially leveraged SharpHide for persistence: to launch the second stage backdoor NOOPDOOR through the Hidden Start (hstart64.exe), and to hide a UI of MSBuild on autorun."
+    },
+    {
+        "level": 3,
+        "content": "Enterprises and organizations, especially those with high-value assets like sensitive data relating to governance, as well as intellectual property, infrastructure data, and access credentials should continue to be vigilant and implement proactive security measures to prevent falling victim to cyberattacks. We recommend the following measures so enterprises can help secure against the TTPs discussed in this blog:"
+    },
+    {
+        "level": 3,
+        "content": "Educate users on the risks of selecting and opening external or unrecognized OneDrive links and implement a zero-trust policy when interacting with such links and files on unrecognized emails. \nMonitor potential abuse of DNS over HTTPS. \nDisable macros downloaded from the internet. \nMaximize endpoint detection response tools to detect suspicious activity."
+    },
+    {
+        "level": 2,
+        "content": "Proactive security with Trend Vision One™"
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One™ is the only AI-powered enterprise cybersecurity platform that centralizes cyber risk exposure management, security operations, and robust layered protection. This holistic approach helps enterprises predict and prevent threats, accelerating proactive security outcomes across their respective digital estate. With Trend Vision One, you’re enabled to eliminate security blind spots, focus on what matters most, and elevate security into a strategic partner for innovation."
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One Threat Intelligence"
+    },
+    {
+        "level": 3,
+        "content": "To stay ahead of evolving threats, Trend Vision One customers can access a range of Intelligence Reports and Threat Insights. Threat Insights helps customers stay ahead of cyber threats before they happen and allows them to prepare for emerging threats by offering comprehensive information on threat actors, their malicious activities, and their techniques. By leveraging this intelligence, customers can take proactive steps to protect their environments, mitigate risks, and effectively respond to threats."
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One Intelligence Reports App [IOC Sweeping]"
+    },
+    {
+        "level": 3,
+        "content": "Still in the Game: Earth Kasha's Continued Spear-Phishing Campaign targeting Taiwan and Japan"
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One Threat Insights App"
+    },
+    {
+        "level": 3,
+        "content": "Emerging Threats:Still in the Game: Earth Kasha's Continued Spear-Phishing Campaign targeting Taiwan and Japan"
+    },
+    {
+        "level": 3,
+        "content": "Threat Actor:Earth Kasha"
+    },
+    {
+        "level": 3,
+        "content": "Hunting Query"
+    },
+    {
+        "level": 3,
+        "content": "eventName:MALWARE_DETECTION AND (malName:*ROAMINGMOUSE*  OR malName:*ANEL* OR malName:*NOOPLDR* OR malName:*NOOPDOOR*)"
+    },
+    {
+        "level": 3,
+        "content": "eventSubId: 301 AND (hostName: *.srmbr.net OR hostName: *.kyolpon.com)"
+    },
+    {
+        "level": 3,
+        "content": "eventSubId: 204 AND (dst: 172.233.73.249 OR dst: 172.105.62.188 OR dst: 192.46.215.56 OR dst: 139.162.38.102)"
+    },
+    {
+        "level": 2,
+        "content": "Indicators of Compromise (IoC)"
+    },
+    {
+        "level": 3,
+        "content": "Download the list of IoCshere."
+    }
+]

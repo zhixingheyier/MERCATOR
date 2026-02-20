@@ -1,0 +1,118 @@
+[
+    {
+        "level": 0,
+        "content": "PlushDaemon compromises supply chain of Korean VPN service"
+    },
+    {
+        "level": 1,
+        "content": "Technical analysis Start"
+    },
+    {
+        "level": 2,
+        "content": "Technical analysis"
+    },
+    {
+        "level": 5,
+        "content": "As illustrated in Figure 2, when the maliciousIPanyVPNsetup.exeinstaller is executed, it creates several directories and deploys both legitimate and malicious files."
+    },
+    {
+        "level": 5,
+        "content": "Additionally, the installer establishes persistence for SlowStepper by adding an entry namedIPanyVPNto a Run key, with the value%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\svcghost.exe, so that the malicious componentsvcghost.exe(later extracted and deployed by the loader inEncMgr.pkg) is launched when the operating system starts."
+    },
+    {
+        "level": 5,
+        "content": "The first malicious component that is loaded by the installer is theAutoMsg.dllloader. Figure 3 illustrates the major steps taken during the execution of this component."
+    },
+    {
+        "level": 5,
+        "content": "WhenIPanyVPNSetup.execallsExitProcess, the patched bytes redirect execution to the shellcode that loadsEncMgr.pkginto memory and executes it."
+    },
+    {
+        "level": 5,
+        "content": "EncMgr.pkgcreates two directories –WPSDocumentsandWPSManager– in%PUBLIC%\\Documentsand the deployment begins by extracting components from the custom archivesNetNative.pkgandFeatureFlag.pkg. The components are dropped to disk and moved to other locations with new filenames. The sequence and actions taken are as follows:"
+    },
+    {
+        "level": 5,
+        "content": "1. Extracts the files fromNetNative.pkgto:"
+    },
+    {
+        "level": 5,
+        "content": "a.%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\assist.dll,"
+    },
+    {
+        "level": 5,
+        "content": "b.%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\msvcr100.dll,"
+    },
+    {
+        "level": 5,
+        "content": "c.%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\PerfWatson.exe, and"
+    },
+    {
+        "level": 5,
+        "content": "d.%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\svcghost.exe."
+    },
+    {
+        "level": 5,
+        "content": "2. DeletesNetNative.pkg."
+    },
+    {
+        "level": 5,
+        "content": "3. MovesFeatureFlag.pkgtoC:\\ProgramData\\Microsoft Shared\\Filters\\SystemInfo\\winlogin.gif."
+    },
+    {
+        "level": 5,
+        "content": "4. Movesassist.dlltoC:\\ProgramData\\Microsoft Shared\\Filters\\SystemInfo\\Winse.gif."
+    },
+    {
+        "level": 5,
+        "content": "5. Extracts file fromWinse.gifto%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\lregdll.dll."
+    },
+    {
+        "level": 5,
+        "content": "6. Copies data fromBootstrapCache.pkgto%PUBLIC%\\Documents\\WPSDocuments\\WPSManager\\Qmea.dat."
+    },
+    {
+        "level": 5,
+        "content": "Its last actions are to executesvcghost.exeusing theShellExecuteAPI and then exit."
+    },
+    {
+        "level": 5,
+        "content": "Thesvcghost.execomponent performs monitoring of thePerfWatson.exeprocess, where the backdoor is loaded, ensuring that it is always running. If the processes are not running, it executesPerfWatson.exe(originally a legitimate command line utility namedregcap.exe, included in Visual Studio), which the attackers abuse to side-loadlregdll.dll. The DLL’s goal is to load the SlowStepper backdoor from thewinlogin.giffile."
+    },
+    {
+        "level": 5,
+        "content": "On a new thread, it creates a nameless window that ignores all messages exceptWM_CLOSE,WM_QUERYENDSESSION, andWM_ENDSESSION. When any of these three messages is received, the thread attempts to establish persistence in the Windows registry, depending on the permissions of the current process; see Table 1."
+    },
+    {
+        "level": 5,
+        "content": "Table 1. Registry keys targeted for persistence"
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 3,
+        "content": "The SlowStepper backdoor"
+    },
+    {
+        "level": 5,
+        "content": "SlowStepper is a backdoor developed in C++ with extensive use of object-oriented programming in the C&C communications code. Although the code contains hundreds of functions, the particular variant used in the supply-chain compromise of the IPany VPN software appears to be version 0.2.10 Lite, according to the backdoor’s code. The so-called “Lite” version indeed contains fewer features than other previous and newer versions."
+    },
+    {
+        "level": 5,
+        "content": "The oldest version of the SlowStepper backdoor that we know of is 0.1.7, compiled on 2019-01-31 according to its PE timestamps; the newest one is 0.2.12, compiled on 2024-06-13, and is the full version of the backdoor."
+    },
+    {
+        "level": 5,
+        "content": "Both the full and Lite versions make use of an array of tools programmed in Python and Go, which include capabilities for extensive collection of data, and spying through recording of audio and videos. The tools were stored in a remote code repository hosted on the Chinese platform GitCode, under the LetMeGo22 account; at the time of writing, the profile was private (Figure 4)."
+    },
+    {
+        "level": 1,
+        "content": "Technical analysis Stop"
+    }
+]

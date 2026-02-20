@@ -1,0 +1,8 @@
+
+[
+    {
+        "title": "E3-ClearScope (Fig. 3).",
+        "content": "The attacker exploits a vulnerability in Firefox to gain control of a victim host by browsing www.mit.gov.jo. The attacker then loads the payload shared_files into the victim’s filesystem at /data/data/org.mozilla.fennec_firefox_dev and runs it with root privileges. The attacker’s subsequent attempts to (1) load additional attack modules and (2) inject the attack payload into a process fail. Note that we were unable to find any execute- or fork-related behaviors in the data. It is unclear whether ClearScope records them in E3. Consequently, malicious activity that leverages such behaviors is not invisible to KAIROS (since it is not included in the data to begin with)."
+    }   
+]
+

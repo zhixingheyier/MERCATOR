@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Initial access",
+        "content": "Initial access to the device is gained by tricking a potential victim into installing a fake, but functional, app. As described in the Timeline of eXotic Visit apps section, the malicious ChitChat and WeTalk apps were distributed via dedicated websites (chitchat.ngrok[.]ioandwetalk.ngrok[.]io, respectively), and hosted on GitHub (https://github[.]com/Sojal87/).\nAt that time, three more apps –LearnSindhi.apk,SafeChat.apk, andwechat.apk– were available from the same GitHub account; we are not aware of their distribution vector. As of July 2023, these apps were not available for download from their GitHub repositories anymore. However, the same GitHub account now hosts several new malicious apps available for download. All of these new apps are also part of the malicious eXotic Visit espionage campaign, due to also containing variants of the same XploitSPY code.\nThe Dink Messenger and Alpha Chat apps were hosted on a dedicated website (letchitchat[.]info), from which victims were enticed into downloading and installing the app.\nThe Dink Messenger, Sim Info, and Defcom apps had been available on Google Play until their removal by Google."
+    }
+]

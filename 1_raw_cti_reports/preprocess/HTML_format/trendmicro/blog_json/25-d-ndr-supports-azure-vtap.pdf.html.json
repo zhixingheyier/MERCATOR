@@ -1,0 +1,78 @@
+[
+    {
+        "level": 0,
+        "content": "Trend Vision One™ Now Supports Azure vTAP"
+    },
+    {
+        "level": 3,
+        "content": "Trend Micro has launched a virtual network sensor in Microsoft Azure, enabling the inspection of traffic and capturing of network activity data from customers' Azure cloud and hybrid environments. This new capability leveragesMicrosoft Azure virtual network terminal access point (TAP)to mirror traffic into the monitoring ports of the network sensor."
+    },
+    {
+        "level": 3,
+        "content": "Next, and with seamless integration, Trend Vision One™ Network Detection and Response (NDR) and virtual network TAP allow organizations to gain deep visibility into cloud network traffic without compromising performance. By utilizing advanced threat detection, behavioral analytics, and AI-driven correlation across security layers, businesses can proactively identify and neutralize lateral movement, eliminating blind spots across cloud and hybrid environments. This integration ensures real-time detection, faster incident response, and an enhanced security posture while reducing operational complexity."
+    },
+    {
+        "level": 3,
+        "content": "Enriching Network Defense."
+    },
+    {
+        "level": 3,
+        "content": "Unlock unparalleled insights into your Azure network and applications to conquer even the toughest security challenges. With Trend Vision One™ NDR and Azure vTAP, achieve the deep observability needed to proactively detect, analyze, and respond to threats with precision and speed."
+    },
+    {
+        "level": 3,
+        "content": "Key benefits of leveraging the Trend Vision One™ platform:"
+    },
+    {
+        "level": 3,
+        "content": "Detect the unknown, protect the unmanaged."
+    },
+    {
+        "level": 3,
+        "content": "Trend Vision One™ NDR and Microsoft Azure vTAP integration elevates SOC experience. They can achieve enhanced visibility, advanced threat detection, and automated incident response, streamlining operations and significantly improving SOC’s ability to detect and mitigate threats in real-time."
+    },
+    {
+        "level": 3,
+        "content": "As more organizations move to the cloud, securing cloud environments has become critical. Trend Vision One extends its platform capabilities to Microsoft Azure vTAP environments, to build security trust and foster resilience. Such capabilities include:"
+    },
+    {
+        "level": 3,
+        "content": "AI-powered Platform: Enhances real-time anomaly detection and automated incident response within Azure, countering sophisticated attacks. \nZero Trust Architecture: Supports continuous verification of risks and strict access controls, mitigating internal and external threats in Azure networks. \nExtended Detection and Response (XDR): Integrates security cross-layers for a holistic view of threats across Azure networks, endpoints, emails, identities, data and cloud services. \nCloud Security: Provides deep visibility and robust monitoring of Azure network traffic, ensuring strong cloud security policies."
+    },
+    {
+        "level": 3,
+        "content": "Now, SOC teams can identify and mitigate potential security breaches before they could impact their operations. By unlocking the platform power, businesses will experience a reduction in security incidents and improve their overall security posture. Additionally, the integration with Microsoft Azure vTAP will significantly enhance their operational efficiency."
+    },
+    {
+        "level": 3,
+        "content": "How does it work?"
+    },
+    {
+        "level": 3,
+        "content": "Microsoft's virtual network TAP enables continuous monitoring of virtual machine traffic, functioning similarly to a traditional SPAN or TAP. By setting up vTAP on a network interface, users can gain detailed insights into traffic across virtual and peered networks."
+    },
+    {
+        "level": 3,
+        "content": "Easy, Flexible Deployment."
+    },
+    {
+        "level": 3,
+        "content": "Activating Trend Vision One Virtual Network Sensor in the Azure public cloud provides network SOC, administrators and security engineers with a deep understanding of what is happening in their cloud or hybrid environments. It analyzes the traffic data mirroring from vTAP, to get complete network traffic visibility. Through Trend Vision One’s XDR investigations, this capability enables SOC teams to correlate low-confidence alerts to detect complex attacks, providing a unified threat view. The data is also used to discover unmanaged and unknown assets, allowing for a more holistic view of the organization's attack surface. Start investigations with workbench alerts and drill down into network-centric timelines for holistic incident analysis—all from one place."
+    },
+    {
+        "level": 3,
+        "content": "The integration of Trend Vision One™ NDR with Microsoft Azure vTAP represents a significant advancement in network security. As the attack surface continues to evolve, leveraging advanced technology architecture like Trend Vision One™ NDR and Azure vTAP will be crucial for staying ahead of emerging threats and ensuring robust protection across hybrid environments."
+    },
+    {
+        "level": 3,
+        "content": "Where to start?"
+    },
+    {
+        "level": 3,
+        "content": "Access the Trend Vision One console. If you do not currently have a Trend Vision One account, you may sign up for a30-day full access trial from."
+    },
+    {
+        "level": 3,
+        "content": "Refer to 'Deploying a Virtual Network Sensor with Microsoft Azure' to deploy Trend Vision One Virtual Network Sensor on Azure."
+    }
+]

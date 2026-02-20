@@ -1,0 +1,7 @@
+[
+    {
+        "title": "e5-cadets (fig. 5).",
+        "content": "The attacker sends a malformed HTTP POST from 128.55.12.167 to the victim host to trigger the Nginx’s backdoor. The HTTP request carrying a payload executes shell code, establishing a connection to a C&C server (4.21.51.250). The attacker obtains username and hostname information before unexpectedly losing control. The next day, the attacker sends the malformed HTTP POST again and continues the attack from the C&C server (128.55.12.233). The attacker exfiltrates the host’s environment information such as hostname, passwd, and username, in the subsequent attack.",
+        "phase": "initial access"
+    }
+]

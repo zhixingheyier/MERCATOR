@@ -1,0 +1,992 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "email client",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "URL link",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "attached archive file",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": ".exe file",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": ".exe file",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "victim",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": ".exe",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": ".exe",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "Microsoft Word files",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "Microsoft Word files",
+      "id": 10
+    },
+    {
+      "type": "socket",
+      "value": "cloud service or server",
+      "id": 11
+    },
+    {
+      "type": "socket",
+      "value": "copy.com",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "server controlled by the attackers",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "malicious link",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "user agent",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "DuskySky",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "phishing page",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "JavaScript",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "single variable",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "fake login form",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "legitimate website",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "legitimate website",
+      "id": 22
+    },
+    {
+      "type": "socket",
+      "value": "news item URL",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "webpage",
+      "id": 24
+    },
+    {
+      "type": "socket",
+      "value": "45.32.13.169",
+      "id": 25
+    },
+    {
+      "type": "socket",
+      "value": "imazing[.]ga",
+      "id": 26
+    },
+    {
+      "type": "process",
+      "value": "fake website",
+      "id": 27
+    },
+    {
+      "type": "file",
+      "value": "iMazing software",
+      "id": 28
+    },
+    {
+      "type": "process",
+      "value": "iMazing software",
+      "id": 29
+    },
+    {
+      "type": "process",
+      "value": "execution process",
+      "id": 30
+    },
+    {
+      "type": "file",
+      "value": "2f452e90c2f9b914543847ba2b431b9a",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "2f452e90c2f9b914543847ba2b431b9a",
+      "id": 32
+    },
+    {
+      "type": "process",
+      "value": "DustySky",
+      "id": 33
+    },
+    {
+      "type": "file",
+      "value": "Plugin.exe",
+      "id": 34
+    },
+    {
+      "type": "process",
+      "value": "Plugin.exe",
+      "id": 35
+    },
+    {
+      "type": "socket",
+      "value": "ns.suppoit[.]xyz",
+      "id": 36
+    },
+    {
+      "type": "socket",
+      "value": "supo.mefound[.]com",
+      "id": 37
+    },
+    {
+      "type": "file",
+      "value": "screenshots",
+      "id": 38
+    },
+    {
+      "type": "file",
+      "value": "list of active processes",
+      "id": 39
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 40
+    },
+    {
+      "type": "file",
+      "value": "files with keywords",
+      "id": 41
+    },
+    {
+      "type": "process",
+      "value": "command and control",
+      "id": 42
+    },
+    {
+      "type": "file",
+      "value": "text file with keywords",
+      "id": 43
+    },
+    {
+      "type": "process",
+      "value": "attackers",
+      "id": 44
+    },
+    {
+      "type": "socket",
+      "value": "96.44.156.201",
+      "id": 45
+    },
+    {
+      "type": "socket",
+      "value": "5.101.140.118",
+      "id": 46
+    },
+    {
+      "type": "process",
+      "value": "DustySky dropper",
+      "id": 47
+    },
+    {
+      "type": "file",
+      "value": "news",
+      "id": 48
+    },
+    {
+      "type": "file",
+      "value": "DustySky Core",
+      "id": 49
+    },
+    {
+      "type": "process",
+      "value": "Windows Management Instrumentation11",
+      "id": 50
+    },
+    {
+      "type": "file",
+      "value": "%T E M P%\\\\DustySky Core",
+      "id": 51
+    },
+    {
+      "type": "process",
+      "value": ".NET interface",
+      "id": 52
+    },
+    {
+      "type": "process",
+      "value": "DustySky Core",
+      "id": 53
+    },
+    {
+      "type": "reg",
+      "value": "registry entry",
+      "id": 54
+    },
+    {
+      "type": "socket",
+      "value": "key.php",
+      "id": 55
+    },
+    {
+      "type": "file",
+      "value": "other components",
+      "id": 56
+    },
+    {
+      "type": "file",
+      "value": "self",
+      "id": 57
+    },
+    {
+      "type": "process",
+      "value": "keylogging component",
+      "id": 58
+    },
+    {
+      "type": "file",
+      "value": "log file",
+      "id": 59
+    },
+    {
+      "type": "file",
+      "value": "key.php",
+      "id": 60
+    },
+    {
+      "type": "process",
+      "value": "keylogger",
+      "id": 61
+    },
+    {
+      "type": "file",
+      "value": "%TEMP%\\temps",
+      "id": 62
+    },
+    {
+      "type": "socket",
+      "value": "TEST.php or index.php",
+      "id": 63
+    },
+    {
+      "type": "socket",
+      "value": "second domain",
+      "id": 64
+    },
+    {
+      "type": "socket",
+      "value": "HTTPS traffic",
+      "id": 65
+    },
+    {
+      "type": "process",
+      "value": "bulk-smtp[.]xyz",
+      "id": 66
+    },
+    {
+      "type": "socket",
+      "value": "digital certificate",
+      "id": 67
+    },
+    {
+      "type": "socket",
+      "value": "self-signed certificate",
+      "id": 68
+    },
+    {
+      "type": "socket",
+      "value": "Update.php",
+      "id": 69
+    },
+    {
+      "type": "socket",
+      "value": "conn.php",
+      "id": 70
+    },
+    {
+      "type": "socket",
+      "value": "geoiploc.php",
+      "id": 71
+    },
+    {
+      "type": "socket",
+      "value": "news.htm",
+      "id": 72
+    },
+    {
+      "type": "socket",
+      "value": "pass.php",
+      "id": 73
+    },
+    {
+      "type": "socket",
+      "value": "passho.php",
+      "id": 74
+    },
+    {
+      "type": "socket",
+      "value": "passyah.php",
+      "id": 75
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "6",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "7",
+      "source": 6,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "8",
+      "source": 6,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "9",
+      "source": 6,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "10",
+      "source": 6,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "11",
+      "source": 6,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "12",
+      "source": 6,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "16",
+      "source": 6,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "18",
+      "source": 6,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "20",
+      "source": 6,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "22",
+      "source": 6,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "25",
+      "source": 6,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "28",
+      "source": 6,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "31",
+      "source": 6,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "collection",
+      "order": "39",
+      "source": 6,
+      "target": 40,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "collection",
+      "order": "41",
+      "source": 6,
+      "target": 42,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "43",
+      "source": 6,
+      "target": 44,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "46",
+      "source": 6,
+      "target": 47,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "51",
+      "source": 6,
+      "target": 52,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "collection",
+      "order": "61",
+      "source": 6,
+      "target": 61,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "66",
+      "source": 6,
+      "target": 66,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "initial access",
+      "order": "13",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "14",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "15",
+      "source": 14,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "17",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "19",
+      "source": 20,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "21",
+      "source": 22,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "execution",
+      "order": "23",
+      "source": 24,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "24",
+      "source": 24,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "26",
+      "source": 27,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "27",
+      "source": 27,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "29",
+      "source": 30,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "30",
+      "source": 30,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "33",
+      "source": 30,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "34",
+      "source": 30,
+      "target": 35,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "32",
+      "source": 33,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "37",
+      "source": 33,
+      "target": 38,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "38",
+      "source": 33,
+      "target": 39,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "63",
+      "source": 33,
+      "target": 63,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "64",
+      "source": 33,
+      "target": 64,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "65",
+      "source": 33,
+      "target": 65,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "69",
+      "source": 33,
+      "target": 69,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "70",
+      "source": 33,
+      "target": 70,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "71",
+      "source": 33,
+      "target": 71,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "72",
+      "source": 33,
+      "target": 72,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "73",
+      "source": 33,
+      "target": 73,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "74",
+      "source": 33,
+      "target": 74,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "75",
+      "source": 33,
+      "target": 75,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "35",
+      "source": 35,
+      "target": 36,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "36",
+      "source": 35,
+      "target": 37,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "40",
+      "source": 40,
+      "target": 41,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "command and control",
+      "order": "57",
+      "source": 40,
+      "target": 53,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "42",
+      "source": 42,
+      "target": 43,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "44",
+      "source": 44,
+      "target": 45,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "45",
+      "source": 44,
+      "target": 46,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "68",
+      "source": 44,
+      "target": 68,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "defense evasion",
+      "order": "47",
+      "source": 47,
+      "target": 48,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "defense evasion",
+      "order": "48",
+      "source": 47,
+      "target": 49,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "49",
+      "source": 47,
+      "target": 50,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "defense evasion",
+      "order": "50",
+      "source": 47,
+      "target": 51,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "defense evasion",
+      "order": "53",
+      "source": 47,
+      "target": 54,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "52",
+      "source": 52,
+      "target": 53,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "54",
+      "source": 53,
+      "target": 55,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "55",
+      "source": 53,
+      "target": 56,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "56",
+      "source": 53,
+      "target": 57,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "command and control",
+      "order": "58",
+      "source": 53,
+      "target": 58,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "60",
+      "source": 53,
+      "target": 60,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "59",
+      "source": 58,
+      "target": 59,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "62",
+      "source": 61,
+      "target": 62,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "67",
+      "source": 66,
+      "target": 67,
+      "key": 0
+    }
+  ]
+}

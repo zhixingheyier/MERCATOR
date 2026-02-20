@@ -1,0 +1,5 @@
+
+【Initial access】
+==============================
+  As described in the Overview section of this blogpost, the fake Shagle app has been hosted at the Shagle copycat website, from which victims had to choose to download and install the app. There was no subterfuge suggesting the app was available from Google Play and we do not know how potential victims were lured to, or otherwise discovered, the fake website.
+

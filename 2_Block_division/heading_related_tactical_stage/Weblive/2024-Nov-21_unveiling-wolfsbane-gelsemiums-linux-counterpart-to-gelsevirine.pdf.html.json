@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Initial access",
+        "content": "Although we lack concrete evidence regarding the initial access vector, the presence of multiple webshells (as shown in Table 1 and described in theWebshellssection) and the tactics, techniques, and procedures (TTPs) used by the Gelsemium APT group in recent years, we conclude with medium confidence that the attackers exploited an unknown web application vulnerability to gain server access.\nTable 1. Webshells found in analyzed archives"
+    }
+]

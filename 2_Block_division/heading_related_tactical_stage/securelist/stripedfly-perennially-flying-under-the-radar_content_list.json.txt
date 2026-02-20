@@ -1,0 +1,12 @@
+
+【Persistence 】
+==============================
+  For its persistence malware employs various methods. Its behavior depends on the availability of the PowerShell interpreter and the privileges granted to the process. Typically, the malware would be running with administrative privileges when installed via the exploit, and with user-level privileges when delivered via the Cygwin SSH server. 
+  If the PowerShell is not present, the malware generates a hidden file with MZ-PE loader with a randomized name located in %APPDATA% directory. This loader includes a copy of system.img and is subsequently registered with a GUID-like name within the Windows registry key Software\Microsoft\Windows\CurrentVersion\Run. 
+  If PowerShell is installed, it will behave differently based on whether administrative access is available. If administrative rights are present, its ether executes a PowerShell script that creates two task scheduler entries with GUID-like names and with different triggers. The action of these tasks is run of PowerShell loader script. 
+  If administrative rights are unavailable, the PowerShell script loader, is surrounded thousands of spaces in the beginning and in the end, is placed in the HKCU\Software\Microsoft\Windows\CurrentVersion\Applets registry key, which is then registered in the HKCU\Software\Microsoft\Windows\CurrentVersion\Run key with the following command: 
+  'HKCU:\Software\Microsoft\Windows\CurrentVersion\Applets').  
+  %RegValNameFromPrevStep%')".
+  On both cases when PowerShell is available, the body of malware archive itself is stored inside the registry key Software\Microsoft\Windows\CurrentVersion\Shell, Base64 encoded and surrounded with hundreds of spaces, and is started by mentioned above PowerShell scripts. 
+  On Linux hosts the malware process hides itself under name (sd-pam). And has a rich set of ways to establish persistence: it may be system or user systemd service, autostarted .desktop file, or additional line inside one of suitable /etc/rc\*, profile, bashrc or inittab file. The malware executable file is placed in /tmp directory with a random name. 
+

@@ -1,0 +1,326 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Word",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "word/_rels/document.xml.rels",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "VBA script",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "VBA script",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "DD.inf",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "ema.tmp",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "des.jpg",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "DLL file",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "temporary files",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "JPG files",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "INF files",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "injector",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "predetermined strings",
+      "id": 13
+    },
+    {
+      "type": "socket",
+      "value": "individual letters",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "API string",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "hardcoded key",
+      "id": 16
+    },
+    {
+      "type": "file",
+      "value": "payload",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "decrypted data",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "PEB",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "NtGlobalFlag",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "GetTickCount API",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "debuggers",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "ProcessDebugObjectHandle",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "memory",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "LokiBot",
+      "id": 25
+    }
+  ],
+  "links": [
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "4",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "5",
+      "source": 4,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "6",
+      "source": 4,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "initial access",
+      "order": "7",
+      "source": 4,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "initial access",
+      "order": "8",
+      "source": 4,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "initial access",
+      "order": "9",
+      "source": 4,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "10",
+      "source": 4,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "execution",
+      "order": "11",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "execution",
+      "order": "12",
+      "source": 12,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "13",
+      "source": 12,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "14",
+      "source": 12,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "15",
+      "source": 12,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "16",
+      "source": 12,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "17",
+      "source": 12,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "18",
+      "source": 12,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "19",
+      "source": 12,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "execution",
+      "order": "20",
+      "source": 12,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "21",
+      "source": 12,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "22",
+      "source": 12,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "23",
+      "source": 12,
+      "target": 25,
+      "key": 0
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Command and Control ",
+        "content": "For C2 communication, some of the LuminousMoth samples contacted IP addresses directly, whereas others communicated with the domain “updatecatalogs.com”. \n103.15.28[.]195   \n202.59.10[.]253 \nInfrastructure ties from those C2 servers helped reveal additional domains related to this attack that impersonate known news outlets in Myanmar, such as MMTimes, 7Day News and The Irrawaddy. \nAnother domain “mopfi-ferd[.]com” also impersonated the Foreign Economic Relations Department (FERD) of the Ministry of Planning, Finance and Industry (MOPFI) in Myanmar. \nmmtimes[.]net mmtimes[.]org 7daydai1y[.]com irrawddy[.]com mopfi-ferd[.]com \n“Mopfi-ferd[.]com” resolved to an IP address that was associated with a domain masquerading as the Zoom API. Since we have seen the attackers deploying a fake Zoom application, it is possible this lookalike domain was used to hide malicious Zoom traffic, although we have no evidence of this. "
+    }
+]

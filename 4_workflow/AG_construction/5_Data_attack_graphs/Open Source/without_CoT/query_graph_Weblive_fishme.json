@@ -1,0 +1,442 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Impacket",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "quser.exe",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "wmic.exe",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "ipconfig.exe",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "LSASS (PID 944)",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "sam.hive",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "system.hive",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "tasklist.exe",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "powershell",
+      "id": 9
+    },
+    {
+      "type": "socket",
+      "value": "http://<victim's_web_server_IP_address",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "c:\\users\\public\\log.dll",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "Firefox",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "http://5.188.230[.]47/log.dll",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "BDReinit.exe",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "log.dll",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "log.dll",
+      "id": 16
+    },
+    {
+      "type": "file",
+      "value": "log.dll.dat",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "loader",
+      "id": 18
+    },
+    {
+      "type": "file",
+      "value": "c:\\windows\\temp\\guid.dat",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "task.exe",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "debug.png",
+      "id": 21
+    },
+    {
+      "type": "process",
+      "value": "svchost.exe",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "shellcode",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "Spyder",
+      "id": 24
+    },
+    {
+      "type": "file",
+      "value": "RPipeCommander",
+      "id": 25
+    },
+    {
+      "type": "process",
+      "value": "RPipeCommander",
+      "id": 26
+    },
+    {
+      "type": "socket",
+      "value": "\\\\.\\Pipe\\CmdPipe<PID",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "cmd.exe",
+      "id": 28
+    },
+    {
+      "type": "file",
+      "value": "\\\\.\\Pipe\\CmdPipe<PID",
+      "id": 29
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "lateral movement",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "lateral movement",
+      "order": "4",
+      "source": 1,
+      "target": 5,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "lateral movement",
+      "order": "5",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "lateral movement",
+      "order": "6",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "7",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "8",
+      "source": 1,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "11",
+      "source": 1,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "13",
+      "source": 1,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "15",
+      "source": 1,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "17",
+      "source": 1,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "24",
+      "source": 1,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "26",
+      "source": 1,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "28",
+      "source": 1,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "9",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "10",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "12",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "command and control",
+      "order": "14",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "command and control",
+      "order": "16",
+      "source": 16,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "18",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "19",
+      "source": 18,
+      "target": 19,
+      "key": 1
+    },
+    {
+      "type": "Inject",
+      "phase": "command and control",
+      "order": "20",
+      "source": 18,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "21",
+      "source": 18,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "22",
+      "source": 18,
+      "target": 21,
+      "key": 1
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "23",
+      "source": 18,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "25",
+      "source": 23,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "command and control",
+      "order": "27",
+      "source": 24,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "29",
+      "source": 26,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "30",
+      "source": 26,
+      "target": 27,
+      "key": 1
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "33",
+      "source": 26,
+      "target": 27,
+      "key": 2
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "31",
+      "source": 26,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "34",
+      "source": 26,
+      "target": 28,
+      "key": 1
+    },
+    {
+      "type": "Exit",
+      "phase": "command and control",
+      "order": "35",
+      "source": 26,
+      "target": 28,
+      "key": 2
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "32",
+      "source": 26,
+      "target": 29,
+      "key": 0
+    }
+  ]
+}

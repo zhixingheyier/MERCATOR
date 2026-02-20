@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Ursnif via LOLbins",
+        "content": "Ursnif is a variant of the Gozi malware family has recently been responsible for a growing campaign targeting various entities across North America and Europe. The campaign looks to have started around the 6th of April via a number of domains taking up residence at 8.208.90.28.\nOverall 16 domains have been pointed to the IP since the start of the campaign.\nAs of 04/22 these actors have moved their campaign to a new IP: 47.241.106.208"
+    },
+    {
+        "title": "Initial Access",
+        "content": "The particular point of interest in this campaign is the effectiveness of the TTP’s at bypassing many security tools. In the delivery stage the campaign uses compromised email accounts to inject into previous conversations by adding a link and imploring the recipient to check the latest update to the ongoing conversation.\nThe link provided is to a Google Drive account, a trusted entity to users, and often not capable of being blocked in many enterprises. The Google Drive link downloads a password protected zip file with a javascript (JS) file inside."
+    },
+    {
+        "title": "Execution",
+        "content": "Upon execution, the JS file will be executed by wscript. Wscript then gives way to Regsrv32 which loads a txt file into memory. The txt file however is actually a DLL file that once loaded into memory runs under the regsrv32 process.\nThe use of these infection methods were able to bypass several security layers including Windows Defender at the time of run but we witnessed it detect the txt DLL and eat the file on disk while missing the running executable running in memory.\nWhile several infections witnessed during the campaign never moved past beaconing to the Ursnif C2 at 8.208.90.28 with the DLL in memory, some samples proceeded further."
+    },
+    {
+        "title": "Persistence",
+        "content": "For those samples the following behavior occurred.\nIn the registry location seen referenced below, there could be found more modules for the malware to call upon."
+    },
+    {
+        "title": "Command and Control",
+        "content": "Initial C2 picked up on the following alerts:\nWith the TorClient Registry Binary being confirm for its namesake after some time:"
+    },
+    {
+        "title": "IOC’s",
+        "content": ""
+    }
+]

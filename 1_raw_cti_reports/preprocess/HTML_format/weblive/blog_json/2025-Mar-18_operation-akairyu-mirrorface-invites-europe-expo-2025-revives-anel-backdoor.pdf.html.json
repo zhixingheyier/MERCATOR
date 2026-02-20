@@ -1,0 +1,226 @@
+[
+    {
+        "level": 0,
+        "content": "Operation AkaiRyū: MirrorFace invites Europe to Expo 2025 and revives ANEL backdoor"
+    },
+    {
+        "level": 1,
+        "content": "Technical analysis Start"
+    },
+    {
+        "level": 2,
+        "content": "Technical analysis"
+    },
+    {
+        "level": 5,
+        "content": "Between June and September 2024, we observed MirrorFace conducting multiple spearphishing campaigns. Based on our data, the attackers primarily gained initial access by tricking targets into opening malicious attachments or links, then they leveraged legitimate applications and tools to stealthily install their malware."
+    },
+    {
+        "level": 3,
+        "content": "Initial access"
+    },
+    {
+        "level": 5,
+        "content": "We weren’t able to determine the initial attack vector for all the cases observed in 2024. However, based on the data available to us, we assume that spearphishing was the only attack vector used by MirrorFace. The group impersonates trusted organizations or individuals to convince recipients to open documents or click links. The following findings on initial access align with those in the Trend Micro article, although they are not entirely the same."
+    },
+    {
+        "level": 5,
+        "content": "Specifically, in Operation AkaiRyū, MirrorFace abused both McAfee-developed applications and also one developed by JustSystems to run ANEL. While Trend Micro reported Windows Management Instrumentation (WMI) andexplorer.exeas the execution proxy pair for ANEL, we unearthed another pair: WMI andwlrmdr.exe(Windows logon reminder). We also provide an email conversation between a disguised MirrorFace operator and a target."
+    },
+    {
+        "level": 4,
+        "content": "Case 1: Japanese research institute"
+    },
+    {
+        "level": 5,
+        "content": "On June 20th, 2024, MirrorFace targeted two employees of a Japanese research institute, using a malicious, password-protected Word document delivered in an unknown manner."
+    },
+    {
+        "level": 5,
+        "content": "The documents triggered VBA code on a simple mouseover event – the malicious code was triggered by moving the mouse over text boxes placed in the document. It then abused a signed McAfee executable to load ANEL (version 5.5.4) into memory. The compromise chain is depicted in Figure 1."
+    },
+    {
+        "level": 4,
+        "content": "Case 2: Central European diplomatic institute"
+    },
+    {
+        "level": 5,
+        "content": "On August 26th, 2024, MirrorFace targeted a Central European diplomatic institute. To our knowledge, this is the first, and, to date, only time MirrorFace has targeted an entity in Europe."
+    },
+    {
+        "level": 5,
+        "content": "MirrorFace operators set up their spearphishing attack by crafting an email message (shown in Figure 2) that references a previous, legitimate interaction between the institute and a Japanese NGO. The legitimate interaction was probably obtained from a previous campaign. As can be seen, this spearphishing set up message refers to the upcomingExpo 2025exhibition, an event that will be held in Japan."
+    },
+    {
+        "level": 5,
+        "content": "This first email was harmless, but once the target responded, MirrorFace operators sent an email message with a malicious OneDrive link leading to a ZIP archive with a LNK file disguised as a Word document namedThe EXPO Exhibition in Japan in 2025.docx.lnk. This second message is shown in Figure 3. Using this approach, MirrorFace concealed the payload until the target was engaged in the spearphishing scheme."
+    },
+    {
+        "level": 5,
+        "content": "Once opened, the LNK file launches a complex compromise chain, depicted in Figure 4 and Figure 5."
+    },
+    {
+        "level": 5,
+        "content": "The LNK file runscmd.exewith a set of PowerShell commands to drop additional files, including a malicious Word file,tmp.docx, which loads a malicious Word template,normal_.dotm, containing VBA code. The contents of the Word documenttmp.docxare depicted in Figure 6, and probably are intended to act as a decoy, while malicious actions are running in the background."
+    },
+    {
+        "level": 5,
+        "content": "The VBA code extracts a legitimately signed application from JustSystems Corporation to side-load and decrypt the ANEL backdoor (version 5.5.5). This gave MirrorFace a foothold to begin post-compromise operations."
+    },
+    {
+        "level": 3,
+        "content": "Toolset"
+    },
+    {
+        "level": 5,
+        "content": "In Operation AkaiRyū, MirrorFace relied not only on its custom malware, but also on various tools and a customized variant of a publicly available remote access trojan (RAT)."
+    },
+    {
+        "level": 4,
+        "content": "ANEL"
+    },
+    {
+        "level": 5,
+        "content": "ANEL (also known as UPPERCUT) is a backdoor that was previously associated exclusively with APT10. In 2024, MirrorFace started using ANEL as its first-line backdoor. ANEL’s development, until 2018, was described most recently in Secureworks’JSAC 2019 presentation. The ANEL variants observed in 2024 were publicly described byTrend Micro."
+    },
+    {
+        "level": 5,
+        "content": "ANEL is a backdoor, only found on disk in an encrypted form, and whose decrypted DLL form is only ever found in memory once a loader has decrypted it in preparation for execution. ANEL communicates with its C&C server over HTTP, where the transmitted data is encrypted to protect it in case the communication is being captured. ANEL supports basic commands for file manipulation, payload execution, and taking a screenshot."
+    },
+    {
+        "level": 4,
+        "content": "ANELLDR"
+    },
+    {
+        "level": 5,
+        "content": "ANELLDR is a loader exclusively used to decrypt the ANEL backdoor and run it in memory. Trend Micro described ANELLDR in theirarticle."
+    },
+    {
+        "level": 4,
+        "content": "HiddenFace"
+    },
+    {
+        "level": 5,
+        "content": "HiddenFace is MirrorFace’s current flagship backdoor, with a heavy focus on modularity; we described it in detail in thisJSAC 2024 presentation."
+    },
+    {
+        "level": 4,
+        "content": "FaceXInjector"
+    },
+    {
+        "level": 5,
+        "content": "FaceXInjector is a C# injection tool stored in an XML file, compiled and executed by the Microsoft MSBuild utility, and used to exclusively execute HiddenFace. We described FaceXInjector in the same JSAC 2024 presentation dedicated to HiddenFace."
+    },
+    {
+        "level": 4,
+        "content": "AsyncRAT"
+    },
+    {
+        "level": 5,
+        "content": "AsyncRAT is a RAT publicly available onGitHub. In 2024, we detected that MirrorFace started using a heavily customized AsyncRAT in the later stages of its attacks. The group ensures AsyncRAT’s persistence by registering a scheduled task that executes at machine startup; once triggered, a complex chain (depicted in Figure 7) launches AsyncRAT inside Windows Sandbox, which must be manually enabled and requires a reboot. We were unable to determine how MirrorFace enables this feature."
+    },
+    {
+        "level": 5,
+        "content": "The following files are delivered to the compromised machine in order to successfully execute AsyncRAT:"
+    },
+    {
+        "level": 5,
+        "content": "7z.exe– legitimate 7-Zip executable. \n7z.dll– legitimate 7-Zip library. \n<random>.7z– password-protected 7z archive containing AsyncRAT, namedsetup.exe. \n<random>.bat– batch script that unpacks AsyncRAT and runs it. \n<random>.wsb– Windows Sandbox configuration file to run<random>.bat."
+    },
+    {
+        "level": 5,
+        "content": "The triggered scheduled task executes Windows Sandbox with<random>.wsbas a parameter. This file contains configuration data for the sandbox; see Figure 8."
+    },
+    {
+        "level": 5,
+        "content": "In particular, the config file defines whether to enable networking and directory mapping, the dedicated memory size, and the command to execute on launch. In the file shown in Figure 8, a batch file located in the sandbox folder is executed. The batch file extracts AsyncRAT from the 7z archive, then creates and launches a scheduled task that executes AsyncRAT every hour."
+    },
+    {
+        "level": 5,
+        "content": "The AsyncRAT variant used by MirrorFace is heavily customized. The following are the main features and changes introduced by MirrorFace:"
+    },
+    {
+        "level": 5,
+        "content": "Sample tagging– AsyncRAT can be compiled for a specific victim and MirrorFace can add a tag to the configuration to mark the sample. If the tag is not specified, the machine’s NetBIOS name is used as the tag. This tag is further used in other introduced features as well. \nConnection to a C&C server via Tor– MirrorFace’s AsyncRAT can download and start a Tor client, and proxy its communication with a C&C server through the client. AsyncRAT selects this option only if the hardcoded C&C domains end with .onion. This approach was selected in both samples we observed during the investigation ofCase 2: Central European diplomatic institute. \nDomain generation algorithm (DGA)– An alternative to using Tor, this variant can use a DGA to generate a C&C domain. The DGA can also generate machine-specific domains using the aforementioned tag. Note that HiddenFace also uses a DGA with the possibility of generating machine-specific domains, although the DGA used in HiddenFace differs from the AsyncRAT one. \nWorking time– Before connecting to a C&C server, AsyncRAT checks whether the current hour and day of the week are within operating hours and days defined in the configuration. Note that MirrorFace’s AsyncRAT shares this feature with HiddenFace as well."
+    },
+    {
+        "level": 4,
+        "content": "Visual Studio Code remote tunnels"
+    },
+    {
+        "level": 5,
+        "content": "Visual Studio Code is a free source-code editor developed by Microsoft. Visual Studio Code’s remote development feature,remote tunnels, allows developers to run Visual Studio Code locally and connect to a development machine that hosts the source code and debugging environment. Threat actors can misuse this to gain remote access, execute code, and deliver tools to a compromised machine. MirrorFace has been doing so since 2024; however, it is not the only APT group that has used such remote tunnels: other China-aligned APT groups such asTropic TrooperandMustang Pandahave also used them in their attacks."
+    },
+    {
+        "level": 3,
+        "content": "Post-compromise activities"
+    },
+    {
+        "level": 5,
+        "content": "Our investigation intoCase 2: Central European diplomatic instituteuncovered some of MirrorFace’s post-compromise activities. Through close collaboration with the institute, we gained better insight into the malware and tools deployed by MirrorFace, as seen in Table 1."
+    },
+    {
+        "level": 5,
+        "content": "Note that the malware and tools are ordered in the table for easier comparison of what was deployed on each of the two identified compromised machines but doesn’t reflect how they were deployed chronologically."
+    },
+    {
+        "level": 5,
+        "content": "Table 1. Malware and tools deployed by MirrorFace throughout the attack"
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": ""
+    },
+    {
+        "level": 5,
+        "content": "The group selectively deployed post-compromise tools according to its objectives and the target’s environment.Machine Abelonged to a project coordinator andMachine Bto an IT employee. The data available to us suggests that MirrorFace stole personal data fromMachine Aand sought deeper network access onMachine B, aligning the assumed objectives with the employees’ roles."
+    },
+    {
+        "level": 4,
+        "content": "Day 0 – August 27th, 2024"
+    },
+    {
+        "level": 5,
+        "content": "MirrorFace operators sent an email with a malicious link on August 26th, 2024 to the institute’s CEO. However, since the CEO didn’t have access to a machine running Windows, the CEO forwarded the email to two other employees. Both opened the harmful LNK file,The EXPO Exhibition in Japan in 2025.docx.lnk, the next day, compromising two institute machines and leading to the deployment of ANEL. Thus, we consider August 27th, 2024, as Day 0 of the compromise. No additional activity was observed beyond this foothold establishment."
+    },
+    {
+        "level": 4,
+        "content": "Day 1 – August 28th, 2024"
+    },
+    {
+        "level": 5,
+        "content": "The next day, MirrorFace returned and continued with its activities. The group deployed several tools for access, control, and file delivery on both compromised machines. Among the tools deployed were PuTTY, VS Code, and HiddenFace – MirrorFace’s current flagship backdoor. OnMachine A, MirrorFace also attempted to deploy the tool Hidden Start. OnMachine B, the actor additionally deployed csvde and the customized variant of AsyncRAT."
+    },
+    {
+        "level": 4,
+        "content": "Day 2 – August 29th, 2024"
+    },
+    {
+        "level": 5,
+        "content": "On Day 2, MirrorFace was active on both machines. This included deploying more tools. On Machine A, MirrorFace deployed a second instance of HiddenFace. OnMachine B, VS Code’s remote tunnel, HiddenFace, and AsyncRAT were executed. Besides these, MirrorFace also deployed and executed frp and Rubeus via HiddenFace. This is the last day on which we observed any MirrorFace activity onMachine B."
+    },
+    {
+        "level": 4,
+        "content": "Day 3 – August 30th, 2024"
+    },
+    {
+        "level": 5,
+        "content": "MirrorFace remained active only onMachine A. The institute, having started attack mitigation measures on August 29th, 2024, might have prevented further MirrorFace activity onMachine B. OnMachine A, the group deployed AsyncRAT and tried to maintain persistence by registering a scheduled task."
+    },
+    {
+        "level": 4,
+        "content": "Day 6 – September 2nd, 2024"
+    },
+    {
+        "level": 5,
+        "content": "Over the weekend, i.e., on August 31stand September 1st, 2024,Machine Awas inactive. On Monday, September 2nd, 2024,Machine Awas booted and with it MirrorFace’s activity resumed as well. The main event of Day 6 was that the group exported Google Chrome’s web data such as contact information, keywords, autofill data, and stored credit card information into a SQLite database file. We were unable to determine how MirrorFace exported the data, and whether or how the data was exfiltrated."
+    },
+    {
+        "level": 1,
+        "content": "Technical analysis Stop"
+    }
+]

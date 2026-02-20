@@ -1,0 +1,247 @@
+[
+    {
+        "phase": "initial access",
+        "content": "Over the past few months, a number of decoy documents have been used. One of them was a fake TrueType font updater for the Roboto Slab regular font. This choice of font seems a bit odd since it does not support a lot of East-Asian languages. \nWhen executed, this binary decrypts its resource (XOR with a 128-byte, hardcoded key) and decompresses the decrypted data (LZMA). The legitimate RobotoSlab-Regular.ttf (SHA1:912895e6bb9e05af3a1e58a1da417e992a71a324) file is written into the %temp% folder and run via Win32 API function ShellExecute. \nThe shellcode decrypted from the resource is executed. After its execution, the fake font updater drops another application whose sole purpose is to delete the dropper. This \"eraser\" application is dropped as %temp%\\[0-9].tmp.exe. \nThe shellcode is a custom PE loader. It recreates an executable in memory: it decrypts all the sections and computes the necessary relocations and other offsets. The shellcode retrieves three Windows API functions: VirtualAlloc, RtlMoveMemory and RtlZeroMemory. \nThe RtlZeroMemory function is heavily used to zero-out fields in the PE header. Relying on automatic memory dumping will not work since the MZ/PE headers are broken. \nThe shellcode calls the entry-point function of the decrypted PE and then the DLLEntry export function. ",
+        "relationship": "1. [Relationships]: <process:fake TrueType font updater,decrypts,resource:XOR with a 128-byte,hardcoded key>. \n2. [Relationships]: <process:fake TrueType font updater,decompresses,data:LZMA>. \n3. [Relationships]: <process:fake TrueType font updater,writes,file:%temp%\\RobotoSlab-Regular.ttf>. \n4. [Relationships]: <process:fake TrueType font updater,runs,file:%temp%\\RobotoSlab-Regular.ttf>. \n5. [Relationships]: <process:shellcode,executed>. \n6. [Relationships]: <process:fake font updater,drops,file:%temp%\\[0-9].tmp.exe>. \n7. [Relationships]: <process:shellcode,retrieves,process:VirtualAlloc>. \n8. [Relationships]: <process:shellcode,retrieves,process:RtlMoveMemory>. \n9. [Relationships]: <process:shellcode,retrieves,process:RtlZeroMemory>. \n10. [Relationships]: <process:shellcode,calls,file:decrypted PE>. \n11. [Relationships]: <process:shellcode,calls,file:DLLEntry export function>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:fake TrueType font updater,Readkey,resource:XOR with a 128-byte,hardcoded key>. \n[System-level Relationships]: <process:fake TrueType font updater,Read,file:LZMA>. \n[System-level Relationships]: <process:fake TrueType font updater,Write,file:%temp%\\RobotoSlab-Regular.ttf>. \n[System-level Relationships]: <process:fake TrueType font updater,Execute,file:%temp%\\RobotoSlab-Regular.ttf>. \n[System-level Relationships]: <process:shellcode,Fork>. \n[System-level Relationships]: <process:fake font updater,Write,file:%temp%\\[0-9].tmp.exe>. \n[System-level Relationships]: <process:shellcode,Read,process:VirtualAlloc>. \n[System-level Relationships]: <process:shellcode,Read,process:RtlMoveMemory>. \n[System-level Relationships]: <process:shellcode,Write,process:RtlZeroMemory>. \n[System-level Relationships]: <process:shellcode,Execute,file:decrypted PE>. \n[System-level Relationships]: <process:shellcode,Execute,file:DLLEntry export function>. "
+    },
+    {
+        "phase": "persistence",
+        "content": "This executable decrypts its resource using the AES algorithm with CBC mode via the Windows API. The size of the hardcoded key is 256 bits. After decryption, the data are decompressed (LZMA algorithm). \nIf the process is running with administrator privileges, then the malware achieves persistence by creating a service, else the classic Windows \"Run\" registry key is used (HKCU\\SOFTWARE\\Microsoft\\ Windows\\CurrentVersion\\Run;DeviceAssociationService;rastlsc.exe). \nIf the dropper is executed with administrator privileges, then it tries to write the following files in the C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\ folder else it writes them in the %APPDATA%\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\DeviceAssociationService\\ folder: \n\u2022\t rastlsc.exe (SHA1:2616da1697f7c764ee7fb558887a6a3279861fac, copy of legitimate Symantec Network Access Control application, dot1xtra.exe)   \n\u2022\t SyLog.bin (SHA1:5689448b4b6260ec9c35f129df8b8f2622c66a45, encrypted backdoor)   \n\u2022\t rastls.dll (SHA1:82e579bd49d69845133c9aa8585f8bd26736437b,malicious DLL sideloaded by rastlsc.exe) \nThe path changes from sample to sample but the pattern is similar. Depending on its privileges, the malware drops the files in %ProgramFiles% or %appdata%. We've also seen: \n\u2022\t \\Symantec\\CNG Key Isolation\\ \n\u2022\t \\Symantec\\Connected User Experiences and Telemetry\\ \n\u2022\t \\Symantec\\DevQuery Background Discovery Broker Tasks\\ \nThese paths are used by various Symantec products. \nAfter achieving persistence and dropping the executable, the legitimate Symantec executable, rastlsc.exe, is executed using CreateProcessW. \nWe've also seen another version ({BB7BDEC9-B59D-492E-A4AF-4C7B1C9E646B}.dll), which executes rastlsc.exe with the parameter krv. Its meaning is discussed below. ",
+        "relationship": "1. [Relationships]: <process:malware,creates,reg:HKCU\\SOFTWARE\\Microsoft\\ Windows\\CurrentVersion\\Run;DeviceAssociationService;rastlsc.exe>. \n2. [Relationships]: <process:malware,writes,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastlsc.exe>. \n3. [Relationships]: <process:malware,writes,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\SyLog.bin>. \n4. [Relationships]: <process:malware,writes,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastls.dll>. \n5. [Relationships]: <process:malware,executes,process:rastlsc.exe>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:malware,Createkey,reg:HKCU\\SOFTWARE\\Microsoft\\ Windows\\CurrentVersion\\Run;DeviceAssociationService;rastlsc.exe>. \n[System-level Relationships]: <process:malware,Write,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastlsc.exe>. \n[System-level Relationships]: <process:malware,Write,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\SyLog.bin>. \n[System-level Relationships]: <process:malware,Write,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastls.dll>. \n[System-level Relationships]: <process:malware,Fork,process:rastlsc.exe>. "
+    },
+    {
+        "phase": "execution",
+        "content": "As mentioned earlier, the legitimate executable rastlsc.exe is dropped and executed. \nThis executable imports the rastls.dll file, which in this case contains the malicious payload. \nThe internal name of this dll is {7032F494-0562-4422-9C39-14230E095C52}.dll but we've seen other versions like {5248F13C-85F0-42DF-860D-1723EEAA4F90}.dll. All exported functions lead to the execution of the same function. \nThis export tries to read the SyLog.bin file located inside the same folder. Other versions tried to open the file OUTLFLTR.DAT. If that file exists, it is decrypted using AES in CBC mode with a hardcoded, 256-bit key and then decompressed (LZMA compression). \nThe McUtil.dll variant uses a different technique. At first glance, it looks as if like the main function does nothing malicious, but in fact it replaces the .text section of the legitimate mcoemcpy.exe, a side-loaded binary. It generates shellcode whose purpose is to call the function reading the encrypted stage-two  shellcode in the mcscentr.adf file. \nThe following pseudocode is used to create the shellcode: \nThe result is the following assembly listing: ",
+        "relationship": "1. [Relationships]: <process:rastlsc.exe,imports,file:rastls.dll>. \n2. [Relationships]: <process:rastls.dll,reads,file:SyLog.bin>. \n3. [Relationships]: <process:rastls.dll,opens,file:OUTLFLTR.DAT>. \n4. [Relationships]: <process:McUtil.dll,replaces,file:mcoemcpy.exe>. \n5. [Relationships]: <process:shellcode,calls,file:mcscentr.adf>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:rastlsc.exe,Loadlibrary,file:rastls.dll>. \n[System-level Relationships]: <process:rastls.dll,Read,file:SyLog.bin>. \n[System-level Relationships]: <process:rastls.dll,Read,file:OUTLFLTR.DAT>. \n[System-level Relationships]: <process:McUtil.dll,Modify_Attribute,file:mcoemcpy.exe>. \n[System-level Relationships]: <process:shellcode,Execute,file:mcscentr.adf>. "
+    },
+    {
+        "phase": "execution",
+        "content": "The shellcode decrypts and loads the library {E1E4CBED-5690-4749-819D-24FB660DF55F}.dll.   \nThe library retrieves its resource and tries to start the service \"DeviceAssociationService\".   \nThe decrypted data also contains shellcode. The latter decrypts the final layer: the backdoor. \nThe variant {92BA1818-0119-4F79-874E-E3BF79C355B8}.dll checks whether rastlsc.exe was executed with krv as the first parameter. If so, then a job is created and rastlsc.exe is executed again, but without the parameter. ",
+        "relationship": "1. [Relationships]: <process:shellcode,decrypts and loads,file:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll>. \n2. [Relationships]: <process:library,{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,retrieves,file:resource>. \n3. [Relationships]: <process:library,{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,tries to start,process:service:\"DeviceAssociationService\">. \n4. [Relationships]: <process:shellcode,decrypts,file:decrypted data>. \n5. [Relationships]: <process:decrypted data,contains,file:shellcode>. \n6. [Relationships]: <process:shellcode,decrypts,file:backdoor>. \n7. [Relationships]: <process:variant,{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,checks,process:rastlsc.exe>. \n8. [Relationships]: <process:variant,{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,executes,process:rastlsc.exe>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:shellcode,Loadlibrary,file:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll>. \n[System-level Relationships]: <process:library,{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,Read,file:resource>. \n[System-level Relationships]: <process:library,{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,Inject,process:service:\"DeviceAssociationService\">. \n[System-level Relationships]: <process:shellcode,Read,file:decrypted data>. \n[System-level Relationships]: <process:decrypted data,Read,file:shellcode>. \n[System-level Relationships]: <process:shellcode,Read,file:backdoor>. \n[System-level Relationships]: <process:variant,{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,Inject,process:rastlsc.exe>.  \n[System-level Relationships]: <process:variant,{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,Inject,process:rastlsc.exe>. "
+    },
+    {
+        "phase": "execution",
+        "content": "The malware retrieves the first 10 bytes of the username (UTF-16), XORs it with the 3-letter UTF-16 mutex_encoding_str string, and encodes it in hex. The result is used as a mutex name. For instance, for a user whose name starts with abc and the key being vwx, the following mutex will be created: \\Sessions\\1\\BaseNamedObjects\\170015001b. \nThe backdoor includes a PE loader that loads the library HTTPProv.dll in memory, calls its entrypoint and then calls the export function named CreateInstance. ",
+        "relationship": "1. [Relationships]: <process:malware,retrieves,reg:user:username>. \n2. [Relationships]: <process:malware,XORS,reg:mutex_encoding_str>. \n3. [Relationships]: <process:malware,encodes,reg:username>. \n4. [Relationships]: <process:backdoor,loads,file:HTTPProv.dll>. \n5. [Relationships]: <process:backdoor,calls,file:HTTPProv.dll>. \n6. [Relationships]: <process:backdoor,calls,export:CreateInstance>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:malware,Readkey,reg:user:username>. \n[System-level Relationships]: <process:malware,Writekey,reg:mutex_encoding_str>. \n[System-level Relationships]: <process:malware,Writekey,reg:username>. \n[System-level Relationships]: <process:backdoor,Loadlibrary,file:HTTPProv.dll>. \n[System-level Relationships]: <process:backdoor,Loadlibrary,file:HTTPProv.dll>. \n[System-level Relationships]: <process:backdoor,Execute,library:CreateInstance>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "The backdoor uses a classic TCP communication protocol over port 25123. In order to retrieve the server IP address, the backdoor first creates a particular DNS query. \nThe malware chooses between one of the three domains from the configuration and adds a custom sub-domain generated using two values. The first value is the computer name up to a length of 16 bytes. The second value is the 4-byte version ID. The following Python 2 code implements the encoding algorithm : \nFor instance, if the computer name is random-pc and the version ID is 0x0a841523 then the following domain could be created: \nniggmhggmeggmkggmfggmdggidggngggmjgg.ijhlokga.dwarduong[.]com \nThe following regular expression could be used to flag a C&C server for this backdoor: \n[ghijklmnopabcdef]{4-60}\\.[ghijklmnopabcdef]{8}\\.[a-z]+\\.[a-z]+ \nIf an IP address is resolved for this particular domain, then the malware tries to establish a connection on TCP port 25123. Each sample has three different domain names it can use to find its C&C server. \nAll communication is encrypted using RC4 and compressed with LZMA. It is possible to decrypt the traffic because the key is prepended to the packets. The format is: \n[RC4 key (4 bytes)][encrypted data] \nEach byte of the key is generated using the rand function. Once the packet is decrypted and decompressed, the data follow the format: \n[dw:unknown][dw:unknown][dw:command number][dw:size of data][dw:unknown] [dw:data] \nThe first time the client connects to the server, a UUID is returned and used as a session ID. The latter is stored in the registry key as binary data: HKCU\\SOFTWARE\\Classes\\ AppXc52346ec40fb4061ad96be0e6cb7d16a\\DefaultIcon \nAs mentioned earlier, the backdoor also contains a library called HTTPprov. This library is an alternative way, as a backup, to communicate with the server as a backup. This DLL sends a POST request over the HTTP protocol to communicate. It also supports HTTPS and the usage of a SOCKS5, SOCKS4a or SOCKS4 proxy. The library is statically linked with libcurl. \nOnce its initialization is done, the following registry key is created to instruct the backdoor to use HTTP in future communication with the C&C server: HKCU\\SOFTWARE\\Classes\\ CLSID{E3517E26-8E93-458D-A6DF-8030BC80528B}. \nA generic user agent is used: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0;   \nTrident/4.0). \nThe most distinctive characteristic of this library is the custom URI encoding algorithm. The resource part of the URI is created using the following pseudocode: \nNOTE: For clarity, the length-checking part has been removed from the snippet. \nFrom this generated string, two numbers are computed based on the custom checksum to obtain a URI: \nBy adding the URI generator of the HTTPprov library, the following URL could be generated: \nhXXp://niggmhggmeggmkggmfggmdggidggngggmjgg.ijhlokga.aisicoin[.]com/ 13/139756-Ses-Ufali-L ",
+        "relationship": "1. [Relationships]: <process:backdoor,creates,socket:DNS query>. \n2. [Relationships]: <process:backdoor,adds,socket:domain>. \n3. [Relationships]: <process:malware,establishes,socket:TCP port 25123>. \n4. [Relationships]: <process:backdoor,prepends,file:registry key>. \n5. [Relationships]: <process:HTTPprov,sends,socket:HTTP request>. \n6. [Relationships]: <process:HTTPprov,creates,file:registry key>. \n7. [Relationships]: <process:HTTPprov,generates,socket:URI>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:backdoor,Connect,socket:DNS query>. \n[System-level Relationships]: <process:backdoor,Connect,socket:domain>. \n[System-level Relationships]: <process:malware,Connect,socket:TCP port 25123>. \n[System-level Relationships]: <process:backdoor,Write,file:registry key>. \n[System-level Relationships]: <process:HTTPprov,Send,socket:HTTP request>. \n[System-level Relationships]: <process:HTTPprov,Create,file:registry key>. \n[System-level Relationships]: <process:HTTPprov,Connect,socket:URI>. "
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:fake TrueType font updater,decrypts,resource:XOR with a 128-byte,hardcoded key>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:fake TrueType font updater,Readkey,reg:XOR with a 128-byte hardcoded key>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:fake TrueType font updater,decompresses,data:LZMA>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:fake TrueType font updater,Read,file:LZMA>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:fake TrueType font updater,writes,file:%temp%\\RobotoSlab-Regular.ttf>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:fake TrueType font updater,Write,file:%temp%\\RobotoSlab-Regular.ttf>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:fake TrueType font updater,runs,file:%temp%\\RobotoSlab-Regular.ttf>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:fake TrueType font updater,Execute,file:%temp%\\RobotoSlab-Regular.ttf>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:fake font updater,drops,file:%temp%\\[0-9].tmp.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:fake font updater,Write,file:%temp%\\[0-9].tmp.exe>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:shellcode,retrieves,process:VirtualAlloc>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Read,process:VirtualAlloc>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:shellcode,retrieves,process:RtlMoveMemory>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Read,process:RtlMoveMemory>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:shellcode,retrieves,process:RtlZeroMemory>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Write,process:RtlZeroMemory>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:shellcode,calls,file:decrypted PE>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Execute,file:decrypted PE>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:shellcode,calls,file:DLLEntry export function>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Execute,file:DLLEntry export function>. "
+            },
+            {
+                "phase": "persistence",
+                "relationship": "[Original Relationships]: <process:malware,creates,reg:HKCU\\SOFTWARE\\Microsoft\\ Windows\\CurrentVersion\\Run;DeviceAssociationService;rastlsc.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Createkey,reg:HKCU\\SOFTWARE\\Microsoft\\ Windows\\CurrentVersion\\Run;DeviceAssociationService;rastlsc.exe>. "
+            },
+            {
+                "phase": "persistence",
+                "relationship": "[Original Relationships]: <process:malware,writes,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastlsc.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Write,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastlsc.exe>. "
+            },
+            {
+                "phase": "persistence",
+                "relationship": "[Original Relationships]: <process:malware,writes,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\SyLog.bin>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Write,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\SyLog.bin>. "
+            },
+            {
+                "phase": "persistence",
+                "relationship": "[Original Relationships]: <process:malware,writes,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastls.dll>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Write,file:C:\\Program Files\\Symantec\\Symantec Endpoint Protection\\12.1.671.4971.104a\\ DeviceAssociationService\\rastls.dll>. "
+            },
+            {
+                "phase": "persistence",
+                "relationship": "[Original Relationships]: <process:malware,executes,process:rastlsc.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Fork,process:rastlsc.exe>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:rastlsc.exe,imports,file:rastls.dll>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:rastlsc.exe,Loadlibrary,file:rastls.dll>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:rastls.dll,reads,file:SyLog.bin>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:rastls.dll,Read,file:SyLog.bin>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:rastls.dll,opens,file:OUTLFLTR.DAT>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:rastls.dll,Read,file:OUTLFLTR.DAT>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:McUtil.dll,replaces,file:mcoemcpy.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:McUtil.dll,Modify_Attribute,file:mcoemcpy.exe>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:shellcode,calls,file:mcscentr.adf>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Execute,file:mcscentr.adf>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:shellcode,decrypts and loads,file:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Loadlibrary,file:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,retrieves,file:resource>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,Read,file:resource>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,tries to start,process:service:\"DeviceAssociationService\">. ",
+                "semantic_relationship": "[System-level Relationships]: <process:{E1E4CBED-5690-4749-819D-24FB660DF55F}.dll,Inject,process:service:\"DeviceAssociationService\">. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:shellcode,decrypts,file:decrypted data>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Read,file:decrypted data>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:decrypted data,contains,file:shellcode>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:decrypted data,Read,file:shellcode>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:shellcode,decrypts,file:backdoor>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shellcode,Read,file:backdoor>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,checks,process:rastlsc.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,Inject,process:rastlsc.exe>.  "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,executes,process:rastlsc.exe>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:{92BA1818-0119-4F79-874E-E3BF79C355B8}.dll,Inject,process:rastlsc.exe>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:malware,retrieves,reg:user:username>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Readkey,reg:user:username>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:malware,XORS,reg:mutex_encoding_str>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Writekey,reg:mutex_encoding_str>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:malware,encodes,reg:username>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Writekey,reg:username>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:backdoor,loads,file:HTTPProv.dll>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Loadlibrary,file:HTTPProv.dll>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:backdoor,calls,file:HTTPProv.dll>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Loadlibrary,file:HTTPProv.dll>. "
+            },
+            {
+                "phase": "execution",
+                "relationship": "[Original Relationships]: <process:backdoor,calls,export:CreateInstance>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Loadlibrary,file:CreateInstance>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,creates,socket:DNS query>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Connect,socket:DNS query>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,adds,socket:domain>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Connect,socket:domain>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:malware,establishes,socket:TCP port 25123>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:malware,Connect,socket:TCP port 25123>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:backdoor,prepends,file:registry key>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:backdoor,Write,file:registry key>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:HTTPprov,sends,socket:HTTP request>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:HTTPprov,Send,socket:HTTP request>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:HTTPprov,creates,file:registry key>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:HTTPprov,Create,file:registry key>. "
+            },
+            {
+                "phase": "command and control",
+                "relationship": "[Original Relationships]: <process:HTTPprov,generates,socket:URI>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:HTTPprov,Connect,socket:URI>. "
+            }
+        ]
+    }
+]

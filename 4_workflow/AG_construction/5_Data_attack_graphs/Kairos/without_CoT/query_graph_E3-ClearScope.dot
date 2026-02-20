@@ -1,0 +1,4 @@
+// Threat Graph
+digraph {
+	rankdir=LR
+}

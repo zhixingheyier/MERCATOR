@@ -1,0 +1,20 @@
+
+【Persistence 】
+==============================
+  The malware’s persistence is usually guaranteed with one of the following mechanisms: 
+  Service installation 
+  Creation of a new Windows registry key value 
+  Creation of a new scheduled task. 
+  The service is usually installed by the malware with the execution of the Windows sc.exe utility. 
+  1 sc create "[MALWARE_NAME_NO_EXT]" binpath $=$ "[MALWARE_FULL_PATH]" /[ARGUMENT]"  
+  2 displayname $=$ "WORKPATH" type $=$ own start $=$ auto  
+  3 sc description "[MALWARE_NAME_NO_EXT]" "This service keeps your installation up to date with t  
+  4 sc start "[MALWARE_NAME_NO_EXT]"  
+   
+  The registry value is equal to the copied malware file name, without the extension, and is stored under the following key: 
+  Key: HKCU\Software\Microsoft\Windows\CurrentVersion\RunValue name: "[MALWARE_NAME_NO_EXT]"Value data: "[MALWARE_FULL_PATH] [ARGUMENT]"
+  The scheduled task is created using a hard-coded XML template that is modified at runtime and dropped in the file system using the same malware file path, but with a different extension, .xml instead of .exe. 
+  The generated XML file is then used with the Windows schtasks.exe utility to create the task. 
+  For example: 
+  The task and service description change according to the variant. 
+

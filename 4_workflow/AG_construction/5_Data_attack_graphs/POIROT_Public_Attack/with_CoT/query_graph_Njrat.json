@@ -1,0 +1,444 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Authorization form may - 2013 - 115444.scr",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "Authorization.exe",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "RAT",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "njRAT",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "VB.NET",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "[CWD]\\.tmp",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "C:\\Extracted\\.tmp",
+      "id": 7
+    },
+    {
+      "type": "socket",
+      "value": "IP range owned by Palestinian Internet Services",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "community",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "MSIL/Bladabindi",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": "Backdoor.LV",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\msnco.exe",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "C:\\Documents and Settings\\%USERNAME%\\Start Menu\\Programs\\Startup\\b6554e5bcfef391ff7a7ffda58092e10.exe",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "[CWD]\\ Authorization.exe.config",
+      "id": 14
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\b6554e5bcfef391ff7a7ffda58092e10",
+      "id": 15
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\b6554e5bcfef391ff7a7ffda58092e10",
+      "id": 16
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAcc ess\\Parameters\\FirewallPolicy\\StandardProfile\\AuthorizedApplic ations\\List\\[%APPDATA%]\\msnco.exe",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "msnco.exe",
+      "id": 18
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\StandardProfile\\AuthorizedApplications\\List\\[%APPDATA%]\\msnco.exe",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "217.66.231.245:1177",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 21
+    },
+    {
+      "type": "file",
+      "value": "Authorization.exe",
+      "id": 22
+    },
+    {
+      "type": "reg",
+      "value": "\\SYSTEM\\Run\\Authorization.exe",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 24
+    },
+    {
+      "type": "socket",
+      "value": "21+7.16860.02.3615.22.4405",
+      "id": 25
+    },
+    {
+      "type": "socket",
+      "value": "network traffic",
+      "id": 26
+    },
+    {
+      "type": "process",
+      "value": "analyst",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "bongdacongdong.vn",
+      "id": 28
+    },
+    {
+      "type": "socket",
+      "value": "31.170.165.90",
+      "id": 29
+    },
+    {
+      "type": "socket",
+      "value": "112.213.89.144",
+      "id": 30
+    },
+    {
+      "type": "process",
+      "value": "hxxp://bongdacongdong.vn/authorization.exe",
+      "id": 31
+    }
+  ],
+  "links": [
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "1",
+      "source": 2,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "2",
+      "source": 2,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "4",
+      "source": 2,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "5",
+      "source": 2,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "6",
+      "source": 2,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "7",
+      "source": 2,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "11",
+      "source": 2,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "12",
+      "source": 2,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "13",
+      "source": 2,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "14",
+      "source": 2,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "15",
+      "source": 2,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "16",
+      "source": 2,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "17",
+      "source": 2,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "19",
+      "source": 2,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "20",
+      "source": 2,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "23",
+      "source": 2,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "24",
+      "source": 2,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "27",
+      "source": 2,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "29",
+      "source": 2,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "33",
+      "source": 2,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 9,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "9",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "FoF",
+      "phase": "execution",
+      "order": "10",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "execution",
+      "order": "18",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "21",
+      "source": 21,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "22",
+      "source": 21,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "exfiltration",
+      "order": "26",
+      "source": 21,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "exfiltration",
+      "order": "25",
+      "source": 24,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "exfiltration",
+      "order": "28",
+      "source": 27,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "30",
+      "source": 28,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "31",
+      "source": 28,
+      "target": 29,
+      "key": 1
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "32",
+      "source": 28,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Download",
+      "phase": "command and control",
+      "order": "34",
+      "source": 31,
+      "target": 22,
+      "key": 0
+    }
+  ]
+}

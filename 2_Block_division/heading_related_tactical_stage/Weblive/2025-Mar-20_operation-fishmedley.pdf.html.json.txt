@@ -1,0 +1,16 @@
+
+【Initial access】
+==============================
+  We were unable to identify the initial compromise vectors. For most cases, the attackers seemed to have had privileged access inside the local network, such as domain administrator credentials.
+  At Victim D, the attackers gained access to an admin console and used it to deploy implants on other machines in the local network. It is probable that they first compromised the machine of a sysadmin or security analyst and then stole credentials that allowed them to connect to the console.
+  At Victim F, the implants were delivered usingImpacket, which means that the attackers somehow previously compromised a high-privilege domain account.
+
+
+【Lateral movement】
+==============================
+  At Victim F, the operators also used Impacket to move laterally. They gathered information on other local machines and installed implants.
+  Table 3 shows that the operators first did some manual reconnaissance usingquser.exe,wmic.exe, andipconfig.exe. Then they tried to get credentials and other secrets bydumpingthe local security authority subsystem service (LSASS) process (PID 944). The PID of the process was obtained viatasklist /svcand the dump was performed usingcomsvcs.dll, which is a known living-off-the-land binary (LOLBIN). Note that it is likely that the attackers executedquser.exeto see whether other users or admins were also logged in, meaning privileged accesses were present in LSASS. According toMicrosoft documentation, to use this command the attacker must have Full Control permission or special access permission.
+  They also saved the registry hivessam.hiveandsystem.hive, which can both contain secrets or credentials.
+  Finally, they tried to dump the LSASS process again, using aforloop iterating over the output fromtasklist.exe. We have seen this same code used on other machines, so it is a good idea to block or at least alert on it.
+  Table 3. Commands executed via Impacket on a machine at Victim F
+

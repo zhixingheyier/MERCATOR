@@ -1,0 +1,467 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Waterbear RAT (A)",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "Waterbear plugin",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "64-bit process",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "Waterbear downloader",
+      "id": 4
+    },
+    {
+      "type": "socket",
+      "value": "new C&C IP address",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "Waterbear RAT (B)",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "list of drives and files",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 8
+    },
+    {
+      "type": "socket",
+      "value": "other C&C servers",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "loader",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "downloader",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "execution_*",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "first stage RAT",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "appropriate folder",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "loader",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "encrypted downloader",
+      "id": 16
+    },
+    {
+      "type": "reg",
+      "value": "registries",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "Deuterbear RAT",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "HTTPS tunnel",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "traffic",
+      "id": 20
+    },
+    {
+      "type": "file",
+      "value": "desired function",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "victim information to C&C server",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "Deuterbear",
+      "id": 23
+    },
+    {
+      "type": "process",
+      "value": "",
+      "id": 24
+    },
+    {
+      "type": "file",
+      "value": "",
+      "id": 25
+    },
+    {
+      "type": "socket",
+      "value": "",
+      "id": 26
+    },
+    {
+      "type": "file",
+      "value": "PE DLL",
+      "id": 27
+    },
+    {
+      "type": "process",
+      "value": "command and control_*",
+      "id": 28
+    },
+    {
+      "type": "file",
+      "value": "first shellcode",
+      "id": 29
+    },
+    {
+      "type": "process",
+      "value": "first shellcode",
+      "id": 30
+    },
+    {
+      "type": "file",
+      "value": "second shellcode",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "second shellcode",
+      "id": 32
+    },
+    {
+      "type": "file",
+      "value": "first export function of PE(DLL)",
+      "id": 33
+    },
+    {
+      "type": "process",
+      "value": "first export function of PE(DLL)",
+      "id": 34
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "1",
+      "source": 2,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 2,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "6",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "7",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 8,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "9",
+      "source": 10,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "10",
+      "source": 10,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "11",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "13",
+      "source": 12,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "14",
+      "source": 12,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "15",
+      "source": 12,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "16",
+      "source": 12,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "12",
+      "source": 13,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "17",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "18",
+      "source": 18,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "19",
+      "source": 18,
+      "target": 20,
+      "key": 1
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "20",
+      "source": 18,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "21",
+      "source": 18,
+      "target": 21,
+      "key": 1
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "22",
+      "source": 18,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "23",
+      "source": 18,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "28",
+      "source": 18,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "24",
+      "source": 23,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "25",
+      "source": 23,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "26",
+      "source": 23,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "27",
+      "source": 23,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "command and control",
+      "order": "30",
+      "source": 23,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "31",
+      "source": 23,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "command and control",
+      "order": "32",
+      "source": 23,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "33",
+      "source": 23,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "command and control",
+      "order": "34",
+      "source": 23,
+      "target": 33,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "35",
+      "source": 23,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "29",
+      "source": 28,
+      "target": 23,
+      "key": 0
+    }
+  ]
+}

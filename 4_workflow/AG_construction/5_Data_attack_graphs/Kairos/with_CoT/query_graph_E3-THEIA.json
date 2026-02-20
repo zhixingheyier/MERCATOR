@@ -1,0 +1,131 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "/home/admin/clean",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "payload",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "new attack process",
+      "id": 4
+    },
+    {
+      "type": "socket",
+      "value": "161.116.88.72",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "profile",
+      "id": 6
+    },
+    {
+      "type": "socket",
+      "value": "C&C server",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "/var/log/xdev",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "mail",
+      "id": 9
+    },
+    {
+      "type": "socket",
+      "value": "known hosts on the victim's network",
+      "id": 10
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "initial access",
+      "order": "5",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "6",
+      "source": 6,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "7",
+      "source": 6,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "8",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    }
+  ]
+}

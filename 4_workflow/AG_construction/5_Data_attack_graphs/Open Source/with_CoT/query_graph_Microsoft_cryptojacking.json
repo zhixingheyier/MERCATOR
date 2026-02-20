@@ -1,0 +1,451 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "attacker-controlled virtual machines",
+      "id": 2
+    },
+    {
+      "type": "socket",
+      "value": "account credentials",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "privilege escalation_*",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "global administrator account",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "roles that allow the creation of compute resources",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 7
+    },
+    {
+      "type": "socket",
+      "value": "tenant",
+      "id": 8
+    },
+    {
+      "type": "socket",
+      "value": "subscription",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "defense evasion_*",
+      "id": 10
+    },
+    {
+      "type": "socket",
+      "value": "subscription directory",
+      "id": 11
+    },
+    {
+      "type": "socket",
+      "value": "resource",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "impact_*",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "core counts",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "quotas",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "GPU compute offerings",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "NVIDIA A100 GPU compute option",
+      "id": 17
+    },
+    {
+      "type": "process",
+      "value": "cryptojacking activities",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "compute fees",
+      "id": 19
+    },
+    {
+      "type": "process",
+      "value": "VM scale sets",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "Azure Machine Learning compute instances",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "Azure Batch",
+      "id": 22
+    },
+    {
+      "type": "process",
+      "value": "Azure Container Instances",
+      "id": 23
+    },
+    {
+      "type": "socket",
+      "value": "user accounts",
+      "id": 24
+    },
+    {
+      "type": "process",
+      "value": "GPU compute",
+      "id": 25
+    },
+    {
+      "type": "socket",
+      "value": "regions",
+      "id": 26
+    },
+    {
+      "type": "file",
+      "value": "compute",
+      "id": 27
+    },
+    {
+      "type": "socket",
+      "value": "deployment failures",
+      "id": 28
+    },
+    {
+      "type": "process",
+      "value": "Azure ML compute instances",
+      "id": 29
+    },
+    {
+      "type": "socket",
+      "value": "provisioning",
+      "id": 30
+    },
+    {
+      "type": "process",
+      "value": "GPU Driver Extension",
+      "id": 31
+    },
+    {
+      "type": "process",
+      "value": "mining software",
+      "id": 32
+    },
+    {
+      "type": "socket",
+      "value": "mining pool (domain name)",
+      "id": 33
+    },
+    {
+      "type": "socket",
+      "value": "mining domains",
+      "id": 34
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "privilege escalation",
+      "order": "3",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "privilege escalation",
+      "order": "4",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "5",
+      "source": 4,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "defense evasion",
+      "order": "6",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "defense evasion",
+      "order": "7",
+      "source": 7,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "8",
+      "source": 7,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "defense evasion",
+      "order": "9",
+      "source": 10,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "defense evasion",
+      "order": "10",
+      "source": 10,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "11",
+      "source": 10,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "impact",
+      "order": "12",
+      "source": 13,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Attribute",
+      "phase": "impact",
+      "order": "13",
+      "source": 13,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "14",
+      "source": 13,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "15",
+      "source": 13,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "16",
+      "source": 13,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "18",
+      "source": 13,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "19",
+      "source": 13,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "20",
+      "source": 13,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "21",
+      "source": 13,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "22",
+      "source": 13,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "23",
+      "source": 13,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "24",
+      "source": 13,
+      "target": 26,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "29",
+      "source": 13,
+      "target": 26,
+      "key": 1
+    },
+    {
+      "type": "Create",
+      "phase": "impact",
+      "order": "25",
+      "source": 13,
+      "target": 27,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "26",
+      "source": 13,
+      "target": 28,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "impact",
+      "order": "27",
+      "source": 13,
+      "target": 29,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "28",
+      "source": 13,
+      "target": 30,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "30",
+      "source": 13,
+      "target": 31,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "31",
+      "source": 13,
+      "target": 32,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "33",
+      "source": 13,
+      "target": 34,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "impact",
+      "order": "17",
+      "source": 18,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "impact",
+      "order": "32",
+      "source": 32,
+      "target": 33,
+      "key": 0
+    }
+  ]
+}

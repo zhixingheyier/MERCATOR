@@ -1,0 +1,269 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Carbanak",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "%system32%\\com\\svchost.exe",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "original file created by the exploit payload",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "$<$ <ServiceName $",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "%COMMON_APPDATA%\\Mozilla\\random name.bin",
+      "id": 5
+    },
+    {
+      "type": "reg",
+      "value": "[HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings]",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "%AppData%\\Mozilla\\Firefox\\<ProfileName",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "svchost.exe",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "kldconfig.plug",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "keystrokes",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "screenshots",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "Termservice service execution mode",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "termsrv.dll",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "csrsrv.dll",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "msgina.dll",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "winlogon.exe",
+      "id": 16
+    },
+    {
+      "type": "socket",
+      "value": "C2 server",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "associated action",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "collected monitoring data",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "commands",
+      "id": 20
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "execution",
+      "order": "5",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "6",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "7",
+      "source": 1,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "8",
+      "source": 1,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "9",
+      "source": 1,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "10",
+      "source": 1,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "11",
+      "source": 1,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "12",
+      "source": 1,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "13",
+      "source": 1,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "14",
+      "source": 1,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "execution",
+      "order": "15",
+      "source": 1,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "execution",
+      "order": "16",
+      "source": 1,
+      "target": 17,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "17",
+      "source": 1,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "execution",
+      "order": "18",
+      "source": 1,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "execution",
+      "order": "19",
+      "source": 1,
+      "target": 20,
+      "key": 0
+    }
+  ]
+}

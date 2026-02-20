@@ -1,0 +1,264 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "rundll32.exe",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\Microsoft\\credprov.tlb",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA%\\Microsoft\\shdocvw.tlp",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "dropper",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "%APPDATA%\\Microsoft\\credprov.tlb",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "%APPDATA%\\Microsoft\\shdocvw.tlp",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 7
+    },
+    {
+      "type": "reg",
+      "value": "HKCU\\Software\\Classes\\CLSID\\{42aedc87-2188-41fd-b9a3-0c966feabec1}\\InprocServer32",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "shdocvw.tlp",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "all processes",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "credprov.tlb",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "explorer.exe",
+      "id": 12
+    },
+    {
+      "type": "socket",
+      "value": "command and control server",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "browser",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "named pipe",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "mskfp32.ocx",
+      "id": 16
+    },
+    {
+      "type": "file",
+      "value": "msvcrtd.tlb",
+      "id": 17
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\SessionMRU\\IPlace",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "weather-online.hopto.org",
+      "id": 19
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "3",
+      "source": 4,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "4",
+      "source": 4,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "5",
+      "source": 4,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "6",
+      "source": 4,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "persistence",
+      "order": "7",
+      "source": 4,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "9",
+      "source": 4,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "12",
+      "source": 4,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "defense evasion",
+      "order": "14",
+      "source": 4,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Createkey",
+      "phase": "persistence",
+      "order": "8",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "16",
+      "source": 7,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "17",
+      "source": 7,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Readkey",
+      "phase": "command and control",
+      "order": "18",
+      "source": 7,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "19",
+      "source": 7,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "defense evasion",
+      "order": "10",
+      "source": 9,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "defense evasion",
+      "order": "11",
+      "source": 9,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "defense evasion",
+      "order": "13",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "defense evasion",
+      "order": "15",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    }
+  ]
+}

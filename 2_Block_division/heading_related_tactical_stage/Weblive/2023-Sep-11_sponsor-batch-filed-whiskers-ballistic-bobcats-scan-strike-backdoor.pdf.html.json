@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Initial access",
+        "content": "We were able to identify a likely means of initial access for 23 of the 34 victims that we observed in ESET telemetry. Similar to what was reported in thePowerLessandCISAreports, Ballistic Bobcat probably exploited a known vulnerability,CVE-2021-26855, in Microsoft Exchange servers to gain a foothold on these systems.\nFor 16 of the 34 victims, it appears Ballistic Bobcat was not the only threat actor with access to their systems. This may indicate, along with the wide variety of victims and the apparent lack of obvious intelligence value of a few victims, that Ballistic Bobcat engaged in scan-and-exploit behavior, as opposed to a targeted campaign against preselected victims."
+    }
+]

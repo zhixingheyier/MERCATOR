@@ -1,0 +1,41 @@
+
+【Command and control 】
+==============================
+  The certificate shows the serial number — 61b0feca645af9296aa422d2c289e1d13593dbb6 — and fingerprint — 134a3d105eef24fab27ed0fb3729e271306bde6dc4e9d2a4a5c5d1c82b0390fe we discovered five hosts containing the same certificate: 
+  149[.]28[.]54[.]212 
+  95[.]179[.]246[.]73 
+  149[.]28[.]36[.]160 
+  45[.]76[.]68[.]112 
+  3[.]86[.]255[.]88 
+  Our analysis revealed that the backdoors communicated over HTTPS to the server 149[.]28[.]54[.]212 and the Alchimist user interface was accessible via ports 8443 and 50423 from servers 149[.]28[.]54[.]212, 95[.]179[.]246[.]73, and 149[.]28[.]36[.]160. 
+  The rise of all-inclusive C2 frameworks 
+  Our discovery of Alchimist is yet another indication that threat actors are rapidly adopting off-theshelf C2 frameworks to carry out their operations. A similar ready-to-go C2 framework called "Manjusaka'' was recently disclosed by Talos. Alchimist also comprises a single-file based, readyto-go C2 tool along with its remote access tool Insekt, implemented in GoLang and compiled to target Windows and Linux machines. 
+  The functionality of Manjusaka and Alchimist's web interfaces exhibiting remote administration capabilities, performed through the RATs, signifies the plethora of functionalities packed into these C2 frameworks. A threat actor gaining privileged shell access on a victim's machine is like having a Swiss Army knife, enabling the execution of arbitrary commands or shellcodes in the victim's environment, resulting in significant effects on the target organization. 
+  Endpoint security teams should implement layered security defense, be constantly vigilant in monitoring the privileged operations in their environments and detect any unauthorized programs attempting to gain root privileges. Network security teams should be looking for any unusual traffic to their organizations' environment and be cautious about suspicious artifacts downloaded to their network. Having controlled download and file execution policies on the endpoints and servers can effectively protect organizational assets from threats. 
+  Organizations and users who are using the vulnerable versions of polkits pkexec utilities should patch their systems following the mitigation steps as advised by RedHat. For the users of Unixlike systems other than Linux, who cannot find patches for their operating systems, a workaround could be implemented by removing the SUID-bit of pkexec utility. 
+  Coverage 
+  Ways our customers can detect and block this threat are listed below. 
+  Cisco Secure Endpoint (formerly AMP for Endpoints) is ideally suited to prevent the execution of the malware detailed in this post. Try Secure Endpoint for free here. 
+  Cisco Secure Web Appliance web scanning prevents access to malicious websites and detects malware used in these attacks. 
+  Cisco Secure Email (formerly Cisco Email Security) can block malicious emails sent by threat actors as part of their campaign. You can try Secure Email for free here. 
+  Cisco Secure Firewall (formerly Next-Generation Firewall and Firepower NGFW) appliances such as Threat Defense Virtual, Adaptive Security Appliance and Meraki MX can detect malicious activity associated with this threat. 
+  Cisco Secure Malware Analytics (Threat Grid) identifies malicious binaries and builds protection into all Cisco Secure products. 
+  Umbrella, Cisco's secure internet gateway (SIG), blocks users from connecting to malicious domains, IPs and URLs, whether users are on or off the corporate network. Sign up for a free trial of Umbrella here. 
+  Cisco Secure Web Appliance (formerly Web Security Appliance) automatically blocks potentially dangerous sites and tests suspicious sites before users access them. 
+  Additional protections with context to your specific environment and threat data are available from the Firewall Management Center. 
+  Cisco Duo provides multi-factor authentication for users to ensure only those authorized are accessing your network. 
+  The following ClamAV signatures have been released to detect this threat: 
+  Osx.Exploit.CVE_2021_4034-9951522-2   
+  Unix.Exploit.CVE_2021_4034-9951523-0   
+  Unix.Exploit.CVE_2021_4034-9951524-0   
+  Unix.Exploit.CVE_2021_4034-9951525-0   
+  Unix.Exploit.CVE_2021_4034-9951526-0   
+  Unix.Malware.Insekt-9955436-0   
+  Win.Malware.Insekt-9955440-0   
+  Unix.Malware.Alchimist-9955784-0   
+  Multios.Malware.Insekt-9961177-0 
+  Open-source Snort Subscriber Rule Set customers can stay up to date by downloading the latest rule pack available for purchase on Snort.org. Snort SIDs for this threat are 58955 - 58956. 
+  IOCs 
+  The IOC list is available in Talos' Github repo here. 
+  SHARE THIS POST 
+

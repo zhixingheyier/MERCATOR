@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Discovery",
+        "content": "Once the threat actors obtain access to the victim’s environment, they can start inspecting the environment via the following commands:\nnet usernet user <username>net user <username> /DOMAIN"
+    },
+    {
+        "title": "Privilege escalation",
+        "content": "In this campaign, we discovered several tools used for UAC bypass in Windows 10. We will go into detail for each of them."
+    },
+    {
+        "title": "Lateral movement",
+        "content": "In this stage, we observed certain malware such as HIUPAN and ACNSHELL (initially introduced and analyzed byMandiantandSophos) being used to install themselves to removable disks and create a reverse shell."
+    },
+    {
+        "title": "Exfiltration",
+        "content": "Based on our telemetry, we found that Earth Preta used multiple approaches to exfiltrate sensitive data from the victims. For example, in some cases, we observed that WinRAR and curl (or cURL) were leveraged to collect and transfer data to the threat actor’s server. After further investigation, we even found some previously unseen pieces of malware that were used to collect data in a custom-made file format. In the following sections, we share the details of the unique exfiltration toolsets developed by Earth Preta."
+    }
+]

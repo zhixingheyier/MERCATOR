@@ -1,0 +1,191 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "LNK file",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "hxxps://tbet[.]geontrigame[.]com/zxchzzmism",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "PowerShell",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "PSSGR",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "Start-Sleep 131",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "bmwiMcDec",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "npuGDec",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "decrypted MSIL execution file",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "customized PowerShell command",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "execution_*",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "temp,process:system information and antivirus products",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "MSIL file",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "C:\\Windows\\System32\\check",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "target list",
+      "id": 14
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "4",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "5",
+      "source": 3,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "7",
+      "source": 3,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "9",
+      "source": 3,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "11",
+      "source": 3,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "execution",
+      "order": "6",
+      "source": 6,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "10",
+      "source": 10,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "12",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "13",
+      "source": 12,
+      "target": 14,
+      "key": 0
+    }
+  ]
+}

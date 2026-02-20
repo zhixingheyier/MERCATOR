@@ -1,0 +1,316 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "attached file",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": ".NET executable",
+      "id": 2
+    },
+    {
+      "type": "file",
+      "value": "additional executable",
+      "id": 3
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "Escelar",
+      "id": 5
+    },
+    {
+      "type": "file",
+      "value": "%APPDATA% directory",
+      "id": 6
+    },
+    {
+      "type": "socket",
+      "value": "remote Microsoft SQL server",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "raw binary file",
+      "id": 8
+    },
+    {
+      "type": "reg",
+      "value": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run [Computer Name] : [Path to Executable]",
+      "id": 9
+    },
+    {
+      "type": "process",
+      "value": "Escelar malware",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "%TEMP%\\\\JO[Computer Name][Computer Virtual Memory].exe",
+      "id": 11
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "JCS.Components.NeroBar.dll",
+      "id": 13
+    },
+    {
+      "type": "file",
+      "value": "IdPC identifier",
+      "id": 14
+    },
+    {
+      "type": "socket",
+      "value": "https://internetbanking.caixa.gov.br/SIIBC/index.processa",
+      "id": 15
+    },
+    {
+      "type": "socket",
+      "value": "https://www.itau.com.br/",
+      "id": 16
+    },
+    {
+      "type": "socket",
+      "value": "https://www.santander.com.br",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "False error",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "attacker",
+      "id": 19
+    },
+    {
+      "type": "socket",
+      "value": "Gmail",
+      "id": 20
+    },
+    {
+      "type": "socket",
+      "value": "Hotmail",
+      "id": 21
+    },
+    {
+      "type": "socket",
+      "value": "Webmail",
+      "id": 22
+    },
+    {
+      "type": "socket",
+      "value": "Microsoft SQL server",
+      "id": 23
+    }
+  ],
+  "links": [
+    {
+      "type": "Execute",
+      "phase": "execution",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "1",
+      "source": 2,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "2",
+      "source": 2,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "3",
+      "source": 2,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Writekey",
+      "phase": "execution",
+      "order": "7",
+      "source": 2,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "8",
+      "source": 2,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "command and control",
+      "order": "11",
+      "source": 2,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "execution",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "credential access",
+      "order": "22",
+      "source": 5,
+      "target": 7,
+      "key": 1
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "6",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "19",
+      "source": 5,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "20",
+      "source": 5,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "credential access",
+      "order": "21",
+      "source": 5,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "credential access",
+      "order": "23",
+      "source": 5,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "command and control",
+      "order": "9",
+      "source": 10,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "10",
+      "source": 10,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "12",
+      "source": 12,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "13",
+      "source": 12,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "14",
+      "source": 12,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "15",
+      "source": 12,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "16",
+      "source": 12,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "command and control",
+      "order": "17",
+      "source": 12,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "command and control",
+      "order": "18",
+      "source": 12,
+      "target": 19,
+      "key": 0
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+    {
+        "phase": "initial access",
+        "content": "The attacker sends a malformed HTTP POST from 128.55.12.167 to the victim host to trigger the Nginx\u2019s backdoor. The HTTP request carrying a payload executes shell code, establishing a connection to a C&C server (4.21.51.250). The attacker obtains username and hostname information before unexpectedly losing control. The next day, the attacker sends the malformed HTTP POST again and continues the attack from the C&C server (128.55.12.233). The attacker exfiltrates the host\u2019s environment information such as hostname, passwd, and username, in the subsequent attack.",
+        "relationship": "1. [Relationships]: <process:attacker,send,socket:128.55.12.167:HTTP POST>. \n2. [Relationships]: <process:Nginx,execute,process:shell code>. \n3. [Relationships]: <process:shell code,establish,socket:4.21.51.250>. \n4. [Relationships]: <process:attacker,send,socket:128.55.12.233:HTTP POST>. \n5. [Relationships]: <process:attacker,exfiltrate,file:hostname>. \n6. [Relationships]: <process:attacker,exfiltrate,file:passwd>. \n7. [Relationships]: <process:attacker,exfiltrate,file:username>. ",
+        "semantic_relationship": "[System-level Relationships]: <process:attacker,Send,socket:128.55.12.167:HTTP POST>. \n[System-level Relationships]: <process:Nginx,Fork,process:shell code>. \n[System-level Relationships]: <process:shell code,Connect,socket:4.21.51.250>. \n[System-level Relationships]: <process:attacker,Send,socket:128.55.12.233:HTTP POST>. \n[System-level Relationships]: <process:attacker,Write,file:hostname>. \n[System-level Relationships]: <process:attacker,Write,file:passwd>. \n[System-level Relationships]: <process:attacker,Write,file:username>. "
+    },
+    {
+        "phase_relationship": [
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,send,socket:128.55.12.167:HTTP POST>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Send,socket:128.55.12.167:HTTP POST>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:Nginx,execute,process:shell code>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:Nginx,Fork,process:shell code>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:shell code,establish,socket:4.21.51.250>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:shell code,Connect,socket:4.21.51.250>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,send,socket:128.55.12.233:HTTP POST>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Send,socket:128.55.12.233:HTTP POST>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,exfiltrate,file:hostname>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Write,file:hostname>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,exfiltrate,file:passwd>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Write,file:passwd>. "
+            },
+            {
+                "phase": "initial access",
+                "relationship": "[Original Relationships]: <process:attacker,exfiltrate,file:username>. ",
+                "semantic_relationship": "[System-level Relationships]: <process:attacker,Write,file:username>. "
+            }
+        ]
+    }
+]

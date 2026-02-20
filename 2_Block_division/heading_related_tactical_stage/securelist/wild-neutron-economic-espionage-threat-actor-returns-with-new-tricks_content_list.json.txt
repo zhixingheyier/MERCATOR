@@ -1,0 +1,6 @@
+
+【Lateral movement 】
+==============================
+  After installing the main backdoor and establishing initial C2 communication, the attackers use a range of different tools to extract sensitive data and control the victim’s machine. These tools include a password harvesting trojan, a reverse-shell backdoor and customized implementations of OpenSSH, WMIC and SMB. Sometimes, they only drop a simple perl reverse shell and use various collection methods to retrieve credentials from a set of machines, escalate privileges, and fan out across a network from there. Besides these tools, there is also a number of small utility modules of different functionalities, from loaders and configuration tools, to file shredders and network proxies. 
+  It’s also worth noting that this threat actor heavily relies on already existing code, using publicly available open source applications, as well as Metasploit tools and leaked malware sources, to build its own toolset. Some of these tools are designed to work under Cygwin and come together with the Cygwin API DLL, which may suggest that the attackers feel more comfortable when working in a Linux-like environment. 
+

@@ -1,0 +1,7 @@
+[
+    {
+        "title": "e5-theia (fig. 4).",
+        "content": "The attacker exploits a vulnerability in Firefox by browsing www.nhra.com, connecting the victim host to C&C servers (189.141.204.211 and 208.203.20.42). The attacker then uses /run/shm to escalate privileges and gain access to a list of processes. The attacker finds the sshd process and injects malicious code into the process. The compromised sshd process writes to a file /var/log/sshdlog on the host’s filesystem.",
+        "phase": "initial access"
+    }
+]

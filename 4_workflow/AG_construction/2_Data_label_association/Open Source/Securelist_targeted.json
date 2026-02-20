@@ -1,0 +1,42 @@
+[
+    {
+        "title": "table of contents",
+        "content": "In January 2022, Kaspersky ICS CERT experts detected a wave of targeted attacks on military industrial complex enterprises and public institutions in several countries. In the course of our research, we were able to identify over a dozen of attacked organizations. The attack targeted industrial plants, design bureaus and research institutes, government agencies, ministries and departments in several East European countries (Belarus, Russia, and Ukraine), as well as Afghanistan. \nThe attackers were able to penetrate dozens of enterprises and even hijack the IT infrastructure of some, taking control of systems used to manage security solutions. \nAn analysis of information obtained while investigating the incidents indicates that cyberespionage was the goal of this series of attacks. ",
+        "phase": "other"
+    },
+    {
+        "title": "initial infection",
+        "content": "The attackers penetrated the enterprise network using carefully crafted phishing emails, some of which use information that is specific to the organization under attack and is not publicly available. This could indicate that the attackers did preparatory work in advance (they may have obtained the information in earlier attacks on the same organization or its employees, or on other organizations or individuals associated with the victim organization). \nMicrosoft Word documents attached to the phishing emails contained malicious code that exploits the CVE-2017-11882 vulnerability. The vulnerability enables an attacker to execute arbitrary code (in the attacks analyzed, the main module of the PortDoor malware) without any additional user activity. \nAn earlier series of attacks in which the PortDoor malware was also used was described by Cybereason experts. A new version of PortDoor was identified in the course of our research. ",
+        "phase": "initial access"
+    },
+    {
+        "title": "initial infection of a system",
+        "content": "After being launched, PortDoor collects general information on the infected system and sends it to the malware command-and-control (CnC) server. In cases where an infected system is of interest to the attackers, they use the PortDoor functionality to control the system remotely and install additional malware. ",
+        "phase": "command and control"
+    },
+    {
+        "title": "additional malware",
+        "content": "The attackers used five different backdoors at the same time – probably to set up redundant communication channels with infected systems in case one of the malicious programs was detected and removed by a security solution. The backdoors used provide extensive functionality for controlling infected systems and collecting confidential data. \nOf the six backdoors identified on infected systems, five (PortDoor, nccTrojan, Logtu, Cotx, and DNSep) have been used earlier in attacks attributed by other researchers to APT TA428. The sixth backdoor is new and has not been observed in other attacks. ",
+        "phase": "command and control"
+    },
+    {
+        "title": "lateral movement",
+        "content": "After gaining a foothold on the initial system, the attackers attempt to spread the malware to other computers on the enterprise network. To gain access to those computers, the attackers use network scanning results, as well as user credentials stolen earlier. \nThe Ladon hacking utility (which is popular in China) is used as the main lateral movement tool. It combines network scanning, vulnerability search and exploitation, password attack, and other functionality. The attackers also extensively use standard utilities that are part of the Microsoft Windows operating system. \nThe attack's final stage involves hijacking the domain controller and gaining full control of all of the organization's workstations and servers. \nThe attackers used DLL hijacking and process hollowing techniques extensively in the attack to prevent security software from detecting the malware. ",
+        "phase": "lateral movement"
+    },
+    {
+        "title": "data theft",
+        "content": "After gaining domain administrator privileges, the attackers searched for and exfiltrated documents and other files that contained the attacked organization's sensitive data to their servers hosted in different countries. These servers were also used as stage one CnC servers. \nThe attackers compressed stolen files into encrypted and password-protected ZIP archives. After receiving the data collected, the stage one CnC servers forwarded the archives received to a stage two server located in China. ",
+        "phase": "exfiltration"
+    },
+    {
+        "title": "who is behind the attack?",
+        "content": "Significant overlaps in tactics, techniques, and procedures (TTPs) have been observed with APT TA428 activity. \nThe research identified malware and CnC servers previously used in attacks attributed by other researchers to TA428 APT group. \nSome indirect evidence also supports our conclusion. \nWe believe that the series of attacks that we have identified is highly likely to be an extension of a known campaign that has been described in Cybereason. DrWeb, and NTTSecurity research and has been attributed with a high degree of confidence to APT TA428 activity. ",
+        "phase": "other"
+    },
+    {
+        "title": "conclusion",
+        "content": "The findings of our research show that spear phishing remains one of the most relevant threats to industrial enterprises and public institutions. In the course of the attack, the attackers used mostly known backdoor malware, as well as standard lateral movement techniques and methods designed to evade detection by security solutions. \nThe attack series that we have identified is not the first in the campaign. Given that the attackers have had some success, we believe it is highly likely that similar attacks will occur again in the future. Industrial enterprises and public institutions should do a great deal of work to successfully thwart such attacks. \nTechnical details of the attacks, as well as recommendations and indicators of compromise, can be found in the full public version of the article on the Kaspersky ICS CERT website. \nA private version of the article has been published on Kaspersky Threat Intelligence. \nWe are not wrapping up our investigation as yet and will release information on new findings as they appear. For more information, you can contact ics-cert@kaspersky.com. ",
+        "phase": "other"
+    }
+]

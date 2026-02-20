@@ -1,0 +1,139 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "attacker",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "81.49.200.166",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "shell",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "/tmp/vUgefal",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "vUgefal",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "/tmp/vUgefal",
+      "id": 6
+    },
+    {
+      "type": "socket",
+      "value": "154.145.113.18",
+      "id": 7
+    },
+    {
+      "type": "socket",
+      "value": "61.167.39.128",
+      "id": 8
+    },
+    {
+      "type": "process",
+      "value": "sshd",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "/var/log/devc",
+      "id": 10
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "9",
+      "source": 1,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Execute",
+      "phase": "initial access",
+      "order": "4",
+      "source": 5,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "5",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "6",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "7",
+      "source": 5,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "initial access",
+      "order": "8",
+      "source": 5,
+      "target": 9,
+      "key": 0
+    }
+  ]
+}

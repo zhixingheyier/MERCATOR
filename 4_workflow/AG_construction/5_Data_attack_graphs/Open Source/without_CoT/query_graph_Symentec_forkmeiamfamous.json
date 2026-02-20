@@ -1,0 +1,152 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "Seaduke",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "task files",
+      "id": 2
+    },
+    {
+      "type": "socket",
+      "value": "C&C server",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "HTTP/HTTPS",
+      "id": 4
+    },
+    {
+      "type": "socket",
+      "value": "Base64",
+      "id": 5
+    },
+    {
+      "type": "socket",
+      "value": "RC4",
+      "id": 6
+    },
+    {
+      "type": "socket",
+      "value": "AES",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "bot/system information",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": "bot configuration",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "files",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "malware",
+      "id": 11
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "5",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "command and control",
+      "order": "6",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "7",
+      "source": 1,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "8",
+      "source": 1,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "9",
+      "source": 1,
+      "target": 10,
+      "key": 1
+    },
+    {
+      "type": "Delete",
+      "phase": "command and control",
+      "order": "10",
+      "source": 1,
+      "target": 11,
+      "key": 0
+    }
+  ]
+}

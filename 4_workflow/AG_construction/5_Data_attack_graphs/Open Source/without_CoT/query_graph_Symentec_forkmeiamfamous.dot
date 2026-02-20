@@ -1,0 +1,26 @@
+// Threat Graph
+digraph {
+	rankdir=LR
+	1 [label=Seaduke shape=diamond]
+	2 [label="task files" shape=rectangle]
+	3 [label="C&C server" shape=ellipse]
+	4 [label="HTTP/HTTPS" shape=ellipse]
+	5 [label=Base64 shape=ellipse]
+	6 [label=RC4 shape=ellipse]
+	7 [label=AES shape=ellipse]
+	8 [label="bot/system information" shape=rectangle]
+	9 [label="bot configuration" shape=rectangle]
+	10 [label=files shape=rectangle]
+	11 [label=malware shape=rectangle]
+	1 -> 2 [label="0. command and control_Write"]
+	1 -> 3 [label="1. command and control_Connect"]
+	1 -> 4 [label="2. command and control_Connect"]
+	1 -> 5 [label="3. command and control_Connect"]
+	1 -> 6 [label="4. command and control_Connect"]
+	1 -> 7 [label="5. command and control_Connect"]
+	1 -> 8 [label="6. command and control_Read"]
+	1 -> 9 [label="7. command and control_Write"]
+	1 -> 10 [label="8. command and control_Write"]
+	1 -> 10 [label="9. command and control_Write"]
+	1 -> 11 [label="10. command and control_Delete"]
+}

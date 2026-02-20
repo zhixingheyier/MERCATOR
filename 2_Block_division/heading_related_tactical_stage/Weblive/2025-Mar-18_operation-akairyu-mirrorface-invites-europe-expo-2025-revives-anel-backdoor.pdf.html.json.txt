@@ -1,0 +1,6 @@
+
+【Initial access】
+==============================
+  We weren’t able to determine the initial attack vector for all the cases observed in 2024. However, based on the data available to us, we assume that spearphishing was the only attack vector used by MirrorFace. The group impersonates trusted organizations or individuals to convince recipients to open documents or click links. The following findings on initial access align with those in the Trend Micro article, although they are not entirely the same.
+  Specifically, in Operation AkaiRyū, MirrorFace abused both McAfee-developed applications and also one developed by JustSystems to run ANEL. While Trend Micro reported Windows Management Instrumentation (WMI) andexplorer.exeas the execution proxy pair for ANEL, we unearthed another pair: WMI andwlrmdr.exe(Windows logon reminder). We also provide an email conversation between a disguised MirrorFace operator and a target.
+

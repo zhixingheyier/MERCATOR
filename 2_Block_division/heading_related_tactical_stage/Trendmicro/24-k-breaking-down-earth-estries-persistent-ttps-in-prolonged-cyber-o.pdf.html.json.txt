@@ -1,0 +1,22 @@
+
+【Initial access】
+==============================
+  Our telemetry suggests that Earth Estries gains initial access to their target’s system by exploiting vulnerabilities in outside-facing services or remote management utilities.
+  The group has been observed to take advantage of either vulnerable or misconfigured QConvergeConsole installations in one of its target’s servers to gain access to their system. The installed remote application agent (c:\program files\qlogic corporation\nqagent\netqlremote.exe) can perform network discovery and install Cobalt Strike on a target machine.
+  CommandsC:\Windows\system32\cmd.exe /C net group "domain admins" /domainC:\Windows\system32\cmd.exe /C copy C:\users\public\music\go4.cab \\{HostName}\c$\programdata\microsoft\drmC:\Windows\system32\cmd.exe /C expand -f:* \\{HostName}\c$\programdata\microsoft\drm\go4.cab \\{HostName}\c$\programdata\microsoft\drmC:\Windows\system32\cmd.exe /C c:\users\public\music\PsExec.exe -accepteula \\172.16.xx.xx "c:\ProgramData\Microsoft\DRM\g2.bat"
+  In another instance, they made used a vulnerability in Apache Tomcat6 bundled with QConvergeConsole (c:\program files (x86)\qlogic corporation\qconvergeconsole\tomcat-x64\apache-tomcat-6.0.35\bin\tomcat6.exe) to perform lateral movement activities and operation of later stage tools:
+  CommandsC:\Windows\system32\cmd.exe /C wmic /node:172.16.xx.xx process call create "cmd.exe /c c:\ProgramData\Microsoft\DRM\182.bat"C:\Windows\system32\cmd.exe /C C:\Users\Public\Music\rar.exe a -m5 C:\Users\Public\Music\pdf0412.rar C:\Users\Public\Music\temp\*.pdf
+
+
+【Lateral Movement】
+==============================
+  Earth Estries uses PSExec to laterally install its backdoors and tools, notably by copying theCABfiles containing the backdoors or tools, and a batch file to perform the installation, maintain persistence, and execute the tools.
+  Typically, PSExec is used to copy the CAB file containing the malware that will be laterally installed. However,in some instances, WMIC may be used in its place to achieve similar results. A set of batch files will then be copied and executed to perform the extraction, installation, and execution of the malware. Large scale collection may also be executed using batch files.
+  In later stages of the attack, the backdoors may be used directly to perform lateral movement. CAB files are still used as containers for the tools to be installed, and batch files are still incorporated in the extraction, installation and execution of said tools. This will sometimes include the creation of persistence mechanisms for the batch file to act as an indirect persistence mechanism for the actual backdoors.
+
+
+【Initial access】
+==============================
+  While tracking Earth Estries’ recent activities, we found that the group exploits the Microsoft Exchange server and installs the web shell ChinaChopper, through which Earth Estries can deploy Cobalt Strike into other Active Directory (AD) servers or individual endpoints and set up the scheduled task and system service to maintain persistence in the victim’s environment.
+  The command sequence from the web shell is as follows:
+

@@ -1,0 +1,7 @@
+[
+    {
+        "phase": "initial access",
+        "content": "The attacker leverages a Firefox vulnerability to establish a foothold on a victim machine, which enables the attacker to write a malicious payload called clean to /home/admin/ on disk. The attacker then executes the payload with escalated privileges. This new attack process (with root privileges) communicates with the attacker’s command-and-control (C&C) server at 161.116.88.72 to download and execute another malicious payload called profile, again with root privileges. profile, in turn, fetches a third payload called xdev from the C&C server and stores the payload in /var/log/. profile and xdev lurk in the victim host to prepare for subsequent attacks. A few days later, the attacker uses profile to inject malicious code in the mail process and executes mail with root privileges. mail then performs port scans of all known hosts on the victim’s network.",
+        "relationship": "1. [Relationships]: <process:attacker,write,file:/home/admin/clean>. \n2. [Relationships]: <process:attacker,executes,file:clean>. \n3. [Relationships]: <process:profile,fetches,file:xdev>. \n4. [Relationships]: <process:profile,stores,file:/var/log/xdev>. \n5. [Relationships]: <process:profile,injects,process:mail>. \n6. [Relationships]: <process:mail,performs,socket:port scans of all known hosts>. "
+    }
+]

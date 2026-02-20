@@ -1,0 +1,558 @@
+[
+    {
+        "level": 0,
+        "content": "3AM: New Ransomware Family Used As Fallback in Failed LockBit Attack"
+    },
+    {
+        "level": 1,
+        "content": "Attackers resorted to new ransomware after deployment of LockBit was blocked on targeted network."
+    },
+    {
+        "level": 3,
+        "content": "A new ransomware family calling itself 3AM has emerged. To date, the ransomware has only been used in a limited fashion. Symantec’s Threat Hunter Team, part of Broadcom, has seen it used in a single attack by a ransomware affiliate that attempted to deploy LockBit on a target’s network and then switched to 3AM when LockBit was blocked."
+    },
+    {
+        "level": 3,
+        "content": "3AM is written in Rust and appears to be a completely new malware family. The ransomware attempts to stop multiple services on the infected computer before it begins encrypting files. Once encryption is complete, it attempts to delete Volume Shadow (VSS) copies. It is still unclear whether its authors have any links to known cybercrime organizations."
+    },
+    {
+        "level": 2,
+        "content": "Attack Preparation"
+    },
+    {
+        "level": 3,
+        "content": "The first suspicious activity from the threat actor involved the use of the gpresult command to dump the policy settings enforced on the computer for a specified user. The attacker also executed various Cobalt Strike components and tried to escalate privileges on the computer using PsExec."
+    },
+    {
+        "level": 3,
+        "content": "The attackers then ran reconnaissance commands such as whoami, netstat, quser, and net share, and tried to enumerate other servers for lateral movement with the quser and net view commands. They also added a new user for persistence and used the Wput tool to exfiltrate the victims’ files to their own FTP server."
+    },
+    {
+        "level": 3,
+        "content": "The attackers first attempted to use the LockBit ransomware but when that was blocked, they resorted to 3AM instead. The use of 3AM was only partially successful. The attackers only managed to deploy it to three machines on the organization's network and it was blocked on two of those three computers."
+    },
+    {
+        "level": 2,
+        "content": "3AM Analysis"
+    },
+    {
+        "level": 3,
+        "content": "3AM is so-called because it appends encrypted files with the extension .threeamtime. The ransom note also makes reference to 3AM:"
+    },
+    {
+        "level": 3,
+        "content": "Hello. \"3 am\" The time of mysticism, isn't it?"
+    },
+    {
+        "level": 3,
+        "content": "All your files are mysteriously encrypted, and the systems \"show no signs of life\", the backups disappeared. But we can correct this very quickly and return all your files and operation of the systems to original state."
+    },
+    {
+        "level": 3,
+        "content": "All your attempts to restore data by himself will definitely lead to their damage and the impossibility of recovery. We are not recommended to you to do it on our own!!! (or do at your own peril and risk)."
+    },
+    {
+        "level": 3,
+        "content": "There is another important point: we stole a fairly large amount of sensitive data from your local network: financial documents; personal information of your employees, customers, partners; work documentation, postal correspondence and much more."
+    },
+    {
+        "level": 3,
+        "content": "We prefer to keep it secret, we have no goal to destroy your business. Therefore can be no leakage on our part."
+    },
+    {
+        "level": 3,
+        "content": "We propose to reach an agreement and conclude a deal."
+    },
+    {
+        "level": 3,
+        "content": "Otherwise, your data will be sold to DarkNet/DarkWeb. One can only guess how they will be used."
+    },
+    {
+        "level": 3,
+        "content": "Please contact us as soon as possible, using Tor-browser:"
+    },
+    {
+        "level": 3,
+        "content": "http://threeam7[REDACTED].onion/recovery"
+    },
+    {
+        "level": 3,
+        "content": "Access key:"
+    },
+    {
+        "level": 3,
+        "content": "[32 CHARS SPECIFIED BY -k COMMAND LINE PARAMETER]"
+    },
+    {
+        "level": 3,
+        "content": "The ransomware is a 64-bit executable written in Rust and it recognises the following command-line parameters:"
+    },
+    {
+        "level": 3,
+        "content": "\"-k\" – 32 Base64 characters, referred to as \"Access key\" in the ransom note\n\"-p\" – Unknown\n\"-h\" – Unknown\n\"-m\" – Method, where the code checks one of two values before running encryption logic:\"local\"\"net\"\n\"local\"\n\"net\"\n\"-s\" – determines offsets within files for encryption to control encryption speed. This is expressed in the form of decimal digits."
+    },
+    {
+        "level": 3,
+        "content": "The command-line parameters \"-m\" and \"-h\" are mutually exclusive. The usage of the “-h” and “-m” parameters and its values “local” and “net” are very similar to arguments used by Conti."
+    },
+    {
+        "level": 3,
+        "content": "When the malware is executed, it attempts to run the following commands, most of which attempt to stop various security and backup related software:"
+    },
+    {
+        "level": 3,
+        "content": "\"netsh.exe\" advfirewall firewall set rule \"group=”Network Discovery”\" new enable=Yes"
+    },
+    {
+        "level": 3,
+        "content": "\"wbadmin.exe\" delete systemstatebackup -keepVersions:0 -quiet"
+    },
+    {
+        "level": 3,
+        "content": "\"wbadmin.exe\" DELETE SYSTEMSTATEBACKUP"
+    },
+    {
+        "level": 3,
+        "content": "\"wbadmin.exe\" DELETE SYSTEMSTATEBACKUP -deleteOldest"
+    },
+    {
+        "level": 3,
+        "content": "\"bcdedit.exe\" /set {default} recoveryenabled No"
+    },
+    {
+        "level": 3,
+        "content": "\"bcdedit.exe\" /set {default} bootstatuspolicy ignoreallfailures"
+    },
+    {
+        "level": 3,
+        "content": "\"wmic.exe\" SHADOWCOPY DELETE /nointeractive"
+    },
+    {
+        "level": 3,
+        "content": "\"cmd.exe\" /c wevtutil cl security"
+    },
+    {
+        "level": 3,
+        "content": "\"cmd.exe\" /c wevtutil cl system"
+    },
+    {
+        "level": 3,
+        "content": "\"cmd.exe\" /c wevtutil cl application"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y vmcomp"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y vmwp"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y veeam"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Back"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y xchange"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y backup"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Backup"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y acronis"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y AcronisAgent"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y AcrSch2Svc"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y sql"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Enterprise"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Veeam"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y VeeamTransportSvc"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y VeeamNFSSvc"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y AcrSch"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y bedbg"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y DCAgent"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y EPSecurity"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y EPUpdate"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Eraser"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y EsgShKernel"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y FA_Scheduler"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y IISAdmin"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y IMAP4"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y MBAM"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Endpoint"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Afee"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y McShield"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y task"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y mfemms"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y mfevtp"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y mms"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y MsDts"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Exchange"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y ntrt"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y PDVF"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y POP3"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Report"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y RESvc"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Monitor"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y Smcinst"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y SmcService"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y SMTP"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y SNAC"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y swi_"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y CCSF"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y ccEvtMgr"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y ccSetMgr"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y TrueKey"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y tmlisten"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y UIODetect"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y W3S"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y WRSVC"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y NetMsmq"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y ekrn"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y EhttpSrv"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y ESHASRV"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y AVP"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y klnagent"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y wbengine"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y KAVF"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y mfefire"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y svc$"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y memtas"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y mepocs"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y GxVss"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y GxCVD"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y GxBlr"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y GxFWD"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y GxCIMgr"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BackupExecVSSProvider"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BackupExecManagementService"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BackupExecJobEngine"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BackupExecDiveciMediaService"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BackupExecAgentBrowser"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BackupExecAgentAccelerator"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y vss"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y BacupExecRPCService"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y CASAD2WebSvc"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y CAARCUpdateSvc"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y YooBackup"
+    },
+    {
+        "level": 3,
+        "content": "\"net\" stop /y YooIT"
+    },
+    {
+        "level": 3,
+        "content": "The ransomware will then scan the disk and any files matching predefined criteria are encrypted and the original files are deleted. The malware will then create the file \"RECOVER-FILES.txt\" in each scanned folder. This file contains the ransom note."
+    },
+    {
+        "level": 3,
+        "content": "The encrypted files contain a marker string \"0x666\" followed by the data appended by the ransomware."
+    },
+    {
+        "level": 3,
+        "content": "After encryption, the malware attempts to run the following command to delete volume shadow backup copies:"
+    },
+    {
+        "level": 3,
+        "content": "vssadmin.exe delete shadows /all /quiet"
+    },
+    {
+        "level": 2,
+        "content": "Warning Signs"
+    },
+    {
+        "level": 3,
+        "content": "Ransomware affiliates have become increasingly independent from ransomware operators and this isnot the first time Symantec has seen an attacker attempt to deploy two different kinds of ransomwarein a single attack."
+    },
+    {
+        "level": 3,
+        "content": "New ransomware families appear frequently and most disappear just as quickly or never manage to gain significant traction. However, the fact that 3AM was used as a fallback by a LockBit affiliate suggests that it may be of interest to attackers and could be seen again in the future."
+    },
+    {
+        "level": 2,
+        "content": "Protection/Mitigation"
+    },
+    {
+        "level": 3,
+        "content": "For the latest protection updates, please visit theSymantec Protection Bulletin."
+    },
+    {
+        "level": 2,
+        "content": "Indicators of Compromise"
+    },
+    {
+        "level": 3,
+        "content": "If an IOC is malicious and the file available to us, Symantec Endpoint products will detect and block that file."
+    },
+    {
+        "level": 3,
+        "content": "SHA256 file hashes:"
+    },
+    {
+        "level": 3,
+        "content": "079b99f6601f0f6258f4220438de4e175eb4853649c2d34ada72cce6b1702e22 – LockBit"
+    },
+    {
+        "level": 3,
+        "content": "307a1217aac33c4b7a9cd923162439c19483e952c2ceb15aa82a98b46ff8942e – 3AM"
+    },
+    {
+        "level": 3,
+        "content": "680677e14e50f526cced739890ed02fc01da275f9db59482d96b96fbc092d2f4 – Cobalt Strike"
+    },
+    {
+        "level": 3,
+        "content": "991ee9548b55e5c815cc877af970542312cff79b3ba01a04a469b645c5d880af – Cobalt Strike"
+    },
+    {
+        "level": 3,
+        "content": "ecbdb9cb442a2c712c6fb8aee0ae68758bc79fa064251bab53b62f9e7156febc – Cobalt Strike"
+    },
+    {
+        "level": 3,
+        "content": "Network indicators:"
+    },
+    {
+        "level": 3,
+        "content": "185.202.0[.]111"
+    },
+    {
+        "level": 3,
+        "content": "212.18.104[.]6"
+    },
+    {
+        "level": 3,
+        "content": "85.159.229[.]62"
+    }
+]

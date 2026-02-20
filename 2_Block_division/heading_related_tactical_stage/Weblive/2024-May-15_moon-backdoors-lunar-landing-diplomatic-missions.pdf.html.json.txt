@@ -1,0 +1,6 @@
+
+【Initial access】
+==============================
+  We don’t know exactly how initial access was gained in any of the compromises. However, recovered installation-related components and attacker activity suggest possible spearphishing and abuse of misconfigured network and application monitoring softwareZabbix. Potential Zabbix abuse is suggested by a LunarWeb installation component imitating Zabbix logs, and a recovered backdoor command used to get the Zabbix agent configuration. Additionally, evidence of spearphishing includes a Word document installing a LunarMail backdoor via a malicious macro.
+  Below, we provide details of the installation-related components and initial attacker activity.
+

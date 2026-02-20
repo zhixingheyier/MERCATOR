@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Lateral movement ",
+        "content": "Following system infection, if the user account permissions allow it, PowerTaskel performs several tasks to elevate its privileges to the System level. To achieve this, PowerTaskel utilizes the PsExec utility, which is part of the Sysinternals suite. The PsExec utility is dropped into the current directory where PowerTaskel is located and is used to execute mshta.exe with system privileges, passing a URL as an argument. \nThe images below depict two tasks that PowerTaskel executes with its C2 server. The first task checks for the presence of the file “ntuser.exe” in the %ProgramData% directory, and if it is not found, downloads it from the C2 server. The second task runs mshta.exe via ntuser.exe, which is actually a renamed PsExec utility. \nGetting \"ntuser.exe\" "
+    }
+]

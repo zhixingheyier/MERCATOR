@@ -1,0 +1,23 @@
+// Threat Graph
+digraph {
+	rankdir=LR
+	1 [label=attacker shape=diamond]
+	2 [label="/home/admin/clean" shape=rectangle]
+	3 [label=payload shape=diamond]
+	4 [label="new attack process" shape=diamond]
+	5 [label="161.116.88.72" shape=ellipse]
+	6 [label=profile shape=diamond]
+	7 [label="C&C server" shape=ellipse]
+	8 [label="/var/log/xdev" shape=rectangle]
+	9 [label=mail shape=diamond]
+	10 [label="known hosts on the victim's network" shape=ellipse]
+	1 -> 2 [label="0. initial access_Write"]
+	1 -> 3 [label="1. initial access_Fork"]
+	1 -> 4 [label="2. initial access_Fork"]
+	1 -> 6 [label="4. initial access_Fork"]
+	4 -> 5 [label="3. initial access_Connect"]
+	6 -> 7 [label="5. initial access_Receive"]
+	6 -> 8 [label="6. initial access_Write"]
+	6 -> 9 [label="7. initial access_Fork"]
+	9 -> 10 [label="8. initial access_Connect"]
+}

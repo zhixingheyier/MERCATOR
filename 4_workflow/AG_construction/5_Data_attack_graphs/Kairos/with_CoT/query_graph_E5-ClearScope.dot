@@ -1,0 +1,24 @@
+// Threat Graph
+digraph {
+	rankdir=LR
+	1 [label=appstarter shape=diamond]
+	2 [label=busybox shape=diamond]
+	3 [label="77.138.117.150" shape=ellipse]
+	4 [label=attacker shape=diamond]
+	5 [label=msm_g711tlaw shape=rectangle]
+	6 [label=attack shape=diamond]
+	7 [label="calllog.db" shape=rectangle]
+	8 [label="calendar.db" shape=rectangle]
+	9 [label="mmssms.db" shape=rectangle]
+	10 [label="128.55.12.233" shape=ellipse]
+	1 -> 2 [label="0. initial access_Fork"]
+	1 -> 10 [label="9. initial access_Connect"]
+	2 -> 3 [label="1. initial access_Connect"]
+	2 -> 4 [label="2. initial access_Fork"]
+	4 -> 5 [label="3. initial access_Write"]
+	4 -> 6 [label="4. initial access_Fork"]
+	4 -> 1 [label="8. initial access_Inject"]
+	6 -> 7 [label="5. initial access_Write"]
+	6 -> 8 [label="6. initial access_Write"]
+	6 -> 9 [label="7. initial access_Write"]
+}

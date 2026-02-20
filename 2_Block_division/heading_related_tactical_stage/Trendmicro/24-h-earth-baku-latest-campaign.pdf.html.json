@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Exfiltration",
+        "content": "Within the victim’s environment, we found many MEGAcmd tools dropped onto infected machines. MEGAcmd is a command-line tool used for interacting with the MEGA cloud storage service.  We infer that the threat actors attempted to use this tool for exfiltrating stolen data to MEGA, hoping to capitalize on its ability to efficiently upload large volumes of data. This procedure was also observed with an associated group,Earth Lusca."
+    }
+]

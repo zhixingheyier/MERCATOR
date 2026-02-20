@@ -1,0 +1,22 @@
+[
+    {
+        "phase": "execution",
+        "content": "The first task of the malware is to install the file credprov.tlb in %APPDATA%\\Microsoft\\. This file is the main payload of the malware. The dropper executes the following command in order to install a second file: \nrundll32.exe %APPDATA%\\Microsoft\\credprov.tlb,Install %APPDATA%\\Microsoft\\shdocvw.tlp \nThe second file is shdocw.tlp. The two files are Microsoft Windows dynamic libraries. ",
+        "relationship": "1. [Relationships]: <process:dropper,install,file:%APPDATA%\\Microsoft\\credprov.tlb>. \n2. [Relationships]: <process:rundll32.exe,install,file:%APPDATA%\\Microsoft\\shdocvw.tlp>. "
+    },
+    {
+        "phase": "persistence",
+        "content": "To be started during the boot process of the infected machine, the malware creates the following registry key: \nHKCU\\Software\\Classes\\CLSID\\{42aedc87-2188-41fd-b9a3-0c966feabec1}\\InprocServer32 $=$ %APPDATA%\\shdocvw.tlp \nThis registry key is used to associate the library shdocvw.tlp to the object 42aedc87-2188-41fd-b9a3- 0c966feabec1 as previously explained in the article about COMpfun. The purpose is to load the library into each and every process executed on the infected system. ",
+        "relationship": "1. [Relationships]: <process:malware,creates,reg:HKCU\\Software\\Classes\\CLSID\\{42aedc87-2188-41fd-b9a3-0c966feabec1}\\InprocServer32>. \n2. [Relationships]: <process:malware,associates,file:%APPDATA%\\shdocvw.tlp>. "
+    },
+    {
+        "phase": "defense evasion",
+        "content": "During the startup of the infected machine, the shdocvw.tlp library is loaded into all processes. If the process is explorer.exe, this library will load the other library called credprov.tlb. This library is the real payload. Its features are common for a Remote Administration Tool (RAT): \ncommand execution;   \nfile download;   \nfile upload;   \ninformation gathering. \nComRAT's communication to the command and control server is performed by the browser process and not by explorer.exe in order to avoid being blocked by a firewall on the system or any additional security products. The communication between the processes is performed by named pipe. ",
+        "relationship": "1. [Relationships]: <process:explorer.exe,load,file:shdocvw.tlp>. \n2. [Relationships]: <process:explorer.exe,load,file:credprov.tlb>. \n3. [Relationships]: <process:browser process,communicate,socket:command and control server>. \n4. [Relationships]: <process:processes,perform,socket:named pipe>. "
+    },
+    {
+        "phase": "command and control",
+        "content": "Two log files are created during the malware execution: mskfp32.ocx and msvcrtd.tlb. If the malware version is older than 3.26, the xored key is the same as the dropper key. Concerning the version 3.26, the malware uses a new non-ASCII key. \nWe can identify the version of the malware thanks to the PVer flag. The command and control server information is stored in the registry, not in an XML, and encoded: HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\SessionMRU\\IPlace \nFor example, in the analyzed sample the CC is: weather-online.hopto.org. This domain is far from unknown, as it has been mentioned in BAE System's Uroburos (aka Snake) analysis paper as C&C server domain for the Uroburos malware. Another connection between the cases.",
+        "relationship": "[Relationships]: None."
+    }
+]

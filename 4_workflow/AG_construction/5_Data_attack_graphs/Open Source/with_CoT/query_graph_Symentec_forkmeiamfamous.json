@@ -1,0 +1,288 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 1
+    },
+    {
+      "type": "file",
+      "value": "Seaduke payload",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "Seaduke",
+      "id": 3
+    },
+    {
+      "type": "socket",
+      "value": "compromised web servers",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "Cozyduke",
+      "id": 5
+    },
+    {
+      "type": "socket",
+      "value": "compromised websites",
+      "id": 6
+    },
+    {
+      "type": "process",
+      "value": "execution_*",
+      "id": 7
+    },
+    {
+      "type": "file",
+      "value": "database file",
+      "id": 8
+    },
+    {
+      "type": "socket",
+      "value": "compromised website",
+      "id": 9
+    },
+    {
+      "type": "socket",
+      "value": "C&C server",
+      "id": 10
+    },
+    {
+      "type": "file",
+      "value": "task files",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "files",
+      "id": 12
+    },
+    {
+      "type": "process",
+      "value": "operators",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "payloads",
+      "id": 14
+    },
+    {
+      "type": "process",
+      "value": "impact_*",
+      "id": 15
+    },
+    {
+      "type": "process",
+      "value": "Mimikatz PowerShell",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "MS Exchange Server",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "sensitive information",
+      "id": 18
+    },
+    {
+      "type": "socket",
+      "value": "cloud service",
+      "id": 19
+    }
+  ],
+  "links": [
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "3",
+      "source": 3,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "command and control",
+      "order": "9",
+      "source": 3,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "10",
+      "source": 3,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "11",
+      "source": 3,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "command and control",
+      "order": "12",
+      "source": 3,
+      "target": 12,
+      "key": 1
+    },
+    {
+      "type": "Exit",
+      "phase": "command and control",
+      "order": "13",
+      "source": 3,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "14",
+      "source": 3,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "16",
+      "source": 3,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Connect",
+      "phase": "execution",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "5",
+      "source": 5,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "execution",
+      "order": "7",
+      "source": 5,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "execution",
+      "order": "8",
+      "source": 5,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "execution",
+      "order": "6",
+      "source": 7,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "15",
+      "source": 13,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "impact",
+      "order": "18",
+      "source": 13,
+      "target": 14,
+      "key": 1
+    },
+    {
+      "type": "Fork",
+      "phase": "impact",
+      "order": "17",
+      "source": 15,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "impact",
+      "order": "19",
+      "source": 15,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "impact",
+      "order": "20",
+      "source": 15,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "impact",
+      "order": "21",
+      "source": 15,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Delete",
+      "phase": "impact",
+      "order": "22",
+      "source": 15,
+      "target": 12,
+      "key": 0
+    }
+  ]
+}

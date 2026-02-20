@@ -1,0 +1,79 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "lateral movement_*",
+      "id": 1
+    },
+    {
+      "type": "process",
+      "value": "Ladon hacking utility",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "Microsoft Windows utilities",
+      "id": 3
+    },
+    {
+      "type": "process",
+      "value": "domain controller",
+      "id": 4
+    },
+    {
+      "type": "process",
+      "value": "malware",
+      "id": 5
+    },
+    {
+      "type": "process",
+      "value": "security software",
+      "id": 6
+    }
+  ],
+  "links": [
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Inject",
+      "phase": "lateral movement",
+      "order": "2",
+      "source": 1,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "lateral movement",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Exit",
+      "phase": "lateral movement",
+      "order": "4",
+      "source": 5,
+      "target": 6,
+      "key": 0
+    }
+  ]
+}

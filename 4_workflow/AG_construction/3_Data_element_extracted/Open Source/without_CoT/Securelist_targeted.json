@@ -1,0 +1,27 @@
+[
+    {
+        "phase": "initial access",
+        "content": "The attackers penetrated the enterprise network using carefully crafted phishing emails, some of which use information that is specific to the organization under attack and is not publicly available. This could indicate that the attackers did preparatory work in advance (they may have obtained the information in earlier attacks on the same organization or its employees, or on other organizations or individuals associated with the victim organization). \nMicrosoft Word documents attached to the phishing emails contained malicious code that exploits the CVE-2017-11882 vulnerability. The vulnerability enables an attacker to execute arbitrary code (in the attacks analyzed, the main module of the PortDoor malware) without any additional user activity. \nAn earlier series of attacks in which the PortDoor malware was also used was described by Cybereason experts. A new version of PortDoor was identified in the course of our research. ",
+        "relationship": "[Relationships]: None."
+    },
+    {
+        "phase": "command and control",
+        "content": "After being launched, PortDoor collects general information on the infected system and sends it to the malware command-and-control (CnC) server. In cases where an infected system is of interest to the attackers, they use the PortDoor functionality to control the system remotely and install additional malware. ",
+        "relationship": "[Relationships]: n/a"
+    },
+    {
+        "phase": "command and control",
+        "content": "The attackers used five different backdoors at the same time – probably to set up redundant communication channels with infected systems in case one of the malicious programs was detected and removed by a security solution. The backdoors used provide extensive functionality for controlling infected systems and collecting confidential data. \nOf the six backdoors identified on infected systems, five (PortDoor, nccTrojan, Logtu, Cotx, and DNSep) have been used earlier in attacks attributed by other researchers to APT TA428. The sixth backdoor is new and has not been observed in other attacks. ",
+        "relationship": "[Relationships]: None."
+    },
+    {
+        "phase": "lateral movement",
+        "content": "After gaining a foothold on the initial system, the attackers attempt to spread the malware to other computers on the enterprise network. To gain access to those computers, the attackers use network scanning results, as well as user credentials stolen earlier. \nThe Ladon hacking utility (which is popular in China) is used as the main lateral movement tool. It combines network scanning, vulnerability search and exploitation, password attack, and other functionality. The attackers also extensively use standard utilities that are part of the Microsoft Windows operating system. \nThe attack's final stage involves hijacking the domain controller and gaining full control of all of the organization's workstations and servers. \nThe attackers used DLL hijacking and process hollowing techniques extensively in the attack to prevent security software from detecting the malware. ",
+        "relationship": "1. [Relationships]: <process:attackers,use,process:Ladon hacking utility>. \n2. [Relationships]: <process:attackers,use,process:Microsoft Windows utilities>. \n3. [Relationships]: <process:attackers,hijack,process:domain controller>. \n4. [Relationships]: <process:malware,prevent,process:security software>. "
+    },
+    {
+        "phase": "exfiltration",
+        "content": "After gaining domain administrator privileges, the attackers searched for and exfiltrated documents and other files that contained the attacked organization's sensitive data to their servers hosted in different countries. These servers were also used as stage one CnC servers. \nThe attackers compressed stolen files into encrypted and password-protected ZIP archives. After receiving the data collected, the stage one CnC servers forwarded the archives received to a stage two server located in China. ",
+        "relationship": "[Relationships]: n/a"
+    }
+]

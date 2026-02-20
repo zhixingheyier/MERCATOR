@@ -1,0 +1,6 @@
+[
+    {
+        "title": "Lateral movement ",
+        "content": "After gaining a foothold on the initial system, the attackers attempt to spread the malware to other computers on the enterprise network. To gain access to those computers, the attackers use network scanning results, as well as user credentials stolen earlier. \nThe Ladon hacking utility (which is popular in China) is used as the main lateral movement tool. It combines network scanning, vulnerability search and exploitation, password attack, and other functionality. The attackers also extensively use standard utilities that are part of the Microsoft Windows operating system. \nThe attack’s final stage involves hijacking the domain controller and gaining full control of all of the organization’s workstations and servers. \nThe attackers used DLL hijacking and process hollowing techniques extensively in the attack to prevent security software from detecting the malware. "
+    }
+]

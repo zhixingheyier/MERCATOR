@@ -1,0 +1,355 @@
+{
+  "directed": true,
+  "multigraph": true,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "process",
+      "value": "initial access_*",
+      "id": 1
+    },
+    {
+      "type": "socket",
+      "value": "info@ispr.gov.pk, ,",
+      "id": 2
+    },
+    {
+      "type": "process",
+      "value": "PowerShell",
+      "id": 3
+    },
+    {
+      "type": "file",
+      "value": "document containing macros",
+      "id": 4
+    },
+    {
+      "type": "file",
+      "value": "malicious code",
+      "id": 5
+    },
+    {
+      "type": "socket",
+      "value": "phone number",
+      "id": 6
+    },
+    {
+      "type": "file",
+      "value": "Phone Number Not Found",
+      "id": 7
+    },
+    {
+      "type": "process",
+      "value": "unknown",
+      "id": 8
+    },
+    {
+      "type": "file",
+      "value": ".NET DLL file named skfk.txt",
+      "id": 9
+    },
+    {
+      "type": "file",
+      "value": "skfk.txt",
+      "id": 10
+    },
+    {
+      "type": "process",
+      "value": "Stage 1",
+      "id": 11
+    },
+    {
+      "type": "file",
+      "value": "ASCII file",
+      "id": 12
+    },
+    {
+      "type": "file",
+      "value": "binary file",
+      "id": 13
+    },
+    {
+      "type": "process",
+      "value": "Stage 2",
+      "id": 14
+    },
+    {
+      "type": "file",
+      "value": "third file",
+      "id": 15
+    },
+    {
+      "type": "file",
+      "value": "scheduled task",
+      "id": 16
+    },
+    {
+      "type": "process",
+      "value": "Stage 3",
+      "id": 17
+    },
+    {
+      "type": "file",
+      "value": "next stage",
+      "id": 18
+    },
+    {
+      "type": "process",
+      "value": "Stage 4",
+      "id": 19
+    },
+    {
+      "type": "file",
+      "value": "final payload",
+      "id": 20
+    },
+    {
+      "type": "process",
+      "value": "DLL file",
+      "id": 21
+    },
+    {
+      "type": "file",
+      "value": "drives other than C:.",
+      "id": 22
+    },
+    {
+      "type": "file",
+      "value": "Documents/Downloads/Desktop/Pictures folders",
+      "id": 23
+    },
+    {
+      "type": "file",
+      "value": "MD5 hash",
+      "id": 24
+    },
+    {
+      "type": "socket",
+      "value": "C&C server pirnaram[.]xyz",
+      "id": 25
+    },
+    {
+      "type": "file",
+      "value": "directory",
+      "id": 26
+    }
+  ],
+  "links": [
+    {
+      "type": "Connect",
+      "phase": "initial access",
+      "order": "0",
+      "source": 1,
+      "target": 2,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "1",
+      "source": 1,
+      "target": 3,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "3",
+      "source": 1,
+      "target": 5,
+      "key": 0
+    },
+    {
+      "type": "Send",
+      "phase": "initial access",
+      "order": "4",
+      "source": 1,
+      "target": 6,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "5",
+      "source": 1,
+      "target": 7,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "6",
+      "source": 1,
+      "target": 8,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "9",
+      "source": 1,
+      "target": 11,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "13",
+      "source": 1,
+      "target": 14,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "17",
+      "source": 1,
+      "target": 17,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "initial access",
+      "order": "19",
+      "source": 1,
+      "target": 19,
+      "key": 0
+    },
+    {
+      "type": "Fork",
+      "phase": "collection",
+      "order": "21",
+      "source": 1,
+      "target": 21,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "2",
+      "source": 3,
+      "target": 4,
+      "key": 0
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "8",
+      "source": 3,
+      "target": 10,
+      "key": 0
+    },
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "7",
+      "source": 8,
+      "target": 9,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "10",
+      "source": 11,
+      "target": 12,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "11",
+      "source": 11,
+      "target": 12,
+      "key": 1
+    },
+    {
+      "type": "Loadlibrary",
+      "phase": "initial access",
+      "order": "12",
+      "source": 11,
+      "target": 13,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "14",
+      "source": 14,
+      "target": 15,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "15",
+      "source": 14,
+      "target": 15,
+      "key": 1
+    },
+    {
+      "type": "Create",
+      "phase": "initial access",
+      "order": "16",
+      "source": 14,
+      "target": 16,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "initial access",
+      "order": "18",
+      "source": 17,
+      "target": 18,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "initial access",
+      "order": "20",
+      "source": 19,
+      "target": 20,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "22",
+      "source": 21,
+      "target": 22,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "23",
+      "source": 21,
+      "target": 23,
+      "key": 0
+    },
+    {
+      "type": "Read",
+      "phase": "collection",
+      "order": "24",
+      "source": 21,
+      "target": 24,
+      "key": 0
+    },
+    {
+      "type": "Receive",
+      "phase": "collection",
+      "order": "25",
+      "source": 21,
+      "target": 25,
+      "key": 0
+    },
+    {
+      "type": "Write",
+      "phase": "collection",
+      "order": "26",
+      "source": 21,
+      "target": 26,
+      "key": 0
+    }
+  ]
+}

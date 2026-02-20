@@ -1,0 +1,7 @@
+[
+    {
+        "title": "e3-cadets (fig. 2).",
+        "content": "The attacker (81.49.200.166) connects to a vulnerable Nginx server and obtains a shell. Through the shell, the attacker successfully downloads a malicious payload to /tmp/vUgefal and executes the payload with root privileges. The elevated process vUgefal attempts to move laterally to 154.145.113.18 and 61.167.39.128. However, only the attempt at infecting 61.167.39.128 is successful. vUgefal further plans to inject malicious payload to the sshd process. To do so, the attacker downloads the payload to /var/log/devc, but the attempted process injection fails.",
+        "phase": "initial access"
+    }
+]

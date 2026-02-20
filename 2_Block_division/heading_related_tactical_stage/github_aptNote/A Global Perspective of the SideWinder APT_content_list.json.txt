@@ -1,0 +1,9 @@
+
+【Initial Access 】
+==============================
+  SideWinder has been observed initiating attacks with spear phishing emails against their target organizations. Attacks are primarily delivering malicious attachments, but credential phishing has also been a technique used by the group. The December 2020 blog from Trend Micro does an excellent analysis of the phishing websites. Ultimately, these websites are used to collection credentials and occasionally deliver similar files to the attachments detailed below. 
+  Email lures and their attachments or links are often uniquely crafted to the target organization, which include content that the recipients would often expect to receive or benefit from reading. Since the group has primarily targeted government and military organizations, email lures are often related to political events and/or private documents generally considered standard for such organizations to receive. Figure 1 includes a screenshot of the complete content from an April 2019 campaign phishing email (SHA256: 
+  be71f2d17037a1a1fbbe8d7f3f4b45c72132a64224e3d3f13aa66a2249df9232) with attachment (SHA256: ac4fd2681c3a9d087ff4cabb44b93753711e81c6574c837ca33f74fef37f3cf4). 
+  Malicious attachments are the standard approach over the use of malicious links in phishing emails.   
+  Attachments have most commonly been RTF files, and less commonly DOCX, LNK, and ZIP files. 
+

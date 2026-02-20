@@ -1,0 +1,42 @@
+[
+    {
+        "title": "initial access",
+        "content": "Initial delivery was via email with a link to the Bazar/Kegtap backdoor loader. We downloaded and ran Document-Preview.exe, which connected to 5.182.210[.]145 over 443/https.",
+        "phase": "initial access"
+    },
+    {
+        "title": "execution",
+        "content": "Service execution was used several times to execute scripts and executables during lateral movement.\nWMI was used as well in an attempt to execute dlls laterally.\nThe threat actors also performed process injection.",
+        "phase": "execution"
+    },
+    {
+        "title": "defense evasion",
+        "content": "Disabling Windows Defender.",
+        "phase": "defense evasion"
+    },
+    {
+        "title": "discovery",
+        "content": "Day 1\nAdFind and adf.bat were dropped and run minutes after Document-Preview.exe was executed. We've seen adf.bat numerous times and you can read more about ithere. The batch file outputs information into the following text files.\nNltest was used to check for Domain trusts\nNet was used to show Domain Admins\nPing was used to test if systems were up in the environment\nBreak down of the process tree of activity from the Bazar loader on day 1.\nDay 2\nAfind was run again, and then the threat actor attempted toKerberoastusingRubeus.\nAfter a few false starts during lateral movement failures, the threat actors performed some additional local system recon.\nWMI was used to check for the current AntiVirus on numerous systems",
+        "phase": "discovery"
+    },
+    {
+        "title": "lateral movement",
+        "content": "On day 1 the threat actors checked a domain controller for MS17-010 before continuing with more discovery. The system was not vulnerable to MS17-010\nLateral movement began around 28 hours after initial entry, using SMB to drop a Cobalt Strike Beacon on a domain controller. From there, the threat actor used WMIC to execute the beacon.\nThis payload did not appear to run successfully, as shortly after the threat actors dropped an additional payload on the beachhead host, and then executed a service on the DC, after no command and control traffic was apparent.\nThe decoded Powershell.\nFollowing this, the treat actors copied and executed a Cobalt Strike beacon executable and initiated it via a service on the domain controller.\nAt this point, C2 connections appear on the domain controller connecting tomartahzz[.]com –88.119.171[.]75 over 443/https.\nBackup systems were targeted for lateral movement using the SMB exe executed around one hour after the first lateral movement execution from the beachhead host.\nThe threat actor was having issues running beacons on numerous systems, and on at least one of the systems, they mounted the drive remotely.",
+        "phase": "lateral movement"
+    },
+    {
+        "title": "command and control",
+        "content": "Bazar:\n5.182.210.145|443\nCertificate [ec:4c:07:b8:3b:6a:a0:bf:60:36:b7:f4:92:9e:83:81:0f:96:46:b0]\nNot Before2020/09/21 05:24:24 UTC\nNot After2021/09/21 05:24:24 UTC\nIssuer OrgGlobal Security\nSubject Commonexample.com\nSubject OrgGlobal Security\nPublic AlgorithmrsaEncryption\nJA3: 72a589da586844d7f0818ce684948eea\nJA3s: e35df3e00ca4ef31d42b34bebaa2f86e\nCobalt strike:\n88.119.171.75|443\nCertificate [ee:92:91:6b:7e:31:85:22:65:eb:16:11:c4:8f:0a:75:c9:05:1d:4b]\nNot Before2020/09/29 08:18:03 UTC\nNot After2021/09/29 08:18:03 UTC\nIssuer Orglol\nSubject Commonmartahzz.com\nSubject Orglol\nPublic AlgorithmrsaEncryption\nJA3 : a0e9f5d64349fb13191bc781f81f42e1\nJA3s: ae4edc6faf64d08308082ad26be60767\n107.173.58.183|443\nCertificate [e2:13:2c:a4:29:ae:f3:fa:35:1f:e1:5b:2c:25:76:57:37:5b:dc:35]\nNot Before2020/09/22 14:34:11 UTC\nNot After2021/09/22 14:34:11 UTC\nIssuer Orglol\nSubject Commonnomadfunclub.com\nSubject Orglol\nPublic AlgorithmrsaEncryption\nJA3: a0e9f5d64349fb13191bc781f81f42e1\nJA3s: ae4edc6faf64d08308082ad26be60767",
+        "phase": "command and control"
+    },
+    {
+        "title": "exfiltration",
+        "content": "Domain discovery (AdFind and Rubeus outputs) exfiltrated by vsftpd to 45.141.84[.]120.",
+        "phase": "exfiltration"
+    },
+    {
+        "title": "impact",
+        "content": "SMB was used to transfer the Ryuk executables. Then, RDP connections were made from the first compromised DC, and then, ransomware executed throughout the environment, starting with the Backup servers. On the backup server, prior to execution, the threat actors pulled up thewbadminmsc console.\nCommands ran prior to ransom execution:\nThe threat actors asked for more than $6 million but were willing to negotiate.\nEnjoy our report? Please consider donating $1 or more to the project usingPatreon. Thank you for your support!\nWe also have PCAPs, files, memory images, Kape and Redline packages availablehere.",
+        "phase": "impact"
+    }
+]

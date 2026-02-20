@@ -1,0 +1,22 @@
+// Threat Graph
+digraph {
+	rankdir=LR
+	1 [label="128.55.12.167" shape=diamond]
+	2 [label="HTTP POST" shape=ellipse]
+	3 [label="HTTP request" shape=diamond]
+	4 [label="4.21.51.250" shape=ellipse]
+	5 [label="128.55.12.233" shape=diamond]
+	6 [label=attacker shape=diamond]
+	7 [label=hostname shape=rectangle]
+	8 [label=passwd shape=rectangle]
+	9 [label=username shape=rectangle]
+	1 -> 2 [label="0. initial access_Send"]
+	1 -> 3 [label="1. initial access_Fork"]
+	3 -> 4 [label="2. initial access_Connect"]
+	3 -> 5 [label="3. initial access_Fork"]
+	5 -> 2 [label="4. initial access_Send"]
+	5 -> 6 [label="5. initial access_Fork"]
+	6 -> 7 [label="6. initial access_Write"]
+	6 -> 8 [label="7. initial access_Write"]
+	6 -> 9 [label="8. initial access_Write"]
+}

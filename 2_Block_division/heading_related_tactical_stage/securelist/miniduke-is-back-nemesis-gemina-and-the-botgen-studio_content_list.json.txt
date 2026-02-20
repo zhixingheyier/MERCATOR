@@ -1,0 +1,38 @@
+
+【Persistence 】
+==============================
+  Miniduke/CosmicDuke is capable of starting via Windows Task Scheduler, via a customized service binary that spawns a new process set in the special registry key, or is launched when the user is away and the screensaver is activated. 
+
+
+【Reconnaissance 】
+==============================
+  The malware can steal a variety of information, including files based on extensions and file name keywords: 
+  \*.exe;\*.ndb;\*.mp3;\*.avi;\*.rar;\*.docx;\*.url;\*.xlsx;\*.pptx;\*.ppsx;\*.pst;\*.ost;\*psw\*;\*pass\*; \*login\*;\*admin\*;\*sifr\*;\*sifer\*;\*vpn;\*.jpg;\*.txt;\*.lnk; \*.dll;\*.tmp;\*.obj;\*.ocx;\*.js 
+  Note: we believe the “\*sifr\*” and “\*sifer\*” keywords above refer to the transliteration of the English word “Cypher” in some languages. 
+  Also, the backdoor has many other capabilities including: 
+  Keylogger   
+  Skype password stealer   
+  General network information harvester   
+  Screen grabber (grabs images every 5 minutes)   
+  Clipboard grabber (grabs clipboard contents every 30 seconds)   
+  Microsoft Outlook, Windows Address Book stealer   
+  Google Chrome password stealer   
+  Google Talk password stealer   
+  Opera password stealer   
+  TheBat! password stealer   
+  Firefox, Thunderbird password stealer   
+  Drives/location/locale/installed software harvester   
+  WiFi network/adapter information harvester   
+  LSA secrets harvester   
+  Protected Storage secrets harvester   
+  Certificate/private keys exporter   
+  URL History harvester 
+  InteliForms secrets harvester 
+  IE Autocomplete, Outlook Express secrets harvester and more… 
+
+
+【Exfiltration 】
+==============================
+  The malware implements several methods to exfiltrate information, including uploading data via FTP and three variants of HTTP-based communication mechanisms. A number of different HTTP connectors act as helpers, trying various methods in case one of them is restricted by local security policies or security software. These three methods are: 
+  Direct TCP connection and HTTP session via Winsock library HTTP session via Urlmon.dll HTTP session via invisible instance of Internet Explorer as OLE object 
+
